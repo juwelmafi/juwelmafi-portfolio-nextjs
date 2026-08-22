@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Juwel Hossain — Modern Full-Stack Portfolio & Personal Brand
 
-## Getting Started
+A modern, elegant, and responsive personal portfolio & blog built with **Next.js 15 (App Router)**, **MongoDB Atlas (Mongoose)**, **NextAuth.js v5**, and **Tailwind CSS**.
 
-First, run the development server:
+---
 
+## ✨ Features
+
+- ⚡ **Next.js 15 App Router & Server Components** — Blazing fast ISR rendering with 60s revalidation.
+- 🎨 **Elevated Minimalist Aesthetics** — Glassmorphism cards, glowing interactive tech badges, animated vertical timeline, floating stat badges, and smooth scroll.
+- 🗄️ **MongoDB Atlas Database** — Full CRUD management for Projects & Blog posts with Mongoose schemas.
+- 🔐 **Secure Admin Dashboard (`/admin`)** — Protected route powered by NextAuth.js v5 credentials provider and middleware.
+- ✍️ **Dynamic Blog Engine** — Homepage preview, `/blog` listing, `/blog/[slug]` markdown-friendly articles, tag filters, and publish/draft toggles.
+- 🚀 **1-Click Seed Tool** — Auto-populate all 5 initial projects directly from the Admin Dashboard into MongoDB.
+- ✉️ **Contact Form** — Integrated with EmailJS and SweetAlert2 interactive alerts.
+- 🌐 **Vercel Ready** — Fully optimized for zero-config Vercel deployment under domain `juwelmafi`.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15
+- **Database**: MongoDB Atlas + Mongoose
+- **Auth**: NextAuth.js v5 (Credentials Provider)
+- **Styling**: Tailwind CSS + Custom CSS Variables & Glassmorphism Design System
+- **Icons**: React Icons (Fa, Si, Md, Hi)
+- **Interactive**: Framer Motion, React Typewriter, SweetAlert2, EmailJS
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone or Open the Project
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd portfolio-nextjs
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Environment Variables Setup
+Copy `.env.example` to `.env.local`:
+```bash
+cp .env.example .env.local
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Fill in the required values:
+```env
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/juwelmafi?retryWrites=true&w=majority
+ADMIN_EMAIL=juwelhossain16457@gmail.com
+ADMIN_PASSWORD=your_secure_password_here
+AUTH_SECRET=your_random_32_character_secret
+NEXTAUTH_URL=http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> **Tip to generate `AUTH_SECRET`**:
+> Run in terminal:
+> ```bash
+> node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+> ```
 
-## Learn More
+### 3. Run Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view your portfolio.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛡️ Admin Dashboard & Seed Data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Visit [http://localhost:3000/login](http://localhost:3000/login)
+2. Log in using the `ADMIN_EMAIL` and `ADMIN_PASSWORD` you defined in `.env.local`
+3. In the dashboard overview, click **"Seed Default Projects"** to immediately import your existing 5 portfolio projects into MongoDB!
+4. You can now add, edit, reorder, delete projects, and write blog posts.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📤 Push to a New GitHub Repository
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+In the `portfolio-nextjs` folder:
+```bash
+# 1. Create a new empty repository on github.com (e.g., https://github.com/juwelmafi/juwelmafi-portfolio)
+# 2. Add remote & push:
+git remote add origin https://github.com/juwelmafi/YOUR-NEW-REPO-NAME.git
+git branch -M main
+git push -u origin main
+```
+
+---
+
+## ☁️ Deploy to Vercel
+
+1. Go to [vercel.com](https://vercel.com) and click **"Add New Project"**
+2. Import your new GitHub repository
+3. Under **Environment Variables**, add:
+   - `MONGODB_URI`
+   - `ADMIN_EMAIL`
+   - `ADMIN_PASSWORD`
+   - `AUTH_SECRET`
+   - `NEXTAUTH_URL` → `https://juwelmafi.vercel.app` (or your custom domain)
+   - `NEXT_PUBLIC_EMAILJS_SERVICE_ID`
+   - `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID`
+   - `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY`
+4. Click **Deploy**!
+5. In your Vercel Project Settings → **Domains**, configure `juwelmafi` / `juwelmafi.vercel.app`.

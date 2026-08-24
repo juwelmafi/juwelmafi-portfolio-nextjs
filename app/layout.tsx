@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./theme.css";
 import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
-  title: "Juwel Hossain — MERN Stack Developer",
+  title: "Isak - Personal Portfolio",
   description:
-    "Personal portfolio of Juwel Hossain — a passionate MERN Stack Developer from Bangladesh. Explore my projects, blog, and get in touch.",
-  keywords: ["MERN Stack", "React Developer", "Next.js", "Frontend Developer", "Bangladesh"],
-  authors: [{ name: "Juwel Hossain" }],
-  openGraph: {
-    title: "Juwel Hossain — MERN Stack Developer",
-    description: "Portfolio of Juwel Hossain — MERN Stack Developer",
-    type: "website",
+    "Isak - Personal Portfolio is a sleek and modern Next.js template designed for developers, designers, freelancers, and professionals who want to showcase their work online.",
+  keywords: ["Portfolio", "UI Designer", "Developer", "Full-Stack", "Webflow", "Next.js"],
+  authors: [{ name: "Alexander Isak" }],
+  icons: {
+    icon: "/assets/images/logo/favicon.svg",
+    apple: "/assets/images/logo/favicon.svg",
   },
 };
 
@@ -21,9 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="antialiased">
-        <div className="noise-overlay" aria-hidden="true" />
+    <html lang="en" className="scroll-smooth" data-theme="dark">
+      <body className="counter-scroll video-v1 dark-mode type-dark-v1">
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

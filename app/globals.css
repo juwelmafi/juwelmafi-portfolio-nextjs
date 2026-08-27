@@ -162,20 +162,41 @@ html, body {
 .dark-mode .quote-text { color: #ffffff !important; }
 .dark-mode .quote-author { color: rgba(255, 255, 255, 0.70) !important; }
 
-/* ── Work Highlights Display & Stacking Fix ─────────────── */
+/* ── Specific Isolated Card Overrides ───────────────────── */
+.juwel-edu-card,
+.juwel-project-card,
+.juwel-testimonial-card {
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+/* Neutralize legacy theme.css conflicting rules */
 .element-sticky, .sticky-item {
   position: static !important;
 }
 
-.wg-work {
-  margin-bottom: 0px;
+.wg-work, .wg-work-card-inline, .wg-work .work-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-.wg-work .work-content {
-  display: block !important;
-  position: relative !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+.swiper-testimonial_wrap, .testimonial-v01 {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.section-testimonial .number-pagination,
+.section-testimonial .group-btn {
+  position: static !important;
+}
+
+.timeline, .timeline-content, .timeline-item {
+  border: none !important;
 }
 
 /* ── Utility Classes ───────────────────────────────────── */

@@ -66,23 +66,23 @@ const projects = [
 
 export default function WorkHighlights() {
   return (
-    <div id="work" className="section-work flat-spacing">
+    <div id="work" className="flat-spacing">
       <div className="sect-tag text-caption fw-medium effectFade fadeUp no-div">
         <i className="icon icon-high-light"></i>Featured Projects
       </div>
-      <h4 className="s-title letter-space--2 text-white split-text effect-blur-fade mb-8 font-semibold text-2xl md:text-3xl">
+      <h4 className="s-title letter-space--2 text-white split-text effect-blur-fade mb-10 font-bold text-2xl md:text-3xl">
         Recent Works &amp; Live Deployments
       </h4>
 
-      {/* Projects List - Clean, Independent Spaced Cards (No Overlapping) */}
-      <div className="work-cards-container space-y-10">
+      {/* Standalone Project Cards with Luxurious Padding */}
+      <div className="space-y-12">
         {projects.map((project) => (
           <div
             key={project.num}
-            className="wg-work-card-wrapper p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-xl shadow-2xl"
+            className="juwel-project-card p-7 sm:p-9 pb-9 sm:pb-11 rounded-3xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-xl shadow-2xl overflow-hidden"
           >
             {/* Main Project Mockup Image */}
-            <div className="work-image rounded-2xl overflow-hidden mb-6 aspect-video bg-black/40 relative group">
+            <div className="rounded-2xl overflow-hidden mb-8 aspect-video bg-black/50 border border-white/10 relative group shadow-lg">
               <img
                 alt={project.title}
                 loading="lazy"
@@ -94,35 +94,35 @@ export default function WorkHighlights() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
             </div>
 
-            {/* Project Information */}
-            <div className="wg-work-card-inline">
+            {/* Project Details */}
+            <div className="px-1 sm:px-2">
               <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-3">
-                <h4 className="w-title letter-space--2 text-white font-bold text-xl md:text-2xl">
+                <h4 className="text-white font-bold text-xl sm:text-2xl leading-tight">
                   {project.title}
                 </h4>
-                <p className="text-white/50 text-xs md:text-sm font-mono shrink-0">
+                <p className="text-white/60 text-xs sm:text-sm font-mono shrink-0">
                   <span className="text-[#00DE51] font-bold">{project.num}</span> / 0{projects.length}
                 </p>
               </div>
 
-              <p className="w-desc text-white/80 text-sm md:text-base leading-relaxed mb-6">
+              <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-6">
                 {project.desc}
               </p>
 
-              <div className="flex flex-wrap items-center gap-6 mb-6 text-xs md:text-sm">
+              <div className="flex flex-wrap items-center gap-6 mb-6 text-xs sm:text-sm">
                 <div>
-                  <span className="text-white/50 uppercase tracking-wider block mb-1 text-xs">Year</span>
+                  <span className="text-white/50 uppercase tracking-wider block mb-1 text-xs font-semibold">Year</span>
                   <span className="font-semibold text-white">{project.year}</span>
                 </div>
                 <div className="w-[1px] h-8 bg-white/10"></div>
                 <div>
-                  <span className="text-white/50 uppercase tracking-wider block mb-1 text-xs">Role</span>
+                  <span className="text-white/50 uppercase tracking-wider block mb-1 text-xs font-semibold">Role</span>
                   <span className="font-semibold text-white">{project.role}</span>
                 </div>
               </div>
 
               {/* Tech Stack Badges */}
-              <div className="flex flex-wrap items-center gap-2 mb-6">
+              <div className="flex flex-wrap items-center gap-2.5 mb-8">
                 {project.tech.map((t, idx) => (
                   <span
                     key={idx}
@@ -133,15 +133,15 @@ export default function WorkHighlights() {
                 ))}
               </div>
 
-              {/* Action Buttons */}
-              <div className="pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+              {/* Action Buttons with High-Contrast Text & Generous Padding */}
+              <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-3">
                   {project.live && (
                     <a
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#00DE51] text-black font-bold text-xs md:text-sm hover:bg-[#33FF77] hover:scale-105 transition-all shadow-lg shadow-[#00DE51]/20"
+                      className="inline-flex items-center gap-2 px-4.5 py-3 rounded-xl bg-[#00DE51] text-black font-bold text-xs sm:text-sm hover:bg-[#33FF77] hover:scale-105 transition-all shadow-lg shadow-[#00DE51]/20"
                     >
                       <FaExternalLinkAlt className="w-3.5 h-3.5" /> Live Demo
                     </a>
@@ -151,7 +151,7 @@ export default function WorkHighlights() {
                       href={project.client}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs md:text-sm font-semibold border border-white/10 transition-all hover:scale-105"
+                      className="inline-flex items-center gap-2 px-4.5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold border border-white/15 transition-all hover:scale-105"
                     >
                       <FaGithub className="w-4 h-4" /> Client Code
                     </a>
@@ -161,7 +161,7 @@ export default function WorkHighlights() {
                       href={project.server}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs md:text-sm font-semibold border border-white/10 transition-all hover:scale-105"
+                      className="inline-flex items-center gap-2 px-4.5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold border border-white/15 transition-all hover:scale-105"
                     >
                       <FaGithub className="w-4 h-4" /> Server Code
                     </a>
@@ -170,9 +170,10 @@ export default function WorkHighlights() {
 
                 <a
                   href="#contact"
-                  className="text-white/70 hover:text-[#00DE51] text-xs md:text-sm font-semibold transition-colors flex items-center gap-1"
+                  className="text-white hover:text-[#00DE51] text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1.5 py-2 px-1"
                 >
-                  <span>Discuss Project</span> →
+                  <span>Discuss Project</span>
+                  <span className="text-[#00DE51] font-bold">→</span>
                 </a>
               </div>
             </div>

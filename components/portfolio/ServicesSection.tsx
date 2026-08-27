@@ -40,14 +40,17 @@ export default function ServicesSection() {
       <div className="sect-tag text-caption fw-medium effectFade fadeUp no-div mb-0">
         <i className="icon icon-service"></i>Services
       </div>
+      <h4 className="s-title letter-space--2 text-white split-text effect-blur-fade mb-8 font-semibold text-2xl md:text-3xl">
+        High-Impact Solutions I Provide
+      </h4>
 
-      <div id="accordion-service" className="space-y-4 mt-6">
+      <div id="accordion-service" className="space-y-6">
         {services.map((srv) => {
           const isOpen = activeId === srv.id;
           return (
             <div
               key={srv.id}
-              className="service-accordion_item rounded-2xl bg-white/5 border border-white/10 p-6 transition-all duration-300"
+              className="service-accordion_item rounded-3xl bg-white/[0.04] border border-white/10 hover:border-white/20 p-6 md:p-8 transition-all duration-300 backdrop-blur-xl shadow-2xl"
             >
               <button
                 type="button"
@@ -55,35 +58,35 @@ export default function ServicesSection() {
                 className="accordion-action w-full text-start flex justify-between items-center cursor-pointer"
                 aria-expanded={isOpen}
               >
-                <h4 className="text letter-space--2 text-white font-semibold text-xl md:text-2xl">
+                <h4 className="text letter-space--2 text-white font-bold text-xl md:text-2xl">
                   {srv.title}
                 </h4>
-                <div className="ic-wrap w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white shrink-0 ml-4">
-                  <span className="font-mono text-lg font-bold">{isOpen ? "−" : "+"}</span>
+                <div className="ic-wrap w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white shrink-0 ml-4">
+                  <span className="font-mono text-xl font-bold">{isOpen ? "−" : "+"}</span>
                 </div>
               </button>
 
               {isOpen && (
                 <div className="accordion-content pt-6 transition-all duration-300">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                    <div className="service-image rounded-xl overflow-hidden aspect-video bg-white/5">
+                    <div className="service-image rounded-2xl overflow-hidden aspect-video bg-white/5">
                       <img
                         alt={srv.title}
                         loading="lazy"
                         width={340}
                         height={206}
                         src={srv.img1}
-                        className="w-full h-full object-cover rounded-xl"
+                        className="w-full h-full object-cover rounded-2xl"
                       />
                     </div>
-                    <div className="service-image rounded-xl overflow-hidden aspect-video bg-white/5">
+                    <div className="service-image rounded-2xl overflow-hidden aspect-video bg-white/5">
                       <img
                         alt={srv.title}
                         loading="lazy"
                         width={340}
                         height={206}
                         src={srv.img2}
-                        className="w-full h-full object-cover rounded-xl"
+                        className="w-full h-full object-cover rounded-2xl"
                       />
                     </div>
                   </div>
@@ -92,7 +95,7 @@ export default function ServicesSection() {
                     {srv.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 text-xs font-medium text-white/90 bg-white/10 rounded-full border border-white/10"
+                        className="px-3.5 py-1.5 text-xs font-medium text-white/90 bg-white/10 rounded-full border border-white/10"
                       >
                         {tag}
                       </span>

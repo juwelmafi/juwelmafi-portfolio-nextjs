@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FaYoutube } from "react-icons/fa";
+import { FaYoutube, FaLinkedin, FaGithub } from "react-icons/fa";
 
 const rotatingWords = ["Juwel", "Full-Stack Dev", "MERN Specialist"];
 
@@ -25,6 +25,7 @@ export default function SidebarUser() {
               height={856}
               src="/assets/images/avatar/avatar.png"
               alt="Juwel Hossain"
+              className="object-cover w-full h-full"
             />
           </div>
           <div className="meta-left d-none d-sm-block">
@@ -40,7 +41,7 @@ export default function SidebarUser() {
                 alt="Ribbon"
               />
             </div>
-            <p className="avaiable-dot vertical text-body-3 text-black-72 fw-medium">
+            <p className="avaiable-dot vertical text-body-3 text-white fw-medium">
               <span className="text-vertical">Available for Work</span>
               <span className="dot"></span>
             </p>
@@ -64,31 +65,47 @@ export default function SidebarUser() {
         {/* Social Icons */}
         <ul className="tf-social-icon-2 user-social d-grid">
           <li>
-            <a href="https://www.youtube.com/@juwelmafi" target="_blank" rel="noreferrer" aria-label="YouTube">
-              <FaYoutube className="w-5 h-5 text-[#FF0000] hover:scale-110 transition-transform" />
+            <a
+              href="https://www.youtube.com/@juwelmafi"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="YouTube"
+              className="flex items-center justify-center text-[#FF0000] hover:scale-110 transition-transform"
+            >
+              <FaYoutube className="w-5 h-5" />
             </a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/in/juwelmafi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <i className="icon icon-linkin"></i>
+            <a
+              href="https://www.linkedin.com/in/juwelmafi"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className="flex items-center justify-center text-white hover:text-[#00DE51] hover:scale-110 transition-all"
+            >
+              <FaLinkedin className="w-5 h-5" />
             </a>
           </li>
           <li>
-            <a href="https://github.com/juwelmafi" target="_blank" rel="noreferrer" aria-label="GitHub">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-              </svg>
+            <a
+              href="https://github.com/juwelmafi"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+              className="flex items-center justify-center text-white hover:text-[#00DE51] hover:scale-110 transition-all"
+            >
+              <FaGithub className="w-5 h-5" />
             </a>
           </li>
         </ul>
 
         {/* User Info */}
         <div className="user-info">
-          <p className="avaiable-dot text-body-3 fw-medium d-sm-none">
+          <p className="avaiable-dot text-body-3 fw-medium d-sm-none text-white">
             <span className="dot"></span>
             <span>Available for Work</span>
           </p>
-          <h5 className="greeting letter-space--2 text-white animationtext clip">
+          <h5 className="greeting letter-space--2 text-white animationtext clip font-bold">
             Hey, I’m{" "}
             <span className="cd-words-wrapper">
               <span className="item-text is-visible" key={rotatingWords[index]}>
@@ -96,11 +113,11 @@ export default function SidebarUser() {
               </span>
             </span>
           </h5>
-          <p className="introduce text-white-56 letter-space--05 text-body-3">
+          <p className="introduce text-white/70 letter-space--05 text-body-3 leading-relaxed mt-2">
             Passionate MERN &amp; Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.
           </p>
-          <div className="br-line"></div>
-          <div className="action-group">
+          <div className="br-line my-4 border-t border-white/10"></div>
+          <div className="action-group flex items-center gap-4">
             <a href="#contact" className="tf-btn-action">
               <span className="ic-wrap">
                 <i className="icon icon-arrow-right-top"></i>
@@ -116,10 +133,10 @@ export default function SidebarUser() {
               href="https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="action-down hover:text-[#00DE51] transition-colors"
+              className="action-down text-white hover:text-[#00DE51] transition-colors flex items-center gap-2 text-xs font-semibold"
             >
               <i className="icon icon-download"></i>
-              <span className="text-body-3">Download CV</span>
+              <span>Download CV</span>
             </a>
           </div>
         </div>

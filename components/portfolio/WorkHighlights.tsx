@@ -67,108 +67,113 @@ const projects = [
 export default function WorkHighlights() {
   return (
     <div id="work" className="section-work flat-spacing">
-      <div className="sect-tag text-caption fw-medium">
+      <div className="sect-tag text-caption fw-medium effectFade fadeUp no-div">
         <i className="icon icon-high-light"></i>Featured Projects
       </div>
       <h4 className="s-title letter-space--2 text-white split-text effect-blur-fade mb-8 font-semibold text-2xl md:text-3xl">
         Recent Works &amp; Live Deployments
       </h4>
 
-      <div className="work-list element-sticky space-y-10">
+      {/* Projects List - Clean, Independent Spaced Cards (No Overlapping) */}
+      <div className="work-cards-container space-y-10">
         {projects.map((project) => (
-          <div key={project.num} className="sticky-item">
-            <div className="wg-work rounded-2xl overflow-hidden bg-white/5 border border-white/10 p-4 md:p-6 backdrop-blur-md">
-              {/* Main Project Mockup Image */}
-              <div className="work-image rounded-xl overflow-hidden mb-6 aspect-video bg-black/40 relative group">
-                <img
-                  alt={project.title}
-                  loading="lazy"
-                  width={700}
-                  height={427}
-                  src={project.img}
-                  className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+          <div
+            key={project.num}
+            className="wg-work-card-wrapper p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-xl shadow-2xl"
+          >
+            {/* Main Project Mockup Image */}
+            <div className="work-image rounded-2xl overflow-hidden mb-6 aspect-video bg-black/40 relative group">
+              <img
+                alt={project.title}
+                loading="lazy"
+                width={700}
+                height={427}
+                src={project.img}
+                className="w-full h-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+            </div>
+
+            {/* Project Information */}
+            <div className="wg-work-card-inline">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-3">
+                <h4 className="w-title letter-space--2 text-white font-bold text-xl md:text-2xl">
+                  {project.title}
+                </h4>
+                <p className="text-white/50 text-xs md:text-sm font-mono shrink-0">
+                  <span className="text-[#00DE51] font-bold">{project.num}</span> / 0{projects.length}
+                </p>
               </div>
 
-              {/* Project Information */}
-              <div className="wg-work-card-inline">
-                <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-3">
-                  <h4 className="w-title letter-space--2 text-white font-bold text-xl md:text-2xl">
-                    {project.title}
-                  </h4>
-                  <p className="text-white/40 text-xs md:text-sm font-mono shrink-0">
-                    <span className="text-[#00DE51] font-bold">{project.num}</span> / 0{projects.length}
-                  </p>
+              <p className="w-desc text-white/80 text-sm md:text-base leading-relaxed mb-6">
+                {project.desc}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-6 mb-6 text-xs md:text-sm">
+                <div>
+                  <span className="text-white/50 uppercase tracking-wider block mb-1 text-xs">Year</span>
+                  <span className="font-semibold text-white">{project.year}</span>
                 </div>
-
-                <p className="w-desc text-white/70 text-sm leading-relaxed mb-5">
-                  {project.desc}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-6 mb-5 text-xs">
-                  <div>
-                    <span className="text-white/40 uppercase tracking-wider block mb-0.5">Year</span>
-                    <span className="font-semibold text-white">{project.year}</span>
-                  </div>
-                  <div className="w-[1px] h-6 bg-white/10"></div>
-                  <div>
-                    <span className="text-white/40 uppercase tracking-wider block mb-0.5">Role</span>
-                    <span className="font-semibold text-white">{project.role}</span>
-                  </div>
+                <div className="w-[1px] h-8 bg-white/10"></div>
+                <div>
+                  <span className="text-white/50 uppercase tracking-wider block mb-1 text-xs">Role</span>
+                  <span className="font-semibold text-white">{project.role}</span>
                 </div>
+              </div>
 
-                {/* Tech Stack Pills */}
-                <div className="flex flex-wrap items-center gap-2 mb-6">
-                  {project.tech.map((t, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 text-xs font-medium text-white/90 bg-white/10 rounded-full border border-white/10"
+              {/* Tech Stack Badges */}
+              <div className="flex flex-wrap items-center gap-2 mb-6">
+                {project.tech.map((t, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3.5 py-1.5 text-xs font-medium text-white/90 bg-white/10 rounded-full border border-white/10"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#00DE51] text-black font-bold text-xs md:text-sm hover:bg-[#33FF77] hover:scale-105 transition-all shadow-lg shadow-[#00DE51]/20"
                     >
-                      {t}
-                    </span>
-                  ))}
+                      <FaExternalLinkAlt className="w-3.5 h-3.5" /> Live Demo
+                    </a>
+                  )}
+                  {project.client && (
+                    <a
+                      href={project.client}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs md:text-sm font-semibold border border-white/10 transition-all hover:scale-105"
+                    >
+                      <FaGithub className="w-4 h-4" /> Client Code
+                    </a>
+                  )}
+                  {project.server && (
+                    <a
+                      href={project.server}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs md:text-sm font-semibold border border-white/10 transition-all hover:scale-105"
+                    >
+                      <FaGithub className="w-4 h-4" /> Server Code
+                    </a>
+                  )}
                 </div>
 
-                {/* Action Links */}
-                <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex flex-wrap items-center gap-3">
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#00DE51] text-black font-semibold text-xs hover:bg-[#33FF77] transition-colors"
-                      >
-                        <FaExternalLinkAlt className="w-3 h-3" /> Live Demo
-                      </a>
-                    )}
-                    {project.client && (
-                      <a
-                        href={project.client}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-medium border border-white/10 transition-colors"
-                      >
-                        <FaGithub className="w-3.5 h-3.5" /> Client Code
-                      </a>
-                    )}
-                    {project.server && (
-                      <a
-                        href={project.server}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-medium border border-white/10 transition-colors"
-                      >
-                        <FaGithub className="w-3.5 h-3.5" /> Server Code
-                      </a>
-                    )}
-                  </div>
-
-                  <a href="#contact" className="text-white/60 hover:text-[#00DE51] text-xs font-medium transition-colors">
-                    Discuss Project →
-                  </a>
-                </div>
+                <a
+                  href="#contact"
+                  className="text-white/70 hover:text-[#00DE51] text-xs md:text-sm font-semibold transition-colors flex items-center gap-1"
+                >
+                  <span>Discuss Project</span> →
+                </a>
               </div>
             </div>
           </div>

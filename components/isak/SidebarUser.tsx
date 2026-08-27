@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const rotatingWords = ["Isak", "Designer", "Developer"];
+const rotatingWords = ["Juwel", "Developer", "Designer"];
 
 export default function SidebarUser() {
   const [index, setIndex] = useState(0);
@@ -23,7 +23,7 @@ export default function SidebarUser() {
               width={468}
               height={856}
               src="/assets/images/avatar/avatar.png"
-              alt="Avatar"
+              alt="Juwel Hossain"
             />
           </div>
           <div className="meta-left d-none d-sm-block">
@@ -68,7 +68,7 @@ export default function SidebarUser() {
             </a>
           </li>
           <li>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/juwelmafi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
               <i className="icon icon-linkin"></i>
             </a>
           </li>
@@ -96,7 +96,7 @@ export default function SidebarUser() {
             </span>
           </h5>
           <p className="introduce text-white-56 letter-space--05 text-body-3">
-            I help startups grow with smart design and no-code development, based in Cupertino, CA.
+            I build high-performance web applications and sleek digital experiences, based in Bangladesh.
           </p>
           <div className="br-line"></div>
           <div className="action-group">
@@ -111,7 +111,7 @@ export default function SidebarUser() {
                 <i className="icon icon-arrow-right-top"></i>
               </span>
             </a>
-            <a href="#" className="action-down">
+            <a href="#about" className="action-down">
               <i className="icon icon-download"></i>
               <span className="text-body-3">Download CV</span>
             </a>

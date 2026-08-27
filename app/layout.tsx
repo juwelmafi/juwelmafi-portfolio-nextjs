@@ -4,14 +4,28 @@ import "./theme.css";
 import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
-  title: "Isak - Personal Portfolio",
+  title: "Juwel Hossain — MERN Stack & Next.js Developer",
   description:
-    "Isak - Personal Portfolio is a sleek and modern Next.js template designed for developers, designers, freelancers, and professionals who want to showcase their work online.",
-  keywords: ["Portfolio", "UI Designer", "Developer", "Full-Stack", "Webflow", "Next.js"],
-  authors: [{ name: "Alexander Isak" }],
+    "Personal portfolio of Juwel Hossain (juwelmafi) — Full-Stack Developer & UI/UX Specialist. Explore featured projects, tech stack, and get in touch.",
+  keywords: [
+    "Juwel Hossain",
+    "juwelmafi",
+    "MERN Stack Developer",
+    "Full-Stack Developer",
+    "Next.js",
+    "React Developer",
+    "Portfolio",
+    "Bangladesh"
+  ],
+  authors: [{ name: "Juwel Hossain" }],
   icons: {
     icon: "/assets/images/logo/favicon.svg",
     apple: "/assets/images/logo/favicon.svg",
+  },
+  openGraph: {
+    title: "Juwel Hossain — MERN Stack & Next.js Developer",
+    description: "Personal portfolio of Juwel Hossain — Full-Stack Developer & UI/UX Specialist.",
+    type: "website",
   },
 };
 

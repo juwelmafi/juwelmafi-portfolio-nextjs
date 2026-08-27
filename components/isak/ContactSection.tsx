@@ -48,7 +48,7 @@ export default function ContactSection() {
 
     Swal.fire({
       title: "Message Sent!",
-      text: "Thank you! I will get back to you as soon as possible.",
+      text: "Thank you! Juwel will get back to you promptly.",
       icon: "success",
       background: "#12121E",
       color: "#F0F0F5",
@@ -61,14 +61,14 @@ export default function ContactSection() {
       <div className="sect-tag text-caption fw-medium effectFade fadeUp no-div">
         <i className="icon icon-send"></i>Contact
       </div>
-      <h4 className="s-title letter-space--2 split-text effect-blur-fade">
-        If you have a general or project <br className="d-none d-lg-block" />
-        enquiry, please drop me an email <br className="d-none d-lg-block" />
-        or fill the form - available now
+      <h4 className="s-title letter-space--2 split-text effect-blur-fade mb-8">
+        If you have a project in mind or <br className="d-none d-lg-block" />
+        want to collaborate, drop me an email <br className="d-none d-lg-block" />
+        or fill out the form — available now
       </h4>
 
       <form className="form-contact" id="contactform" onSubmit={handleSubmit}>
-        <div className="form-content effectFade fadeUp no-div">
+        <div className="form-content effectFade fadeUp no-div space-y-4 mb-6">
           <fieldset className="field-ip">
             <input
               type="text"
@@ -78,6 +78,7 @@ export default function ContactSection() {
               name="name"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-[#00DE51] outline-none transition-colors"
             />
           </fieldset>
           <fieldset className="field-ip">
@@ -89,21 +90,23 @@ export default function ContactSection() {
               name="email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-[#00DE51] outline-none transition-colors"
             />
           </fieldset>
           <fieldset className="field-ip">
-            <input
-              type="text"
+            <textarea
               id="message"
               placeholder="Project Description"
               name="message"
+              rows={4}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
+              className="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-[#00DE51] outline-none transition-colors resize-none"
             />
           </fieldset>
         </div>
 
-        <div className="form-action effectFade fadeUp no-div">
+        <div className="form-action effectFade fadeUp no-div flex flex-wrap items-center justify-between gap-4">
           <div className="send-wrap">
             <button type="submit" disabled={sending} className="tf-btn animate-btn animate-dark">
               <span className="text-body-3">
@@ -112,10 +115,10 @@ export default function ContactSection() {
             </button>
           </div>
           <a
-            href="mailto:hello@isak.design"
-            className="text-body-1 link letter-space--2 text-black-72"
+            href="mailto:juwelhossain16457@gmail.com"
+            className="text-body-1 link letter-space--2 text-white/80 hover:text-[#00DE51] font-mono text-sm"
           >
-            hello@isak.design
+            juwelhossain16457@gmail.com
           </a>
         </div>
       </form>

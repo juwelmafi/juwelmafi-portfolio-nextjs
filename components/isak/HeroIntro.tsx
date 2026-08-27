@@ -2,7 +2,7 @@
 import Marquee from "react-fast-marquee";
 
 const clientLogos = [
-  "Tempo", "Horizon", "Flowly", "Framer", "Stripe", "Linear", "Vercel", "Webflow"
+  "Next.js", "React", "Node.js", "MongoDB", "Express", "TypeScript", "TailwindCSS", "Framer"
 ];
 
 export default function HeroIntro() {
@@ -20,17 +20,17 @@ export default function HeroIntro() {
           />
         </div>
         <div className="author-info letter-space--05">
-          <p className="info_name text-black">Alexander Isak</p>
+          <p className="info_name text-black">Juwel Hossain</p>
           <p className="info_duty text-black-50 text-body-3">
-            UI Designer &amp; No-Code Developer
+            Full-Stack Developer &amp; UI/UX Specialist
           </p>
         </div>
       </div>
 
       {/* Main Hero Headline */}
       <h1 className="intro-title letter-space--2">
-        I’m building <span className="is-bg">websites</span> <br />
-        <span className="type-2 is-bg">&amp; brands</span> that people remember
+        I’m building <span className="is-bg active">websites</span> <br />
+        <span className="type-2 is-bg active">&amp; brands</span> that people remember
       </h1>
 
       {/* Scribble SVG & Rotating Circular Badge */}
@@ -90,9 +90,9 @@ export default function HeroIntro() {
                 d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
                 fill="none"
               />
-              <text fontSize="8.5" letterSpacing="2.5" fill="currentColor" fontWeight="600">
+              <text fontSize="8" letterSpacing="2.2" fill="currentColor" fontWeight="600">
                 <textPath href="#circlePath">
-                  AWARD WINNING DESIGNER • 2025 •
+                  FULL STACK DEVELOPER • JUWEL • 2025 •
                 </textPath>
               </text>
             </svg>
@@ -104,27 +104,27 @@ export default function HeroIntro() {
       <div className="box-counter effectFade fadeUp no-div">
         <div className="wg-counter">
           <p className="counter h1 d-flex font-2 letter-space--2">
-            <span className="number">10</span>+
+            <span className="number">5</span>+
           </p>
-          <p className="text text-black-56 text-body-3">Year of experience</p>
+          <p className="text text-black-56 text-body-3">Years of experience</p>
         </div>
         <div className="wg-counter">
           <p className="counter h1 d-flex font-2 letter-space--2">
-            <span className="number">6</span>x
+            <span className="number">20</span>+
           </p>
-          <p className="text text-black-56 text-body-3">Industry Awards</p>
+          <p className="text text-black-56 text-body-3">Projects Delivered</p>
         </div>
       </div>
 
-      {/* Clients Marquee */}
+      {/* Tech Stack Marquee */}
       <p className="intro-client letter-space--05 text-body-3">
-        <i className="icon icon-global-elip"></i>Our clients (2015-25©)
+        <i className="icon icon-global-elip"></i>Core Technologies &amp; Frameworks
       </p>
       <div className="infiniteSlide-brand py-2">
         <Marquee speed={35} gradient={false}>
-          {clientLogos.map((client, idx) => (
-            <div key={idx} className="mx-6 text-sm font-semibold tracking-wider uppercase opacity-60 hover:opacity-100 transition-opacity">
-              {client}
+          {clientLogos.map((tech, idx) => (
+            <div key={idx} className="mx-6 text-sm font-semibold tracking-wider uppercase opacity-70 hover:opacity-100 transition-opacity">
+              {tech}
             </div>
           ))}
         </Marquee>

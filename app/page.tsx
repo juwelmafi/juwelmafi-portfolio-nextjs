@@ -1,20 +1,20 @@
-import Preloader from "@/components/isak/Preloader";
-import BackgroundVideo from "@/components/isak/BackgroundVideo";
-import ColorSettingsOffcanvas from "@/components/isak/ColorSettingsOffcanvas";
-import SidebarTools from "@/components/isak/SidebarTools";
-import MobileNav from "@/components/isak/MobileNav";
-import HeaderTop from "@/components/isak/HeaderTop";
-import SidebarUser from "@/components/isak/SidebarUser";
-import HeroIntro from "@/components/isak/HeroIntro";
-import AboutSection from "@/components/isak/AboutSection";
-import EducationSection from "@/components/isak/EducationSection";
-import WorkHighlights from "@/components/isak/WorkHighlights";
-import ServicesSection from "@/components/isak/ServicesSection";
-import TechStackSection from "@/components/isak/TechStackSection";
-import TestimonialsSection from "@/components/isak/TestimonialsSection";
-import ContactSection from "@/components/isak/ContactSection";
-import FooterSection from "@/components/isak/FooterSection";
-import SmoothScroll from "@/components/isak/SmoothScroll";
+import Preloader from "@/components/portfolio/Preloader";
+import BackgroundVideo from "@/components/portfolio/BackgroundVideo";
+import ColorSettingsOffcanvas from "@/components/portfolio/ColorSettingsOffcanvas";
+import SidebarTools from "@/components/portfolio/SidebarTools";
+import MobileNav from "@/components/portfolio/MobileNav";
+import HeaderTop from "@/components/portfolio/HeaderTop";
+import SidebarUser from "@/components/portfolio/SidebarUser";
+import HeroIntro from "@/components/portfolio/HeroIntro";
+import AboutSection from "@/components/portfolio/AboutSection";
+import EducationSection from "@/components/portfolio/EducationSection";
+import WorkHighlights from "@/components/portfolio/WorkHighlights";
+import ServicesSection from "@/components/portfolio/ServicesSection";
+import TechStackSection from "@/components/portfolio/TechStackSection";
+import TestimonialsSection from "@/components/portfolio/TestimonialsSection";
+import ContactSection from "@/components/portfolio/ContactSection";
+import FooterSection from "@/components/portfolio/FooterSection";
+import SmoothScroll from "@/components/portfolio/SmoothScroll";
 
 export default function HomePage() {
   return (

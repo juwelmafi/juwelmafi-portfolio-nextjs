@@ -1,8 +1,8 @@
 "use client";
 import Marquee from "react-fast-marquee";
 
-const clientLogos = [
-  "Next.js", "React", "Node.js", "MongoDB", "Express", "TypeScript", "TailwindCSS", "Framer"
+const techList = [
+  "React", "Next.js", "Node.js", "Express", "MongoDB", "TypeScript", "Tailwind CSS", "Firebase", "Stripe"
 ];
 
 export default function HeroIntro() {
@@ -16,13 +16,13 @@ export default function HeroIntro() {
             width={23}
             height={31}
             src="/assets/images/avatar/avatar-boy.png"
-            alt="Avatar"
+            alt="Juwel"
           />
         </div>
         <div className="author-info letter-space--05">
           <p className="info_name text-black">Juwel Hossain</p>
           <p className="info_duty text-black-50 text-body-3">
-            Full-Stack Developer &amp; UI/UX Specialist
+            MERN Stack &amp; Next.js Developer
           </p>
         </div>
       </div>
@@ -30,7 +30,7 @@ export default function HeroIntro() {
       {/* Main Hero Headline */}
       <h1 className="intro-title letter-space--2">
         I’m building <span className="is-bg active">websites</span> <br />
-        <span className="type-2 is-bg active">&amp; brands</span> that people remember
+        <span className="type-2 is-bg active">&amp; platforms</span> that people remember
       </h1>
 
       {/* Scribble SVG & Rotating Circular Badge */}
@@ -92,7 +92,7 @@ export default function HeroIntro() {
               />
               <text fontSize="8" letterSpacing="2.2" fill="currentColor" fontWeight="600">
                 <textPath href="#circlePath">
-                  FULL STACK DEVELOPER • JUWEL • 2025 •
+                  MERN STACK DEVELOPER • JUWEL • 2025 •
                 </textPath>
               </text>
             </svg>
@@ -104,7 +104,7 @@ export default function HeroIntro() {
       <div className="box-counter effectFade fadeUp no-div">
         <div className="wg-counter">
           <p className="counter h1 d-flex font-2 letter-space--2">
-            <span className="number">5</span>+
+            <span className="number">3</span>+
           </p>
           <p className="text text-black-56 text-body-3">Years of experience</p>
         </div>
@@ -118,11 +118,11 @@ export default function HeroIntro() {
 
       {/* Tech Stack Marquee */}
       <p className="intro-client letter-space--05 text-body-3">
-        <i className="icon icon-global-elip"></i>Core Technologies &amp; Frameworks
+        <i className="icon icon-global-elip"></i>Tools &amp; Technologies I Use
       </p>
       <div className="infiniteSlide-brand py-2">
         <Marquee speed={35} gradient={false}>
-          {clientLogos.map((tech, idx) => (
+          {techList.map((tech, idx) => (
             <div key={idx} className="mx-6 text-sm font-semibold tracking-wider uppercase opacity-70 hover:opacity-100 transition-opacity">
               {tech}
             </div>

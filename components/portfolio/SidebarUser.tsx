@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
+import { FaYoutube } from "react-icons/fa";
 
-const rotatingWords = ["Juwel", "Developer", "Designer"];
+const rotatingWords = ["Juwel", "Full-Stack Dev", "MERN Specialist"];
 
 export default function SidebarUser() {
   const [index, setIndex] = useState(0);
@@ -63,12 +64,12 @@ export default function SidebarUser() {
         {/* Social Icons */}
         <ul className="tf-social-icon-2 user-social d-grid">
           <li>
-            <a href="https://x.com" target="_blank" rel="noreferrer" aria-label="X">
-              <i className="icon icon-x"></i>
+            <a href="https://www.youtube.com/@juwelmafi" target="_blank" rel="noreferrer" aria-label="YouTube">
+              <FaYoutube className="w-5 h-5 text-[#FF0000] hover:scale-110 transition-transform" />
             </a>
           </li>
           <li>
-            <a href="https://linkedin.com/in/juwelmafi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/juwelmafi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
               <i className="icon icon-linkin"></i>
             </a>
           </li>
@@ -96,7 +97,7 @@ export default function SidebarUser() {
             </span>
           </h5>
           <p className="introduce text-white-56 letter-space--05 text-body-3">
-            I build high-performance web applications and sleek digital experiences, based in Bangladesh.
+            Passionate MERN &amp; Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.
           </p>
           <div className="br-line"></div>
           <div className="action-group">
@@ -111,7 +112,12 @@ export default function SidebarUser() {
                 <i className="icon icon-arrow-right-top"></i>
               </span>
             </a>
-            <a href="#about" className="action-down">
+            <a
+              href="https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="action-down hover:text-[#00DE51] transition-colors"
+            >
               <i className="icon icon-download"></i>
               <span className="text-body-3">Download CV</span>
             </a>

@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import ProjectModel from "@/models/Project";
 import BlogModel from "@/models/Blog";
+import CourseModel from "@/models/Course";
+import ServiceModel from "@/models/Service";
+import { DEFAULT_COURSES, DEFAULT_SERVICES } from "@/lib/data";
 import { auth } from "@/auth";
 import fs from "fs";
 import path from "path";
@@ -15,38 +18,35 @@ export async function POST() {
   try {
     await connectDB();
 
+    let seededProjectsCount = 0;
     // Check if projects already exist
     const count = await ProjectModel.countDocuments();
-    if (count > 0) {
-      return NextResponse.json({ message: "Projects already seeded", count });
+    if (count === 0) {
+      const jsonPath = path.join(process.cwd(), "public", "projects.json");
+      if (fs.existsSync(jsonPath)) {
+        const rawData = fs.readFileSync(jsonPath, "utf-8");
+        const projects = JSON.parse(rawData);
+
+        const toInsert = projects.map((p: Record<string, unknown>, i: number) => ({
+          title: p.title || "",
+          desc: p.desc || "",
+          tech: p.tech || [],
+          img: p.img || "",
+          screenshot: p.screenshot || "",
+          live: p.live || "",
+          client: p.client || "",
+          server: p.server === "#" ? "" : p.server || "",
+          details: p.details || "",
+          challenge: p.challenge || "",
+          goal: p.goal || "",
+          reverse: Boolean(p.reverse),
+          order: i,
+        }));
+
+        await ProjectModel.insertMany(toInsert);
+        seededProjectsCount = toInsert.length;
+      }
     }
-
-    const jsonPath = path.join(process.cwd(), "public", "projects.json");
-    if (!fs.existsSync(jsonPath)) {
-      return NextResponse.json({ error: "projects.json not found" }, { status: 404 });
-    }
-
-    const rawData = fs.readFileSync(jsonPath, "utf-8");
-    const projects = JSON.parse(rawData);
-
-    // Insert projects
-    const toInsert = projects.map((p: Record<string, unknown>, i: number) => ({
-      title: p.title || "",
-      desc: p.desc || "",
-      tech: p.tech || [],
-      img: p.img || "",
-      screenshot: p.screenshot || "",
-      live: p.live || "",
-      client: p.client || "",
-      server: p.server === "#" ? "" : p.server || "",
-      details: p.details || "",
-      challenge: p.challenge || "",
-      goal: p.goal || "",
-      reverse: Boolean(p.reverse),
-      order: i,
-    }));
-
-    await ProjectModel.insertMany(toInsert);
 
     // Optional starter blog
     const blogCount = await BlogModel.countDocuments();
@@ -75,12 +75,50 @@ Stay tuned for more articles on web development, React performance, and my self-
       });
     }
 
+    // Optional starter courses
+    const courseCount = await CourseModel.countDocuments();
+    if (courseCount === 0) {
+      await CourseModel.insertMany(
+        DEFAULT_COURSES.map((c) => ({
+          title: c.title,
+          slug: c.slug,
+          description: c.description,
+          thumbnail: c.thumbnail,
+          category: c.category,
+          level: c.level,
+          badge: c.badge || "",
+          published: c.published,
+          order: c.order,
+          lessons: c.lessons,
+        }))
+      );
+    }
+
+    // Optional starter services
+    const serviceCount = await ServiceModel.countDocuments();
+    if (serviceCount === 0) {
+      await ServiceModel.insertMany(
+        DEFAULT_SERVICES.map((s) => ({
+          title: s.title,
+          desc: s.desc,
+          tags: s.tags,
+          img1: s.img1 || "",
+          img2: s.img2 || "",
+          features: s.features || [],
+          order: s.order,
+          published: s.published,
+        }))
+      );
+    }
+
     return NextResponse.json({
       success: true,
-      message: `Successfully seeded ${toInsert.length} projects and starter blog post`,
+      message: `Database successfully seeded with projects, blog articles, video courses, and services!`,
+      seededProjectsCount,
     });
-  } catch (err) {
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Failed to seed database";
     console.error("[POST /api/seed]", err);
-    return NextResponse.json({ error: "Failed to seed database" }, { status: 500 });
+    return NextResponse.json({ error: errorMsg }, { status: 500 });
   }
 }

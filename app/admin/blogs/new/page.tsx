@@ -51,7 +51,7 @@ export default function NewBlogPage() {
         icon: "success",
         background: "#12121E",
         color: "#F0F0F5",
-        confirmButtonColor: "#FDCB6E",
+        confirmButtonColor: "#00DE51",
       });
       router.push("/admin/blogs");
       router.refresh();
@@ -70,18 +70,17 @@ export default function NewBlogPage() {
   };
 
   return (
-    <div className="p-8 max-w-3xl">
-      <div className="flex items-center gap-4 mb-8">
+    <div className="w-full max-w-3xl space-y-6">
+      <div className="flex items-center gap-4 pb-3 border-b border-white/5">
         <Link
           href="/admin/blogs"
-          className="w-9 h-9 rounded-lg flex items-center justify-center"
-          style={{ background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "var(--text-muted)" }}
+          className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/5 text-[#8E95B3] hover:text-white hover:bg-white/10 transition shadow-sm"
         >
           <FaArrowLeft />
         </Link>
         <div>
-          <h1 className="heading-font text-2xl font-bold text-white">Write New Post</h1>
-          <p className="text-sm mt-0.5" style={{ color: "var(--text-muted)" }}>Craft your article below</p>
+          <h1 className="heading-font text-[26px] lg:text-[32px] font-bold text-white leading-tight">Write New Post</h1>
+          <p className="text-xs sm:text-sm mt-0.5 text-[#888899]">Craft your article below</p>
         </div>
       </div>
 

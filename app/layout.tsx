@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import "./theme.css";
+import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   },
 };
 
+import GlobalNav from "@/components/portfolio/GlobalNav";
+
 export default function RootLayout({
   children,
 }: {
@@ -37,7 +39,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" data-theme="dark">
       <body className="counter-scroll video-v1 dark-mode type-dark-v1">
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider>
+          <GlobalNav />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

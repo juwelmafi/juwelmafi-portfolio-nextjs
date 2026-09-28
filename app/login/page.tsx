@@ -53,20 +53,16 @@ export default function LoginPage() {
       />
 
       <div className="relative z-10 w-full max-w-md">
-        <div
-          className="rounded-2xl p-8"
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-        >
+        <div className="glass-card p-8 shadow-2xl">
           {/* Logo */}
           <div className="text-center mb-8">
             <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
-              style={{ background: "var(--accent-glow)", border: "1px solid var(--border-accent)" }}
+              className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-[#00DE51]/15 text-[#00DE51] shadow-md shadow-[#00DE51]/20"
             >
-              <FaLock style={{ color: "var(--accent)" }} className="text-xl" />
+              <FaLock className="text-xl text-[#00DE51]" />
             </div>
-            <h1 className="heading-font text-2xl font-bold text-white">Admin Login</h1>
-            <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
+            <h1 className="heading-font text-[26px] lg:text-[32px] font-bold text-white leading-tight">Admin Login</h1>
+            <p className="text-xs sm:text-sm mt-1 text-[#888899]">
               Access the portfolio dashboard
             </p>
           </div>

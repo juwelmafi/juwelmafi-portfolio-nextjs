@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function HeaderTop() {
   const [dateTime, setDateTime] = useState({ date: "", clock: "" });
@@ -29,7 +30,7 @@ export default function HeaderTop() {
 
   return (
     <div className="tf-header-wrap">
-      <a href="/" className="logo-site d-lg-none">
+      <Link href="/" className="logo-site d-lg-none">
         <img
           className="image-switch"
           data-light="/assets/images/logo/logo.svg"
@@ -40,7 +41,7 @@ export default function HeaderTop() {
           src="/assets/images/logo/logo-2.svg"
           alt="Logo"
         />
-      </a>
+      </Link>
       <div className="left">
         <div className="time-local text-body-3">
           <p className="date">{dateTime.date}</p>

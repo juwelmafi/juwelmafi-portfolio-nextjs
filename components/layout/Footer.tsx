@@ -3,10 +3,12 @@ import Link from "next/link";
 import { FaGithub, FaLinkedin, FaYoutube, FaDownload, FaHeart } from "react-icons/fa";
 
 const footerLinks = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home",     href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Projects", href: "/projects" },
+  { label: "Courses",  href: "/courses" },
+  { label: "Blog",     href: "/blog" },
+  { label: "Contact",  href: "/contact" },
 ];
 
 export default function Footer() {

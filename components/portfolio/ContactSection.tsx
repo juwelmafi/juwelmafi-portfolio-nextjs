@@ -67,34 +67,45 @@ export default function ContactSection() {
       </h4>
 
       {/* Quick Contact Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all flex items-center gap-4 backdrop-blur-md">
-          <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-            <FaMapMarkerAlt className="w-5 h-5 text-[#00DE51]" />
+      <div className="grid grid-cols-1 sm:grid-cols-[1.1fr_1.15fr_1.5fr] gap-2 sm:gap-2.5 mb-8">
+        <div className="water-drop-card contact-info-card rounded-2xl transition-all flex items-center gap-2 overflow-hidden">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+            <FaMapMarkerAlt className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#00DE51]" />
           </div>
-          <div>
-            <p className="text-xs text-white/50 uppercase tracking-wider font-semibold">Location</p>
-            <p className="text-sm font-medium text-white mt-0.5">Madaripur, BD</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-[7.5px] sm:text-[8px] md:text-[8.5px] text-white/50 uppercase tracking-wider font-semibold">Location</p>
+            <p className="text-[10px] sm:text-[10.5px] md:text-[11px] font-medium text-white mt-0.5 truncate">Madaripur, BD</p>
           </div>
         </div>
-        <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all flex items-center gap-4 backdrop-blur-md">
-          <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-            <FaPhoneAlt className="w-4 h-4 text-[#00DE51]" />
+
+        <div className="water-drop-card contact-info-card rounded-2xl transition-all flex items-center gap-2 overflow-hidden">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+            <FaPhoneAlt className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#00DE51]" />
           </div>
-          <div>
-            <p className="text-xs text-white/50 uppercase tracking-wider font-semibold">WhatsApp</p>
-            <a href="tel:+8801859797307" className="text-sm font-medium text-white hover:text-[#00DE51] transition-colors mt-0.5 block">
-              +880 01859797307
+          <div className="min-w-0 flex-1">
+            <p className="text-[7.5px] sm:text-[8px] md:text-[8.5px] text-white/50 uppercase tracking-wider font-semibold">WhatsApp</p>
+            <a
+              href="https://wa.me/8801859797307"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] sm:text-[9.5px] md:text-[10px] font-medium text-white hover:text-[#00DE51] transition-colors mt-0.5 block whitespace-nowrap truncate tracking-tight"
+            >
+              +880 1859-797307
             </a>
           </div>
         </div>
-        <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all flex items-center gap-4 backdrop-blur-md">
-          <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-            <FaEnvelope className="w-4 h-4 text-[#00DE51]" />
+
+        <div className="water-drop-card contact-info-card rounded-2xl transition-all flex items-center gap-2 overflow-hidden">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+            <FaEnvelope className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#00DE51]" />
           </div>
-          <div>
-            <p className="text-xs text-white/50 uppercase tracking-wider font-semibold">Email</p>
-            <a href="mailto:juwelhossain16457@gmail.com" className="text-xs font-mono font-medium text-white hover:text-[#00DE51] transition-colors truncate block max-w-[160px] mt-0.5">
+          <div className="min-w-0 flex-1">
+            <p className="text-[7.5px] sm:text-[8px] md:text-[8.5px] text-white/50 uppercase tracking-wider font-semibold">Email</p>
+            <a
+              href="mailto:juwelhossain16457@gmail.com"
+              title="juwelhossain16457@gmail.com"
+              className="text-[7.5px] sm:text-[8px] md:text-[8px] lg:text-[8.5px] xl:text-[9.5px] font-sans font-medium text-white hover:text-[#00DE51] transition-colors block mt-0.5 tracking-tighter truncate"
+            >
               juwelhossain16457@gmail.com
             </a>
           </div>
@@ -103,7 +114,7 @@ export default function ContactSection() {
 
       {/* Main Contact Form Card */}
       <form
-        className="form-contact p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all backdrop-blur-xl shadow-2xl"
+        className="water-drop-card form-contact rounded-3xl transition-all"
         id="contactform"
         onSubmit={handleSubmit}
       >
@@ -117,7 +128,7 @@ export default function ContactSection() {
               name="name"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-[#00DE51] outline-none transition-colors text-sm"
+              className="w-full p-4 rounded-xl bg-white/5 text-white placeholder-white/40 focus:ring-1 focus:ring-[#00DE51]/40 outline-none transition-colors text-sm shadow-inner"
             />
           </fieldset>
           <fieldset className="field-ip">
@@ -129,7 +140,7 @@ export default function ContactSection() {
               name="email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-[#00DE51] outline-none transition-colors text-sm"
+              className="w-full p-4 rounded-xl bg-white/5 text-white placeholder-white/40 focus:ring-1 focus:ring-[#00DE51]/40 outline-none transition-colors text-sm shadow-inner"
             />
           </fieldset>
           <fieldset className="field-ip">
@@ -141,7 +152,7 @@ export default function ContactSection() {
               rows={4}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-[#00DE51] outline-none transition-colors resize-none text-sm"
+              className="w-full p-4 rounded-xl bg-white/5 text-white placeholder-white/40 focus:ring-1 focus:ring-[#00DE51]/40 outline-none transition-colors resize-none text-sm shadow-inner"
             />
           </fieldset>
         </div>

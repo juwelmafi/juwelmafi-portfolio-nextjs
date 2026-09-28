@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { getBlogBySlug, getBlogs } from "@/lib/data";
 import { notFound } from "next/navigation";
@@ -44,26 +43,22 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24" style={{ background: "var(--bg-base)" }}>
+      <main className="min-h-screen py-12 md:py-16 px-4 sm:px-6 md:px-10 lg:pl-16 lg:pr-28" style={{ background: "var(--bg-base)" }}>
         {/* Cover */}
         {blog.coverImage && (
-          <div className="relative w-full h-72 lg:h-96">
+          <div className="relative w-full max-w-4xl mx-auto h-72 lg:h-96 rounded-3xl overflow-hidden mb-8">
             <Image src={blog.coverImage} alt={blog.title} fill className="object-cover" />
             <div
               className="absolute inset-0"
-              style={{ background: "linear-gradient(to bottom, rgba(10,10,20,0.3), var(--bg-base))" }}
+              style={{ background: "linear-gradient(to bottom, rgba(10,10,20,0.1), var(--bg-base))" }}
             />
           </div>
         )}
 
-        <div className="max-w-3xl mx-auto px-6 lg:px-10 py-12">
+        <div className="max-w-3xl mx-auto">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm mb-8 transition-colors"
-            style={{ color: "var(--text-muted)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+            className="inline-flex items-center gap-2 text-sm mb-8 transition-colors text-white/60 hover:text-white"
           >
             <FaArrowLeft className="text-xs" /> All Posts
           </Link>

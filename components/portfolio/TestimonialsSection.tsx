@@ -64,20 +64,20 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Client Photo */}
-        <div className="relative overflow-hidden rounded-3xl w-48 h-56 shrink-0 bg-white/5 border border-white/10 shadow-2xl">
+        <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl w-36 h-44 sm:w-48 sm:h-56 shrink-0 bg-white/5 shadow-2xl">
           <img
             alt={item.author}
             loading="lazy"
             width={236}
             height={297}
             src={item.img}
-            className="w-full h-full object-cover rounded-3xl transition-opacity duration-500"
+            className="w-full h-full object-cover rounded-2xl sm:rounded-3xl transition-opacity duration-500"
           />
         </div>
       </div>
 
-      {/* Quote & Author Card with Spacious Padding and Flexbox Layout */}
-      <div className="juwel-testimonial-card p-8 sm:p-10 pb-9 sm:pb-11 rounded-3xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+      {/* Quote & Author Card with Luxurious Water Drop Styling */}
+      <div className="water-drop-card juwel-testimonial-card rounded-3xl transition-all duration-300 flex flex-col justify-between">
         <div>
           <div className="text-[#00DE51] text-3xl mb-4">
             <i className="icon icon-quote"></i>
@@ -101,7 +101,7 @@ export default function TestimonialsSection() {
             <button
               type="button"
               onClick={prev}
-              className="w-11 h-11 rounded-full border border-white/20 hover:border-[#00DE51] hover:text-[#00DE51] text-white flex items-center justify-center transition-all cursor-pointer bg-white/5 hover:bg-white/15 text-sm"
+              className="w-11 h-11 rounded-full hover:text-[#00DE51] text-white flex items-center justify-center transition-all cursor-pointer bg-white/10 hover:bg-white/20 text-sm shadow-md"
               aria-label="Previous testimonial"
             >
               <i className="icon icon-arrow-caret-left"></i>
@@ -109,7 +109,7 @@ export default function TestimonialsSection() {
             <button
               type="button"
               onClick={next}
-              className="w-11 h-11 rounded-full border border-white/20 hover:border-[#00DE51] hover:text-[#00DE51] text-white flex items-center justify-center transition-all cursor-pointer bg-white/5 hover:bg-white/15 text-sm"
+              className="w-11 h-11 rounded-full hover:text-[#00DE51] text-white flex items-center justify-center transition-all cursor-pointer bg-white/10 hover:bg-white/20 text-sm shadow-md"
               aria-label="Next testimonial"
             >
               <i className="icon icon-arrow-caret-right"></i>

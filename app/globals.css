@@ -34,9 +34,11 @@ html, body {
   position: relative;
   scroll-behavior: smooth;
   font-size: 16px;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
 }
 
-#wrapper, .main-content, .wrap-container {
+#wrapper, .main-content {
   overflow-x: hidden !important;
   max-width: 100% !important;
 }
@@ -45,9 +47,146 @@ html, body {
   max-width: 100% !important;
 }
 
+@media (min-width: 1200px) {
+  html body .main-content .container {
+    max-width: 100% !important;
+  }
+}
+
 .row {
   margin-left: 0 !important;
   margin-right: 0 !important;
+}
+
+/* ── Modern Responsive Container & Section Padding System ── */
+
+/* Wrap Container: Consistent side gutters across all devices */
+.wrap-container {
+  width: 100%;
+  margin-left: auto;
+  box-sizing: border-box !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
+
+/* Prevent theme.css from wiping mobile padding on .wrap-container */
+@media (max-width: 575px) {
+  .wrap-container {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+}
+
+@media (min-width: 480px) {
+  .wrap-container {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+@media (min-width: 576px) {
+  .wrap-container {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .wrap-container {
+    /* Desktop: generous right padding so content never hits the fixed floating toolbar */
+    padding-left: 2rem !important;
+    padding-right: 5.5rem !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .wrap-container {
+    max-width: 1200px !important;
+    padding-left: 2rem !important;
+    padding-right: 5.5rem !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .wrap-container {
+    max-width: 1380px !important;
+    padding-left: 2.5rem !important;
+    padding-right: 5.5rem !important;
+  }
+  .col-xl-8 {
+    width: 72% !important;
+  }
+}
+
+@media (min-width: 1600px) {
+  .wrap-container {
+    max-width: 1560px !important;
+    padding-left: 3rem !important;
+    padding-right: 6rem !important;
+  }
+  .col-xl-8 {
+    width: 75% !important;
+  }
+}
+
+/* Generous Section Vertical Spacing */
+.flat-spacing,
+.section-intro,
+.section-about,
+.section-education,
+.section-work,
+.section-service,
+.section-tech-stack,
+.section-testimonial,
+.section-contact,
+.tf-footer {
+  box-sizing: border-box !important;
+  padding-top: 4.5rem !important;
+  padding-bottom: 4.5rem !important;
+  scroll-margin-top: 5rem;
+}
+
+@media (min-width: 768px) {
+  .flat-spacing,
+  .section-intro,
+  .section-about,
+  .section-education,
+  .section-work,
+  .section-service,
+  .section-tech-stack,
+  .section-testimonial,
+  .section-contact,
+  .tf-footer {
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .flat-spacing,
+  .section-intro,
+  .section-about,
+  .section-education,
+  .section-work,
+  .section-service,
+  .section-tech-stack,
+  .section-testimonial,
+  .section-contact,
+  .tf-footer {
+    padding-top: 7.5rem !important;
+    padding-bottom: 7.5rem !important;
+  }
+}
+
+/* Spacing between section badge and heading */
+.sect-tag {
+  margin-bottom: 1.25rem !important;
+}
+
+.s-title {
+  margin-top: 0.5rem !important;
+  margin-bottom: 2rem !important;
+  line-height: 1.25 !important;
 }
 
 /* ── Custom Scrollbar ──────────────────────────────────── */
@@ -66,7 +205,6 @@ html, body {
 }
 
 /* ── Animation & Visibility Overrides ───────────────────── */
-/* Ensure all content and sections are always 100% visible */
 .split-text,
 .effectFade,
 .effectTop,
@@ -134,6 +272,548 @@ html, body {
   border: 1px solid rgba(0, 222, 81, 0.25) !important;
 }
 
+/* ── Neutralize Legacy Theme.css Utility Collisions (Fix Crushed Padding & Gaps) ── */
+.gap-1 { gap: 0.25rem !important; }
+.gap-1\.5 { gap: 0.375rem !important; }
+.gap-2 { gap: 0.5rem !important; }
+.gap-2\.5 { gap: 0.625rem !important; }
+.gap-3 { gap: 0.75rem !important; }
+.gap-3\.5 { gap: 0.875rem !important; }
+.gap-4 { gap: 1rem !important; }
+.gap-5 { gap: 1.25rem !important; }
+.gap-6 { gap: 1.5rem !important; }
+.gap-8 { gap: 2rem !important; }
+.gap-10 { gap: 2.5rem !important; }
+.gap-12 { gap: 3rem !important; }
+.gap-16 { gap: 4rem !important; }
+.gap-20 { gap: 5rem !important; }
+.gap-24 { gap: 6rem !important; }
+
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 0.75rem !important; }
+.mb-4 { margin-bottom: 1rem !important; }
+.mb-5 { margin-bottom: 1.25rem !important; }
+.mb-6 { margin-bottom: 1.5rem !important; }
+.mb-8 { margin-bottom: 2rem !important; }
+.mb-10 { margin-bottom: 2.5rem !important; }
+.mb-12 { margin-bottom: 3rem !important; }
+.mb-16 { margin-bottom: 4rem !important; }
+.mb-20 { margin-bottom: 5rem !important; }
+.mb-24 { margin-bottom: 6rem !important; }
+
+.mt-1 { margin-top: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 0.75rem !important; }
+.mt-4 { margin-top: 1rem !important; }
+.mt-6 { margin-top: 1.5rem !important; }
+.mt-8 { margin-top: 2rem !important; }
+.mt-10 { margin-top: 2.5rem !important; }
+.mt-12 { margin-top: 3rem !important; }
+
+/* ── Button Defaults (Safe from theme.css without clobbering Tailwind utility classes) ── */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"],
+.btn,
+a.btn,
+.tf-btn-action,
+.btn-primary,
+.btn-outline,
+.btn-accent-outline {
+  box-sizing: border-box;
+}
+
+form button:not([class*="p-"]):not([class*="px-"]):not([class*="py-"]),
+button[type="submit"]:not([class*="p-"]):not([class*="px-"]):not([class*="py-"]) {
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: var(--accent) !important;
+  color: #0A0A14 !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1.6rem !important;
+  border-radius: var(--radius-sm) !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+.btn-primary:hover {
+  background: #33FF77 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 20px rgba(0, 222, 81, 0.3) !important;
+}
+
+.btn-outline {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1.6rem !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid var(--border) !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+.btn-outline:hover {
+  border-color: var(--border-accent) !important;
+  color: var(--accent) !important;
+  background: var(--accent-glow) !important;
+}
+
+.btn-accent-outline {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  font-weight: 600 !important;
+  padding: 0.6rem 1.25rem !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid var(--border-accent) !important;
+  color: var(--accent) !important;
+  background: var(--accent-glow) !important;
+  transition: all 0.25s ease !important;
+  cursor: pointer !important;
+}
+.btn-accent-outline:hover {
+  background: rgba(0, 222, 81, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-proj-action {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 9px 14px !important;
+  gap: 6px !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  border-radius: 12px !important;
+  font-size: 11.5px !important;
+}
+
+.tf-btn-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 10px 18px !important;
+  gap: 8px !important;
+}
+
+/* ── Comprehensive Card Padding System ───────────────────────── */
+.water-drop-card {
+  box-sizing: border-box !important;
+  position: relative !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 28px !important;
+  /* Water Drop Liquid Glass refraction background */
+  background: radial-gradient(130% 130% at 20% 10%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 255, 255, 0.008) 100%) !important;
+  background-color: rgba(18, 18, 30, 0.75) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.5),
+              inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22),
+              inset 0 -1px 2px 0 rgba(0, 0, 0, 0.3) !important;
+  padding: 1.5rem !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease !important;
+}
+
+.water-drop-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 32px 70px -10px rgba(0, 0, 0, 0.65),
+              inset 0 1px 2px 0 rgba(255, 255, 255, 0.35),
+              inset 0 -1px 2px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* When water-drop-card contains full-bleed accordion items */
+.water-drop-card.overflow-hidden {
+  padding: 0 !important;
+}
+
+.water-drop-card > button {
+  padding: 1.35rem 1.5rem !important;
+}
+@media (min-width: 640px) {
+  .water-drop-card > button {
+    padding: 1.75rem 2.25rem !important;
+  }
+}
+
+/* ── Borderless Glass Drop Card System ─────────────────────── */
+.glass-card,
+.glass-drop-card {
+  box-sizing: border-box !important;
+  position: relative !important;
+  background: radial-gradient(130% 130% at 20% 10%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 60%, rgba(255, 255, 255, 0) 100%), rgba(20, 23, 36, 0.75) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 24px !important;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1) !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease !important;
+}
+
+.glass-card:hover,
+.glass-drop-card:hover {
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.75), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+.glass-card.overflow-hidden,
+.glass-drop-card.overflow-hidden {
+  padding: 0 !important;
+}
+
+/* Specific Card variants */
+.juwel-project-card,
+.water-drop-card.juwel-project-card {
+  padding: 1.25rem 1.25rem !important;
+  border-radius: 24px !important;
+}
+
+@media (min-width: 640px) {
+  .juwel-project-card,
+  .water-drop-card.juwel-project-card {
+    padding: 1.65rem 1.75rem !important;
+    border-radius: 28px !important;
+  }
+}
+
+.tech-filter-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 6px 14px !important;
+  border-radius: 9999px !important;
+  margin: 3px !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  font-size: 12px !important;
+}
+
+/* Technology pills inside project cards */
+.tech-pill,
+.juwel-project-card .tech-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 4px 10px !important;
+  border-radius: 9999px !important;
+  margin: 2px !important;
+  line-height: 1.2 !important;
+  font-size: 10px !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+textarea {
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
+}
+
+.juwel-project-card .project-details-wrap {
+  padding: 0.65rem 0.25rem 0.25rem 0.25rem !important;
+}
+
+.juwel-edu-card {
+  padding: 1rem 1.35rem !important;
+  border-radius: 20px !important;
+}
+
+@media (min-width: 640px) {
+  .juwel-edu-card {
+    padding: 1.25rem 1.75rem !important;
+    border-radius: 22px !important;
+  }
+}
+
+.contact-info-card {
+  padding: 1.25rem 1.5rem !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* ── Fixed Right Navigation on All Pages (Visible on Mobile & Desktop) ── */
+.sidebar-tools.pst-v1 {
+  position: fixed !important;
+  top: 50% !important;
+  right: 24px !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: translateY(-50%) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Ensure nav-list is ALWAYS displayed (overrides theme.css mobile display:none) */
+.sidebar-tools.pst-v1 .nav-list {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 3px !important;
+  margin: 0 !important;
+  padding: 6px 4px !important;
+  list-style: none !important;
+}
+
+.sidebar-tools.pst-v1 .nav-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.sidebar-tools.pst-v1 .item-link {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  transition: all 0.25s ease !important;
+}
+
+.sidebar-tools.pst-v1 .item-link:hover,
+.sidebar-tools.pst-v1 .nav-item.active .item-link {
+  color: #00DE51 !important;
+  background: rgba(0, 222, 81, 0.16) !important;
+}
+
+.sidebar-tools.pst-v1 .br-line {
+  display: block !important;
+  width: 14px !important;
+  height: 1px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  margin: 4px auto !important;
+}
+
+@media (max-width: 991px) {
+  .sidebar-tools.pst-v1 {
+    display: flex !important;
+    position: fixed !important;
+    right: 8px !important;
+    top: 50% !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: translateY(-50%) !important;
+    z-index: 99999 !important;
+    gap: 6px !important;
+  }
+
+  .sidebar-tools.pst-v1 .nav-top,
+  .sidebar-tools.pst-v1 .nav-bottom,
+  .sidebar-tools.pst-v1 .nav-list {
+    display: flex !important;
+    background: rgba(18, 18, 30, 0.92) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .sidebar-tools.pst-v1 .nav-list {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 6px 3px !important;
+    gap: 2px !important;
+  }
+
+  .sidebar-tools.pst-v1 .item-link {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .sidebar-tools.pst-v1 .item-link i,
+  .sidebar-tools.pst-v1 .item-link svg {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .sidebar-tools.pst-v1 .tf-btn-icon {
+    width: 34px !important;
+    height: 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .sidebar-tools.pst-v1 .tool-tip {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-tools.pst-v1 {
+    right: 4px !important;
+    gap: 4px !important;
+    transform: translateY(-50%) scale(0.9) !important;
+    transform-origin: right center !important;
+  }
+  .sidebar-tools.pst-v1 .item-link {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .sidebar-tools.pst-v1 .item-link i,
+  .sidebar-tools.pst-v1 .item-link svg {
+    font-size: 15px !important;
+    width: 15px !important;
+  }
+  .sidebar-tools.pst-v1 .tf-btn-icon {
+    width: 32px !important;
+    height: 32px !important;
+  }
+}
+
+/* Permanently remove settings icon, theme mode toggle, and mobile hamburger menu */
+.tf-left-bar,
+.btn-setting-color,
+.btn-color-setting,
+#settingColorMenu,
+.action-open-mobile,
+.nav-top,
+.toggle-switch-mode {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ── Hero Main Title (Massive, Space-filling Typography) ── */
+.hero-main-title {
+  font-size: clamp(2.4rem, 4.5vw, 4.85rem) !important;
+  line-height: 1.14 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+  color: #FFFFFF !important;
+  margin-bottom: 2rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 1200px) {
+  .hero-main-title {
+    font-size: clamp(3rem, 4.2vw, 4.6rem) !important;
+    line-height: 1.12 !important;
+  }
+}
+
+@media (min-width: 1600px) {
+  .hero-main-title {
+    font-size: 5rem !important;
+    line-height: 1.1 !important;
+  }
+}
+
+.hero-main-title span {
+  display: inline-block !important;
+  padding: 0.05em 0.28em !important;
+  margin: 0 0.06em !important;
+  vertical-align: baseline !important;
+  white-space: nowrap !important;
+}
+
+/* ── Hero Stat Numbers (Massive & Neon Glowing) ── */
+.hero-stat-number {
+  font-size: clamp(3.2rem, 6.5vw, 6rem) !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+  font-family: 'JetBrains Mono', 'Poppins', monospace, sans-serif !important;
+  color: #00DE51 !important;
+  text-shadow: 0 0 35px rgba(0, 222, 81, 0.65), 0 0 70px rgba(0, 222, 81, 0.25) !important;
+  display: flex !important;
+  align-items: baseline !important;
+  letter-spacing: -0.03em !important;
+}
+
+.hero-stat-number span {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  font-weight: inherit !important;
+  color: inherit !important;
+}
+
+.hero-stat-label {
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0 !important;
+}
+
+/* ── Marquee Tech Item Spacing ───────────────────────────────── */
+.infiniteSlide-brand .mx-6 {
+  margin-left: 2rem !important;
+  margin-right: 2rem !important;
+  padding: 0.35rem 0.75rem !important;
+  display: inline-block !important;
+}
+
+/* ── Blog icon fallback in icomoon font ──────────────────────── */
+.icon-practice:before {
+  content: "✍";
+  font-family: inherit;
+  font-size: 16px;
+}
+
+/* ── Award Year Pills (About Section) ─────────────────── */
+.award_year {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+  flex-shrink: 0 !important;
+  border-radius: 9999px !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+}
+
+@media (min-width: 640px) {
+  html body .award-list .award_year,
+  html body .award_year.px-10,
+  html body .award_year {
+    padding-left: 2.5rem !important;
+    padding-right: 2.5rem !important;
+  }
+}
+
 .dark-mode .timeline-role { color: #ffffff !important; }
 .dark-mode .timeline-desc { color: rgba(255, 255, 255, 0.75) !important; }
 .dark-mode .timeline-date { color: rgba(255, 255, 255, 0.60) !important; }
@@ -162,32 +842,36 @@ html, body {
 .dark-mode .quote-text { color: #ffffff !important; }
 .dark-mode .quote-author { color: rgba(255, 255, 255, 0.70) !important; }
 
-/* ── Specific Isolated Card Overrides ───────────────────── */
-.juwel-edu-card,
-.juwel-project-card,
-.juwel-testimonial-card {
-  box-sizing: border-box !important;
-  position: relative !important;
-}
-
-/* Neutralize legacy theme.css conflicting rules */
+/* ── Neutralize legacy theme.css conflicting rules ──────── */
 .element-sticky, .sticky-item {
   position: static !important;
+}
+
+.wg-tech {
+  display: block !important;
+  box-sizing: border-box !important;
+}
+
+.wg-tech .tech_info {
+  text-wrap: normal !important;
+  white-space: normal !important;
+  min-width: 0 !important;
+}
+
+.wg-tech .tech-infor {
+  display: flex !important;
+  width: 100% !important;
 }
 
 .wg-work, .wg-work-card-inline, .wg-work .work-content {
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
 }
 
 .swiper-testimonial_wrap, .testimonial-v01 {
   background: transparent !important;
   border: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
 }
 
 .section-testimonial .number-pagination,
@@ -199,58 +883,50 @@ html, body {
   border: none !important;
 }
 
-/* ── Utility Classes ───────────────────────────────────── */
+/* ── Typography & Headings ───────────────────────────────── */
 .heading-font { font-family: 'Poppins', sans-serif; }
 .mono-font    { font-family: 'JetBrains Mono', monospace; }
 
-.glass-card {
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--accent);
-  color: #0A0A14;
-  font-weight: 600;
-  font-size: 0.875rem;
-  padding: 10px 22px;
-  border-radius: var(--radius-sm);
-  border: none;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.btn-primary:hover {
-  background: #33FF77;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(0, 222, 81, 0.3);
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  color: var(--text-primary);
-  font-weight: 500;
-  font-size: 0.875rem;
-  padding: 10px 22px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.btn-outline:hover {
-  border-color: var(--border-accent);
+/* ── Section Label ─────────────────────────────────────── */
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: var(--accent);
-  background: var(--accent-glow);
+  padding: 6px 16px !important;
+  border-radius: 99px;
+  background: rgba(0, 222, 81, 0.1);
+  border: 1px solid rgba(0, 222, 81, 0.25);
+}
+
+/* ── Prose dark (for blog content rendering) ───────────── */
+.prose-dark h1, .prose-dark h2, .prose-dark h3 {
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+.prose-dark h1 { font-size: 1.75rem; }
+.prose-dark h2 { font-size: 1.35rem; }
+.prose-dark h3 { font-size: 1.1rem; }
+.prose-dark p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+.prose-dark a { color: var(--accent); text-decoration: underline; }
+.prose-dark code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: rgba(255,255,255,0.07);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--accent);
 }
 
 /* ── Noise overlay ─────────────────────────────────────── */
@@ -263,7 +939,7 @@ html, body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
-/* ── Input styles ──────────────────────────────────────── */
+/* ── Form Inputs ───────────────────────────────────────── */
 .form-input {
   width: 100%;
   background: rgba(255,255,255,0.04);
@@ -279,4 +955,147 @@ html, body {
 .form-input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ── Modern Console Dashboard Design System (Borderless Glass Drop) ── */
+.dashboard-master-frame {
+  box-sizing: border-box !important;
+  border-radius: 28px !important;
+  background: #111420 !important;
+  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.8), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.08) !important;
+  overflow: hidden !important;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-master-frame {
+    border-radius: 36px !important;
+  }
+}
+
+.dashboard-inner-surface {
+  box-sizing: border-box !important;
+  background: #171A28 !important;
+  border-radius: 24px !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-inner-surface {
+    border-radius: 30px !important;
+  }
+}
+
+/* Sidebar Active Nav Item with Inset Badge (Black & Emerald Theme) */
+.dashboard-nav-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.85rem !important;
+  padding: 0.65rem 1rem !important;
+  border-radius: 16px !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  transition: all 0.25s ease !important;
+  text-decoration: none !important;
+}
+
+.dashboard-nav-item:hover {
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.dashboard-nav-item.active {
+  background: rgba(0, 222, 81, 0.12) !important;
+  color: #00DE51 !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(0, 222, 81, 0.2) !important;
+}
+
+.dashboard-nav-icon-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #00DE51 !important;
+  font-size: 0.95rem !important;
+  transition: all 0.25s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.dashboard-nav-item:hover .dashboard-nav-icon-badge {
+  background: rgba(0, 222, 81, 0.15) !important;
+  color: #00DE51 !important;
+}
+
+.dashboard-nav-item.active .dashboard-nav-icon-badge {
+  background: rgba(0, 222, 81, 0.25) !important;
+  color: #00DE51 !important;
+  box-shadow: 0 0 14px rgba(0, 222, 81, 0.35) !important;
+}
+
+/* Bottom Action Card in Sidebar */
+.dashboard-sidebar-action-card {
+  box-sizing: border-box !important;
+  background: #141724 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07) !important;
+  padding: 1.25rem !important;
+}
+
+.dashboard-action-btn {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.65rem !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, #00DE51 0%, #00B843 100%) !important;
+  color: #0A0A14 !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 4px 18px rgba(0, 222, 81, 0.4) !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+
+.dashboard-action-btn:hover {
+  background: linear-gradient(135deg, #33FF77 0%, #00DE51 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 26px rgba(0, 222, 81, 0.55) !important;
+}
+
+/* Overview Metric Card */
+.dashboard-metric-card {
+  box-sizing: border-box !important;
+  background: #1E2235 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.5), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.08) !important;
+  border: none !important;
+  outline: none !important;
+  padding: 1.25rem 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.25rem !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.dashboard-metric-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 20px 42px -6px rgba(0, 0, 0, 0.65), inset 0 1px 2px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+/* Timeline & Notes Glass Drop Cards */
+.dashboard-content-card {
+  box-sizing: border-box !important;
+  background: #1B1E30 !important;
+  border-radius: 24px !important;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), inset 0 1px 1px 0 rgba(255, 255, 255, 0.07) !important;
+  border: none !important;
+  outline: none !important;
+  padding: 1.5rem 1.75rem !important;
 }

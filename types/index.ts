@@ -28,3 +28,44 @@ export interface Blog {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface Lesson {
+  id?: string;
+  title: string;
+  youtubeUrl: string;
+  youtubeId?: string;
+  duration: string;
+  summary: string;
+  codeSnippet?: string;
+  order: number;
+}
+
+export interface Course {
+  id?: string;
+  title: string;
+  slug: string;
+  description: string;
+  thumbnail: string;
+  category: string;
+  level: string;
+  badge?: string;
+  lessons: Lesson[];
+  published: boolean;
+  order: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface Service {
+  id?: string;
+  title: string;
+  desc: string;
+  tags: string[];
+  img1?: string;
+  img2?: string;
+  features?: string[];
+  order: number;
+  published: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}

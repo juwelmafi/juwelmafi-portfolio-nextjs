@@ -44,7 +44,7 @@ export default function AdminBlogs() {
         icon: "success",
         background: "#12121E",
         color: "#F0F0F5",
-        confirmButtonColor: "#FDCB6E",
+        confirmButtonColor: "#00DE51",
       });
     } catch (err) {
       console.error(err);
@@ -75,28 +75,28 @@ export default function AdminBlogs() {
   };
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className="w-full space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/5 gap-3">
         <div>
-          <h1 className="heading-font text-3xl font-bold text-white">Blog Posts</h1>
-          <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
-            Manage your blog articles
+          <h1 className="heading-font text-[26px] lg:text-[32px] font-bold text-white leading-tight">Blog Posts</h1>
+          <p className="text-xs sm:text-sm mt-0.5 text-[#888899]">
+            Manage technical articles, drafts &amp; publication statuses
           </p>
         </div>
-        <Link href="/admin/blogs/new" className="btn-primary">
+        <Link href="/admin/blogs/new" className="btn-primary self-start sm:self-auto">
           <FaPlus /> Write Post
         </Link>
       </div>
 
       {loading ? (
         <div className="flex justify-center py-16">
-          <div className="w-8 h-8 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-[#00DE51] border-t-transparent rounded-full animate-spin" />
         </div>
       ) : blogs.length === 0 ? (
         <div className="text-center py-20 glass-card">
           <p className="text-4xl mb-3">✍️</p>
-          <h2 className="heading-font text-lg font-semibold text-white mb-2">No posts yet</h2>
-          <p className="text-sm mb-6" style={{ color: "var(--text-muted)" }}>
+          <h2 className="heading-font text-[18px] lg:text-[20px] font-semibold text-white mb-2">No posts yet</h2>
+          <p className="text-sm mb-6 text-[#888899]">
             Write your first blog post!
           </p>
           <Link href="/admin/blogs/new" className="btn-primary">
@@ -112,16 +112,15 @@ export default function AdminBlogs() {
             >
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="heading-font font-semibold text-white truncate">
+                  <h3 className="heading-font font-semibold text-white truncate text-base">
                     {blog.title}
                   </h3>
                   <span
-                    className="text-xs px-2 py-0.5 rounded-full flex-shrink-0"
-                    style={{
-                      background: blog.published ? "rgba(74,222,128,0.1)" : "rgba(255,255,255,0.05)",
-                      color: blog.published ? "#4ade80" : "var(--text-subtle)",
-                      border: `1px solid ${blog.published ? "rgba(74,222,128,0.2)" : "var(--border)"}`,
-                    }}
+                    className={`text-xs px-2.5 py-0.5 rounded-full flex-shrink-0 ${
+                      blog.published
+                        ? "bg-[#00DE51]/15 text-[#00DE51]"
+                        : "bg-white/10 text-white/60"
+                    }`}
                   >
                     {blog.published ? "Published" : "Draft"}
                   </span>
@@ -130,33 +129,27 @@ export default function AdminBlogs() {
                   {blog.tags?.slice(0, 4).map((t) => (
                     <span
                       key={t}
-                      className="text-xs px-2 py-0.5 rounded-full"
-                      style={{ background: "var(--bg-surface)", color: "var(--text-muted)", border: "1px solid var(--border)" }}
+                      className="text-xs px-2.5 py-0.5 rounded-full bg-[#1F2438] text-[#8E95B3]"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
               </div>
+
               <div className="flex items-center gap-2 flex-shrink-0">
                 <button
                   onClick={() => togglePublish(blog)}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 text-sm"
-                  style={{
-                    background: blog.published ? "rgba(74,222,128,0.08)" : "var(--bg-surface)",
-                    color: blog.published ? "#4ade80" : "var(--text-subtle)",
-                    border: `1px solid ${blog.published ? "rgba(74,222,128,0.2)" : "var(--border)"}`,
-                  }}
+                  className="w-9 h-9 rounded-xl flex items-center justify-center text-sm bg-white/5 text-[#8E95B3] hover:text-white hover:bg-white/10 transition shadow-sm cursor-pointer"
                   title={blog.published ? "Unpublish" : "Publish"}
                 >
-                  {blog.published ? <FaEye /> : <FaEyeSlash />}
+                  {blog.published ? <FaEye className="text-[#00DE51]" /> : <FaEyeSlash />}
                 </button>
                 {blog.published && (
                   <Link
                     href={`/blog/${blog.slug}`}
                     target="_blank"
-                    className="w-9 h-9 rounded-lg flex items-center justify-center text-sm"
-                    style={{ background: "var(--bg-surface)", color: "var(--text-muted)", border: "1px solid var(--border)" }}
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-sm bg-white/5 text-[#8E95B3] hover:text-white hover:bg-white/10 transition shadow-sm"
                     title="View Public Post"
                   >
                     <FaEye />
@@ -164,16 +157,14 @@ export default function AdminBlogs() {
                 )}
                 <Link
                   href={`/admin/blogs/${blog.id}/edit`}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 text-sm"
-                  style={{ background: "var(--accent-glow)", color: "var(--accent)", border: "1px solid var(--border-accent)" }}
+                  className="w-9 h-9 rounded-xl flex items-center justify-center text-sm bg-[#00DE51]/15 text-[#00DE51] hover:bg-[#00DE51]/25 transition shadow-sm"
                   title="Edit"
                 >
                   <FaEdit />
                 </Link>
                 <button
                   onClick={() => handleDelete(blog.id!, blog.title)}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 text-sm"
-                  style={{ background: "rgba(248,113,113,0.08)", color: "#f87171", border: "1px solid rgba(248,113,113,0.2)" }}
+                  className="w-9 h-9 rounded-xl flex items-center justify-center text-sm bg-red-500/10 text-red-400 hover:bg-red-500/20 transition shadow-sm cursor-pointer"
                   title="Delete"
                 >
                   <FaTrash />

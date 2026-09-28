@@ -1,6 +1,5 @@
 "use client";
 import {
-  SiReact,
   SiNextdotjs,
   SiNodedotjs,
   SiMongodb,
@@ -51,27 +50,27 @@ export default function TechStackSection() {
         See how my expertise with these <br className="d-none d-sm-block" /> technologies drives better results
       </h4>
 
-      <ul className="tech-list space-y-4">
+      <ul className="tech-list space-y-3 sm:space-y-4">
         {tools.map((t, idx) => (
           <li
             key={idx}
-            className="wg-tech p-6 rounded-3xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-xl shadow-2xl"
+            className="water-drop-card wg-tech rounded-2xl sm:rounded-3xl transition-all duration-300 w-full overflow-hidden"
           >
-            <div className="tech-infor flex items-center justify-between gap-4 mb-4">
-              <div className="flex items-center gap-4">
-                <div className="tech_image w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 shrink-0">
+            <div className="tech-infor flex items-center justify-between gap-2.5 sm:gap-4 mb-3 sm:mb-4">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                <div className="tech_image w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl sm:rounded-2xl bg-white/10 shrink-0">
                   {t.icon}
                 </div>
-                <div className="tech_info">
-                  <p className="info__name font-bold text-white text-base md:text-lg">{t.name}</p>
-                  <p className="info__duty text-white/60 text-xs md:text-sm mt-0.5">{t.duty}</p>
+                <div className="tech_info min-w-0 flex-1">
+                  <p className="info__name font-bold text-white text-xs sm:text-base md:text-lg truncate">{t.name}</p>
+                  <p className="info__duty text-white/60 text-[10.5px] sm:text-xs md:text-sm mt-0.5 truncate">{t.duty}</p>
                 </div>
               </div>
-              <span className="text-sm md:text-base font-mono text-[#00DE51] font-bold shrink-0">{t.progress}%</span>
+              <span className="text-xs sm:text-sm md:text-base font-mono text-[#00DE51] font-bold shrink-0">{t.progress}%</span>
             </div>
 
             {/* Glowing Active Progress Bar */}
-            <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden relative">
+            <div className="w-full bg-white/10 rounded-full h-2.5 sm:h-3 overflow-hidden relative">
               <div
                 className="h-full rounded-full transition-all duration-1000 ease-out"
                 style={{

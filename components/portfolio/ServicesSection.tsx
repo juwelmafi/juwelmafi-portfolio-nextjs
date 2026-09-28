@@ -50,19 +50,19 @@ export default function ServicesSection() {
           return (
             <div
               key={srv.id}
-              className="service-accordion_item rounded-3xl bg-white/[0.04] border border-white/10 hover:border-white/20 p-6 md:p-8 transition-all duration-300 backdrop-blur-xl shadow-2xl"
+              className="water-drop-card service-accordion_item rounded-3xl transition-all duration-300"
             >
               <button
                 type="button"
                 onClick={() => toggleAccordion(srv.id)}
-                className="accordion-action w-full text-start flex justify-between items-center cursor-pointer"
+                className="accordion-action w-full text-start flex justify-between items-center cursor-pointer gap-2"
                 aria-expanded={isOpen}
               >
-                <h4 className="text letter-space--2 text-white font-bold text-xl md:text-2xl">
+                <h4 className="text letter-space--2 text-white font-bold text-base sm:text-xl md:text-2xl min-w-0 flex-1 pr-2">
                   {srv.title}
                 </h4>
-                <div className="ic-wrap w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white shrink-0 ml-4">
-                  <span className="font-mono text-xl font-bold">{isOpen ? "−" : "+"}</span>
+                <div className="ic-wrap w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full bg-white/10 text-white shrink-0 ml-2">
+                  <span className="font-mono text-lg sm:text-xl font-bold">{isOpen ? "−" : "+"}</span>
                 </div>
               </button>
 
@@ -95,7 +95,7 @@ export default function ServicesSection() {
                     {srv.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="px-3.5 py-1.5 text-xs font-medium text-white/90 bg-white/10 rounded-full border border-white/10"
+                        className="px-3.5 py-1.5 text-xs font-medium text-white/90 bg-white/10 rounded-full"
                       >
                         {tag}
                       </span>

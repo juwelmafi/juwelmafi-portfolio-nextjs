@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, models, model } from "mongoose";
+import { Schema, Document, models, model } from "mongoose";
 
 export interface IBlog extends Document {
   title: string;
@@ -25,8 +25,7 @@ const BlogSchema = new Schema<IBlog>(
   { timestamps: true }
 );
 
-// Index for fast slug lookups
-BlogSchema.index({ slug: 1 });
+// Index for fast lookups
 BlogSchema.index({ published: 1, createdAt: -1 });
 
 export default models.Blog || model<IBlog>("Blog", BlogSchema);

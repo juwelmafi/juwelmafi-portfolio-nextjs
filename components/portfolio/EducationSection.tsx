@@ -2,18 +2,11 @@
 
 const timelineItems = [
   {
-    date: "2024 - Present",
+    date: "2026 - Present",
     logo: "/assets/images/logo/logo-3.svg",
     role: "Sonargaon University",
     sub: "B.Sc in Computer Science and Engineering (CSE)",
     desc: "Currently pursuing B.Sc in CSE, deepening knowledge in algorithms, software architecture, data structures, and advanced full-stack development.",
-  },
-  {
-    date: "2023 - 2024",
-    logo: "/assets/images/item/edu-2.svg",
-    role: "National University, Gazipur",
-    sub: "Department of Physics",
-    desc: "Engaged in foundational scientific problem solving, analytical modeling, and mathematical logic.",
   },
   {
     date: "2020 - 2022",
@@ -30,45 +23,59 @@ export default function EducationSection() {
       <div className="sect-tag text-caption fw-medium effectFade fadeUp no-div">
         <i className="icon icon-edu"></i>Education
       </div>
-      <h4 className="s-title letter-space--2 text-white split-text effect-blur-fade mb-10 font-bold text-2xl md:text-3xl">
+      <h4 className="s-title letter-space--2 text-white split-text effect-blur-fade mb-6 font-bold text-2xl md:text-3xl">
         Academic Qualifications &amp; Learning Journey
       </h4>
 
-      <div className="space-y-8">
+      <div className="space-y-3">
         {timelineItems.map((item, idx) => (
-          <div key={idx} className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
-            {/* Timeline Year Pill */}
-            <div className="sm:w-36 shrink-0 sm:pt-3">
-              <span className="inline-block px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-white/80 font-mono text-xs font-semibold">
-                {item.date}
-              </span>
-            </div>
-
-            {/* Generous Padding on Education Card */}
-            <div className="juwel-edu-card flex-1 w-full p-7 sm:p-9 pb-8 sm:pb-10 rounded-3xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-xl shadow-xl">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center p-2.5 shrink-0 border border-white/10 shadow-inner">
+          <div
+            key={idx}
+            className="water-drop-card juwel-edu-card w-full transition-all duration-300 group"
+          >
+            {/* Top Row: Responsive layout - stacks cleanly on small screens, side-by-side on tablet/desktop */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+              <div className="flex items-start gap-2.5 min-w-0 flex-1">
+                {/* <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center p-1.5 shrink-0 shadow-inner group-hover:scale-105 transition-transform mt-0.5">
                   <img
                     loading="lazy"
-                    width={32}
-                    height={32}
+                    width={18}
+                    height={18}
                     src={item.logo}
                     alt={item.role}
                     className="w-full h-full object-contain filter brightness-0 invert opacity-95"
                   />
-                </div>
-                <div>
-                  <h5 className="font-bold text-white text-lg sm:text-xl leading-snug">{item.role}</h5>
-                  <p className="text-[#00DE51] text-xs sm:text-sm font-semibold mt-0.5">{item.sub}</p>
+                </div> */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 sm:block">
+                    <h5 className="font-semibold text-white text-xs sm:text-[13px] leading-snug">
+                      {item.role}
+                    </h5>
+                    {/* Mobile Date Pill: sits inline or wraps cleanly without overlapping */}
+                    <span className="edu-date-pill inline-flex sm:hidden items-center px-2 py-0.5 rounded-full bg-white/10 text-white/80 font-mono text-[9px] font-medium border border-white/5 shadow-sm shrink-0 whitespace-nowrap">
+                      {item.date}
+                    </span>
+                  </div>
+                  <p className="text-[#00DE51] text-[10.5px] sm:text-[11.5px] font-medium mt-1">
+                    {item.sub}
+                  </p>
                 </div>
               </div>
-              <p className="text-white/80 text-sm sm:text-base leading-relaxed pl-0.5">
-                {item.desc}
-              </p>
+
+              {/* Desktop Date Pill cleanly anchored at top-right */}
+              <span className="edu-date-pill hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full bg-white/10 text-white/80 font-mono text-[10.5px] font-medium border border-white/5 shadow-sm shrink-0 whitespace-nowrap mt-0.5">
+                {item.date}
+              </span>
             </div>
+
+            {/* Description indented under the text */}
+            <p className="text-white/60 text-[11px] sm:text-xs leading-relaxed mt-2.5 pl-[38px] sm:pl-[42px]">
+              {item.desc}
+            </p>
           </div>
         ))}
       </div>
     </div>
   );
 }
+

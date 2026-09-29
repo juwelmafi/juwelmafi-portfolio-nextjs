@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
   providers: [
     Credentials({
       name: "credentials",
@@ -52,5 +53,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/login",
   },
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
 });

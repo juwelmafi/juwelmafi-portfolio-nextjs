@@ -415,6 +415,22 @@ html, body {
 
 .dark-mode .s-title { color: #ffffff !important; }
 .dark-mode .intro-title { color: #ffffff !important; }
+
+/* Ensure any non-badge span inside intro-title remains crisp white */
+.intro-title .hero-headline-text,
+.dark-mode .section-intro .intro-title span.hero-headline-text,
+.dark-mode .section-intro .intro-title span:not(.is-bg) {
+  color: #ffffff !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.dark-mode .section-intro .intro-title span:not(.is-bg):after {
+  display: none !important;
+}
+
 .dark-mode .sect-tag {
   background: rgba(255, 255, 255, 0.08) !important;
   color: #00DE51 !important;

@@ -72,16 +72,31 @@ export default function HeroIntro({ content: initialContent }: HeroIntroProps) {
             </span>
           );
         }
-        return <span key={i}>{part}</span>;
+        return (
+          <span
+            key={i}
+            className="hero-headline-text !text-white"
+            style={{ color: "#ffffff" }}
+          >
+            {part}
+          </span>
+        );
       });
     }
-    return text;
+    return (
+      <span className="hero-headline-text !text-white" style={{ color: "#ffffff" }}>
+        {text}
+      </span>
+    );
   };
 
   return (
     <div id="home" className="section-intro flat-spacing w-full">
       {/* Main Hero Headline */}
-      <h1 className="hero-main-title intro-title letter-space--2 text-white font-black">
+      <h1
+        className="hero-main-title intro-title letter-space--2 !text-white font-black"
+        style={{ color: "#ffffff" }}
+      >
         {renderHeadline(rawHeadline)}
       </h1>
 

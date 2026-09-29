@@ -11,6 +11,7 @@ export interface Project {
   details: string;
   challenge: string;
   goal: string;
+  category?: string;
   reverse: boolean;
   order: number;
   createdAt?: string;

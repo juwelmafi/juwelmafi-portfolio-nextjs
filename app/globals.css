@@ -623,28 +623,181 @@ button[type="submit"]:not([class*="p-"]):not([class*="px-"]):not([class*="py-"])
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 6px 14px !important;
+  padding: 8px 18px !important;
   border-radius: 9999px !important;
   margin: 3px !important;
   line-height: 1.2 !important;
   white-space: nowrap !important;
   box-sizing: border-box !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
+  border: none !important;
+  outline: none !important;
 }
 
-/* Technology pills inside project cards */
-.tech-pill,
-.juwel-project-card .tech-pill {
+/* ── Glass Drop Pill System ────────────────────────────────── */
+.glass-drop-pill {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  padding: 9px 20px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  white-space: nowrap !important;
+}
+
+.glass-drop-pill:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5) !important;
+}
+
+.glass-drop-pill.active {
+  background: #00DE51 !important;
+  color: #0A0A14 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 8px 25px rgba(0, 222, 81, 0.45) !important;
+  transform: translateY(-2px) scale(1.03) !important;
+}
+
+/* ── Glass Drop Search Bar ─────────────────────────────────── */
+.glass-drop-search {
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 20px !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.25s ease !important;
+  color: #FFFFFF !important;
+}
+
+.glass-drop-search:focus {
+  background: rgba(255, 255, 255, 0.07) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(0, 222, 81, 0.25), inset 0 1px 1.5px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ── Glass Drop Tag Pill ───────────────────────────────────── */
+.glass-drop-tag {
+  display: inline-flex !important;
+  align-items: center !important;
   padding: 4px 10px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 0.6875rem !important;
+  font-weight: 500 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ── Glass Drop Action Button ──────────────────────────────── */
+.glass-drop-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  padding: 8px 16px !important;
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #FFFFFF !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.2s ease !important;
+}
+
+.glass-drop-btn:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+.glass-drop-btn-primary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  padding: 8px 16px !important;
+  border-radius: 14px !important;
+  background: #00DE51 !important;
+  color: #0A0A14 !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 18px rgba(0, 222, 81, 0.35) !important;
+  transition: all 0.2s ease !important;
+}
+
+.glass-drop-btn-primary:hover {
+  background: #33FF77 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 24px rgba(0, 222, 81, 0.55) !important;
+  color: #0A0A14 !important;
+}
+
+/* ── Glass Drop Project Cards & System ──────────────────────── */
+.glass-drop-card,
+.juwel-project-card {
+  box-sizing: border-box !important;
+  background: #12121E !important;
+  border-radius: 24px !important;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08) !important;
+  border: none !important;
+  outline: none !important;
+  padding: 1.5rem !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease !important;
+}
+
+.glass-drop-card:hover,
+.juwel-project-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 22px 48px -6px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 222, 81, 0.12), inset 0 1px 2px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Technology pills inside project cards (Borderless Glass Drop) */
+.tech-pill,
+.juwel-project-card .tech-pill,
+.glass-drop-tag {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 5px 12px !important;
   border-radius: 9999px !important;
   margin: 2px !important;
   line-height: 1.2 !important;
-  font-size: 10px !important;
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  background-color: rgba(255, 255, 255, 0.07) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+.btn-proj-action {
+  border: none !important;
+  outline: none !important;
 }
 
 input[type="text"],

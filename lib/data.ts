@@ -26,6 +26,7 @@ function getDefaultProjects(): Project[] {
         details: String(p.details || ""),
         challenge: String(p.challenge || ""),
         goal: String(p.goal || ""),
+        category: p.category ? String(p.category) : undefined,
         reverse: Boolean(p.reverse),
         order: i,
       }));

@@ -12,6 +12,7 @@ export interface IProject extends Document {
   details: string;
   challenge: string;
   goal: string;
+  category?: string;
   reverse: boolean;
   order: number;
   createdAt: Date;
@@ -30,6 +31,7 @@ const ProjectSchema = new Schema<IProject>(
     details:    { type: String, default: "" },
     challenge:  { type: String, default: "" },
     goal:       { type: String, default: "" },
+    category:   { type: String, default: "" },
     reverse:    { type: Boolean, default: false },
     order:      { type: Number, default: 0 },
   },

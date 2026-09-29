@@ -104,7 +104,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="w-full max-w-[1520px] mx-auto dashboard-master-frame flex flex-col lg:flex-row min-h-0 lg:min-h-[880px] shadow-2xl relative bg-[#0F111D]">
         
         {/* Left Sidebar */}
-        <aside className="w-full lg:w-64 xl:w-72 flex-shrink-0 flex flex-col justify-between p-4 sm:p-5 lg:p-6 border-b lg:border-b-0 lg:border-r border-white/5">
+        <aside className="w-full lg:w-64 xl:w-72 flex-shrink-0 flex flex-col justify-between p-4 sm:p-5 lg:p-6 border-none">
           <div>
             {/* Brand Header */}
             <div className="flex items-center justify-between gap-3 mb-6 sm:mb-8">
@@ -199,7 +199,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
 
             {/* User Session & External Links */}
-            <div className="pt-2 border-t border-white/5 flex flex-col gap-2">
+            <div className="pt-2 flex flex-col gap-2">
               <div className="flex items-center justify-between px-1">
                 <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-7 h-7 rounded-full bg-[#00DE51]/15 text-[#00DE51] flex items-center justify-center text-xs font-bold">
@@ -248,7 +248,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {quickCreateOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4 animate-in fade-in duration-200">
           <div className="dashboard-content-card w-full max-w-md p-5 sm:p-6 relative bg-[#121422] border-none shadow-2xl">
-            <div className="flex items-center justify-between pb-3.5 border-b border-white/10 mb-4">
+            <div className="flex items-center justify-between pb-3.5 mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-[#00DE51]/20 text-[#00DE51] flex items-center justify-center text-base">
                   <FaPlus />
@@ -327,7 +327,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <FaArrowRight className="text-xs text-white/30 group-hover:text-[#00DE51] group-hover:translate-x-1 transition" />
               </Link>
 
-              <div className="pt-2 border-t border-white/10">
+              <div className="pt-2">
                 <button
                   onClick={handleQuickSeed}
                   disabled={seeding}

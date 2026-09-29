@@ -76,7 +76,7 @@ export default function NewProjectPage() {
 
   return (
     <div className="w-full max-w-3xl space-y-6">
-      <div className="flex items-center gap-4 pb-3 border-b border-white/5">
+      <div className="flex items-center gap-4 pb-3 border-none">
         <Link
           href="/admin/projects"
           className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/5 text-[#8E95B3] hover:text-white hover:bg-white/10 transition shadow-sm"
@@ -130,11 +130,10 @@ export default function NewProjectPage() {
                 key={tech}
                 type="button"
                 onClick={() => toggleTech(tech)}
-                className="text-xs px-3 py-1.5 rounded-full border transition-all duration-200"
+                className="text-xs px-3 py-1.5 rounded-full border-none shadow-sm transition-all duration-200"
                 style={{
-                  background: form.tech.includes(tech) ? "var(--accent)" : "var(--bg-elevated)",
+                  background: form.tech.includes(tech) ? "var(--accent)" : "rgba(255,255,255,0.06)",
                   color: form.tech.includes(tech) ? "#0A0A14" : "var(--text-muted)",
-                  borderColor: form.tech.includes(tech) ? "var(--accent)" : "var(--border)",
                   fontWeight: form.tech.includes(tech) ? 600 : 400,
                 }}
               >
@@ -272,7 +271,7 @@ export default function NewProjectPage() {
                 onChange={(e) => setForm({ ...form, reverse: e.target.checked })}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 rounded-full peer-checked:bg-[var(--accent)] bg-[var(--bg-elevated)] border border-[var(--border)] transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5" />
+              <div className="w-11 h-6 rounded-full peer-checked:bg-[var(--accent)] bg-[var(--bg-elevated)] border-none shadow-inner transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5" />
             </label>
             <span className="text-sm" style={{ color: "var(--text-muted)" }}>Reverse Layout</span>
           </div>

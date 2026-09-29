@@ -47,7 +47,7 @@ export default function AdminServices() {
 
   return (
     <div className="w-full space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/5 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 gap-3">
         <div>
           <h1 className="heading-font text-[26px] lg:text-[32px] font-bold text-white leading-tight">Services</h1>
           <p className="text-xs sm:text-sm mt-0.5 text-[#888899]">
@@ -78,14 +78,14 @@ export default function AdminServices() {
         <div className="glass-card overflow-hidden" style={{ padding: 0 }}>
           <table className="w-full text-left text-sm">
             <thead>
-              <tr style={{ borderBottom: "1px solid var(--border)", background: "rgba(255,255,255,0.02)" }}>
+              <tr style={{ background: "rgba(255,255,255,0.02)" }}>
                 <th className="p-4 font-semibold text-white">Service Title</th>
                 <th className="p-4 font-semibold text-white hidden md:table-cell">Key Tags</th>
                 <th className="p-4 font-semibold text-white text-center">Status</th>
                 <th className="p-4 font-semibold text-white text-end">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody>
               {services.map((service) => (
                 <tr key={service.id} className="hover:bg-white/[0.02] transition-colors">
                   <td className="p-4 font-medium text-white max-w-xs">

@@ -132,7 +132,7 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
     <form onSubmit={handleSubmit} className="space-y-8 max-w-5xl mx-auto">
       {/* Course Core Details Card */}
       <div className="glass-card p-6 sm:p-8 space-y-6">
-        <h2 className="heading-font text-xl font-bold text-white border-b border-white/10 pb-4">
+        <h2 className="heading-font text-xl font-bold text-white border-none pb-4">
           Course Information
         </h2>
 
@@ -235,7 +235,7 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
 
       {/* YouTube Lessons Builder Card */}
       <div className="glass-card p-6 sm:p-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+        <div className="flex items-center justify-between border-none pb-4">
           <div>
             <h2 className="heading-font text-xl font-bold text-white flex items-center gap-2">
               <FaYoutube className="text-red-500" /> YouTube Lessons &amp; Chapters ({lessons.length})
@@ -259,9 +259,9 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
             return (
               <div
                 key={idx}
-                className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-4 relative"
+                className="p-5 rounded-2xl bg-[#141624] border-none shadow-sm space-y-4 relative"
               >
-                <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                <div className="flex items-center justify-between pb-3 border-none">
                   <span className="text-xs font-mono font-bold text-[#00DE51] bg-[#00DE51]/10 px-2.5 py-0.5 rounded-full">
                     Lesson {idx + 1}
                   </span>
@@ -358,7 +358,7 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
         <button
           type="button"
           onClick={handleAddLesson}
-          className="w-full py-3.5 rounded-2xl border border-dashed border-white/20 hover:border-[#00DE51] text-white/70 hover:text-[#00DE51] text-xs font-mono font-semibold transition-all flex items-center justify-center gap-2"
+          className="w-full py-3.5 rounded-2xl border-none bg-[#141624] hover:bg-[#1a1d30] shadow-sm text-white/70 hover:text-[#00DE51] text-xs font-mono font-semibold transition-all flex items-center justify-center gap-2"
         >
           <FaPlus /> Add Another Lesson
         </button>

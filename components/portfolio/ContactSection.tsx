@@ -68,8 +68,8 @@ export default function ContactSection() {
 
       {/* Quick Contact Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-[1.1fr_1.15fr_1.5fr] gap-2 sm:gap-2.5 mb-8">
-        <div className="water-drop-card contact-info-card rounded-2xl transition-all flex items-center gap-2 overflow-hidden">
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+        <div className="water-drop-card contact-info-card rounded-2xl transition-all flex items-center gap-2 overflow-hidden border-none">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0 border-none">
             <FaMapMarkerAlt className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#00DE51]" />
           </div>
           <div className="min-w-0 flex-1">
@@ -78,8 +78,8 @@ export default function ContactSection() {
           </div>
         </div>
 
-        <div className="water-drop-card contact-info-card rounded-2xl transition-all flex items-center gap-2 overflow-hidden">
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+        <div className="water-drop-card contact-info-card rounded-2xl transition-all flex items-center gap-2 overflow-hidden border-none">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0 border-none">
             <FaPhoneAlt className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#00DE51]" />
           </div>
           <div className="min-w-0 flex-1">
@@ -95,8 +95,8 @@ export default function ContactSection() {
           </div>
         </div>
 
-        <div className="water-drop-card contact-info-card rounded-2xl transition-all flex items-center gap-2 overflow-hidden">
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+        <div className="water-drop-card contact-info-card rounded-2xl transition-all flex items-center gap-2 overflow-hidden border-none">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0 border-none">
             <FaEnvelope className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#00DE51]" />
           </div>
           <div className="min-w-0 flex-1">
@@ -114,12 +114,12 @@ export default function ContactSection() {
 
       {/* Main Contact Form Card */}
       <form
-        className="water-drop-card form-contact rounded-3xl transition-all"
+        className="water-drop-card form-contact rounded-3xl transition-all border-none"
         id="contactform"
         onSubmit={handleSubmit}
       >
         <div className="form-content space-y-5 mb-6">
-          <fieldset className="field-ip">
+          <fieldset className="field-ip border-none p-0 m-0">
             <input
               type="text"
               id="name"
@@ -128,10 +128,10 @@ export default function ContactSection() {
               name="name"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full p-4 rounded-xl bg-white/5 text-white placeholder-white/40 focus:ring-1 focus:ring-[#00DE51]/40 outline-none transition-colors text-sm shadow-inner"
+              className="w-full p-4 rounded-xl bg-white/5 text-white placeholder-white/40 focus:ring-1 focus:ring-[#00DE51]/40 border-none outline-none transition-colors text-sm shadow-inner"
             />
           </fieldset>
-          <fieldset className="field-ip">
+          <fieldset className="field-ip border-none p-0 m-0">
             <input
               type="email"
               id="email"
@@ -140,10 +140,10 @@ export default function ContactSection() {
               name="email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full p-4 rounded-xl bg-white/5 text-white placeholder-white/40 focus:ring-1 focus:ring-[#00DE51]/40 outline-none transition-colors text-sm shadow-inner"
+              className="w-full p-4 rounded-xl bg-white/5 text-white placeholder-white/40 focus:ring-1 focus:ring-[#00DE51]/40 border-none outline-none transition-colors text-sm shadow-inner"
             />
           </fieldset>
-          <fieldset className="field-ip">
+          <fieldset className="field-ip border-none p-0 m-0">
             <textarea
               id="message"
               placeholder="Project Description or Inquiry *"
@@ -152,12 +152,12 @@ export default function ContactSection() {
               rows={4}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full p-4 rounded-xl bg-white/5 text-white placeholder-white/40 focus:ring-1 focus:ring-[#00DE51]/40 outline-none transition-colors resize-none text-sm shadow-inner"
+              className="w-full p-4 rounded-xl bg-white/5 text-white placeholder-white/40 focus:ring-1 focus:ring-[#00DE51]/40 border-none outline-none transition-colors resize-none text-sm shadow-inner"
             />
           </fieldset>
         </div>
 
-        <div className="form-action flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10">
+        <div className="form-action flex flex-wrap items-center justify-between gap-4 pt-4">
           <button
             type="submit"
             disabled={sending}

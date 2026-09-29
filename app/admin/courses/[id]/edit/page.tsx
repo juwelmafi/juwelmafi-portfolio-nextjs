@@ -53,7 +53,7 @@ export default function EditCoursePage() {
 
   return (
     <div className="w-full max-w-5xl space-y-6">
-      <div className="flex items-center gap-4 pb-3 border-b border-white/5">
+      <div className="flex items-center gap-4 pb-3">
         <Link
           href="/admin/courses"
           className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/5 text-[#8E95B3] hover:text-white hover:bg-white/10 transition shadow-sm"

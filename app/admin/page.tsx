@@ -415,12 +415,12 @@ export default function AdminDashboard() {
             <div className="ml-8 h-full flex flex-col justify-between relative">
               {/* Subtle Horizontal Grid Lines */}
               <div className="absolute inset-0 bottom-6 flex flex-col justify-between pointer-events-none">
-                <div className="w-full border-b border-white/[0.04]" />
-                <div className="w-full border-b border-white/[0.04]" />
-                <div className="w-full border-b border-white/[0.04]" />
-                <div className="w-full border-b border-white/[0.04]" />
-                <div className="w-full border-b border-white/[0.04]" />
-                <div className="w-full border-b border-white/[0.04]" />
+                <div className="w-full h-[1px] bg-white/[0.03]" />
+                <div className="w-full h-[1px] bg-white/[0.03]" />
+                <div className="w-full h-[1px] bg-white/[0.03]" />
+                <div className="w-full h-[1px] bg-white/[0.03]" />
+                <div className="w-full h-[1px] bg-white/[0.03]" />
+                <div className="w-full h-[1px] bg-white/[0.03]" />
               </div>
 
               {/* Multi-Wave SVG (Emerald Green Glow) */}
@@ -520,7 +520,7 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between mt-1.5 pt-1.5 border-t border-white/[0.04] text-[10px] text-[#888899]">
+                  <div className="flex items-center justify-between mt-1.5 pt-1.5 text-[10px] text-[#888899]">
                     <span className="flex items-center gap-1 font-medium">
                       <FaCalendarAlt className="text-[9px] text-[#00DE51]" /> {note.date}
                     </span>
@@ -534,7 +534,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Quick Seed / Refresh Action at bottom of Notes */}
-          <div className="pt-2.5 mt-2 border-t border-white/5 flex items-center justify-between">
+          <div className="pt-2.5 mt-2 flex items-center justify-between">
             <button
               onClick={handleSeed}
               disabled={seeding}

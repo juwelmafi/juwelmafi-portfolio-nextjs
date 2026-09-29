@@ -10,7 +10,7 @@ export default function AdminProfile() {
   return (
     <div className="w-full space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/5 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 gap-3">
         <div>
           <h1 className="heading-font text-[26px] lg:text-[32px] font-bold text-white leading-tight">Profile &amp; Settings</h1>
           <p className="text-xs sm:text-sm mt-0.5 text-[#888899]">
@@ -45,7 +45,7 @@ export default function AdminProfile() {
             <span className="w-2 h-2 rounded-full bg-[#00DE51] animate-pulse" /> Super Admin
           </span>
 
-          <div className="w-full border-t border-white/5 mt-6 pt-4 space-y-3 text-left text-xs">
+          <div className="w-full mt-6 pt-4 space-y-3 text-left text-xs">
             <div className="flex items-center justify-between text-[#8E95B3]">
               <span className="flex items-center gap-2"><FaEnvelope className="text-[#00DE51]" /> Email</span>
               <span className="text-white font-mono truncate max-w-[160px]">{session?.user?.email || "juwelhossain16457@gmail.com"}</span>

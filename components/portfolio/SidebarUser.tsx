@@ -103,26 +103,25 @@ export default function SidebarUser() {
           <p className="introduce text-white/70 letter-space--05 text-body-3 leading-relaxed mt-2">
             Passionate MERN &amp; Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.
           </p>
-          <div className="br-line my-4 border-t border-white/10"></div>
-          <div className="action-group flex items-center gap-4">
-            <a href="#contact" className="tf-btn-action">
-              <span className="ic-wrap">
-                <i className="icon icon-arrow-right-top"></i>
+          <div className="br-line my-3 sm:my-4 border-t border-white/10"></div>
+          <div className="action-group flex items-center gap-3 sm:gap-4 flex-wrap">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2 rounded-full bg-[#00DE51] hover:bg-[#33FF77] !text-[#0A0A14] font-extrabold text-[11.5px] sm:text-xs shadow-md shadow-[#00DE51]/25 transition-all hover:scale-105 active:scale-95 group shrink-0"
+              style={{ textDecoration: "none", border: "none" }}
+            >
+              <span className="w-4 h-4 rounded-full bg-black/15 flex items-center justify-center shrink-0 transition-transform group-hover:rotate-45">
+                <i className="icon icon-arrow-right-top text-[8.5px] text-black font-bold"></i>
               </span>
-              <span className="text text-body-3 letter-space--05 fw-medium">
-                Let’s talk
-              </span>
-              <span className="ic-wrap">
-                <i className="icon icon-arrow-right-top"></i>
-              </span>
+              <span className="!text-[#0A0A14] font-extrabold whitespace-nowrap">Let’s talk</span>
             </a>
             <a
               href="https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="action-down text-white hover:text-[#00DE51] transition-colors flex items-center gap-2 text-xs font-semibold"
+              className="action-down text-white/80 hover:text-[#00DE51] transition-colors inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap py-1"
             >
-              <i className="icon icon-download"></i>
+              <i className="icon icon-download text-xs"></i>
               <span>Download CV</span>
             </a>
           </div>

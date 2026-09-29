@@ -106,7 +106,7 @@ export default function NewServicePage() {
 
   return (
     <div className="w-full max-w-4xl space-y-6">
-      <div className="flex items-center gap-4 pb-3 border-b border-white/5">
+      <div className="flex items-center gap-4 pb-3 border-none">
         <Link
           href="/admin/services"
           className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/5 text-[#8E95B3] hover:text-white hover:bg-white/10 transition shadow-sm"
@@ -135,7 +135,7 @@ export default function NewServicePage() {
               placeholder="e.g. Full-Stack Web Development"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
-              className="w-full bg-[#12121e] text-white text-sm px-4 py-3 rounded-xl border border-white/10 focus:border-[#00DE51] outline-none transition-colors"
+              className="w-full bg-[#12121e] text-white text-sm px-4 py-3 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none transition-colors"
             />
           </div>
 
@@ -149,7 +149,7 @@ export default function NewServicePage() {
               placeholder="Detailed description of what this service delivers..."
               value={form.desc}
               onChange={(e) => setForm({ ...form, desc: e.target.value })}
-              className="w-full bg-[#12121e] text-white text-sm p-4 rounded-xl border border-white/10 focus:border-[#00DE51] outline-none transition-colors resize-none"
+              className="w-full bg-[#12121e] text-white text-sm p-4 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none transition-colors resize-none"
             />
           </div>
         </div>
@@ -169,7 +169,7 @@ export default function NewServicePage() {
                   addFeature();
                 }
               }}
-              className="flex-1 bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border border-white/10 focus:border-[#00DE51] outline-none"
+              className="flex-1 bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none"
             />
             <button
               type="button"
@@ -183,7 +183,7 @@ export default function NewServicePage() {
           {form.features.length > 0 && (
             <div className="space-y-2 pt-2">
               {form.features.map((feat, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-white">
+                <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/5 border-none text-xs text-white shadow-sm">
                   <span>{feat}</span>
                   <button
                     type="button"
@@ -211,8 +211,8 @@ export default function NewServicePage() {
                   onClick={() => toggleTag(tag)}
                   className={`text-xs px-3 py-1.5 rounded-full transition-all cursor-pointer ${
                     active
-                      ? "bg-[#00DE51] text-black font-bold shadow-md shadow-[#00DE51]/20"
-                      : "bg-white/5 text-white/70 hover:bg-white/10 border border-white/10"
+                      ? "bg-[#00DE51] text-black font-bold shadow-md shadow-[#00DE51]/20 border-none"
+                      : "bg-[#181a2e] text-white/70 hover:bg-[#20233b] border-none shadow-sm"
                   }`}
                 >
                   {tag}
@@ -235,7 +235,7 @@ export default function NewServicePage() {
                 placeholder="/assets/images/section/service-1.jpg"
                 value={form.img1}
                 onChange={(e) => setForm({ ...form, img1: e.target.value })}
-                className="w-full bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border border-white/10 focus:border-[#00DE51] outline-none"
+                className="w-full bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none"
               />
             </div>
             <div>
@@ -247,7 +247,7 @@ export default function NewServicePage() {
                 placeholder="/assets/images/section/service-2.jpg"
                 value={form.img2}
                 onChange={(e) => setForm({ ...form, img2: e.target.value })}
-                className="w-full bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border border-white/10 focus:border-[#00DE51] outline-none"
+                className="w-full bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none"
               />
             </div>
           </div>
@@ -261,7 +261,7 @@ export default function NewServicePage() {
                 type="number"
                 value={form.order}
                 onChange={(e) => setForm({ ...form, order: Number(e.target.value) })}
-                className="w-full bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border border-white/10 focus:border-[#00DE51] outline-none"
+                className="w-full bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none"
               />
             </div>
             <div className="flex items-center gap-3 pt-6">

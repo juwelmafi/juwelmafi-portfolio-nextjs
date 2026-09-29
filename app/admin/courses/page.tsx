@@ -59,7 +59,7 @@ export default function AdminCoursesPage() {
 
   return (
     <div className="w-full space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/5 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 gap-3">
         <div>
           <h1 className="heading-font text-[26px] lg:text-[32px] font-bold text-white flex items-center gap-3 leading-tight">
             <FaGraduationCap className="text-[#00DE51]" /> Video Courses &amp; Tutorials

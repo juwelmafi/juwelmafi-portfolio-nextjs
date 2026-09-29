@@ -19,7 +19,7 @@ export default function HomePage() {
         <div className="main-content">
           <div className="container">
             <div className="row">
-              <div className="col-lg-8 col-xl-9 ms-auto">
+              <div className="col-lg-8 col-xl-9 ml-auto ms-auto">
                 <div className="wrap-container min-h-[calc(100vh-6rem)] flex flex-col justify-center">
                   <HeroIntro />
                 </div>

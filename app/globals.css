@@ -59,6 +59,129 @@ html, body {
   margin-right: 0 !important;
 }
 
+/* ── Auto Margin Utility Tokens (Restored for Grid Alignment) ── */
+.ms-auto, .ml-auto {
+  margin-left: auto !important;
+}
+.me-auto, .mr-auto {
+  margin-right: auto !important;
+}
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.my-auto {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+.m-auto {
+  margin: auto !important;
+}
+
+/* ── Landing Page Dedicated Responsive Layout ─────────────────── */
+
+/* Desktop (>= 992px): Right column must clear the fixed sidebar cleanly */
+@media (min-width: 992px) {
+  .main-content {
+    pointer-events: none !important;
+  }
+  .main-content .wrap-container {
+    pointer-events: all !important;
+  }
+  .main-content .row {
+    display: flex !important;
+    justify-content: flex-end !important;
+    width: 100% !important;
+  }
+  .main-content .row > .col-lg-8,
+  .main-content .row > .col-xl-9,
+  .main-content .row > .col-xl-8,
+  .main-content .row > [class*="col-"] {
+    width: calc(100% - 430px) !important;
+    max-width: calc(100% - 430px) !important;
+    margin-left: auto !important;
+    flex: 0 0 calc(100% - 430px) !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .main-content .row > .col-lg-8,
+  .main-content .row > .col-xl-9,
+  .main-content .row > .col-xl-8,
+  .main-content .row > [class*="col-"] {
+    width: calc(100% - 530px) !important;
+    max-width: calc(100% - 530px) !important;
+    margin-left: auto !important;
+    flex: 0 0 calc(100% - 530px) !important;
+  }
+}
+
+@media (min-width: 1600px) {
+  .main-content .row > .col-lg-8,
+  .main-content .row > .col-xl-9,
+  .main-content .row > .col-xl-8,
+  .main-content .row > [class*="col-"] {
+    width: calc(100% - 580px) !important;
+    max-width: calc(100% - 580px) !important;
+    margin-left: auto !important;
+    flex: 0 0 calc(100% - 580px) !important;
+  }
+}
+
+/* Mobile & Tablet (<= 991px): Clean stacking with right clearance */
+@media (max-width: 991px) {
+  #wrapper {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  .sidebar-user {
+    position: relative !important;
+    width: calc(100vw - 64px) !important;
+    max-width: 410px !important;
+    margin: 16px auto 24px auto !important;
+    padding: 0 !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    z-index: 10 !important;
+  }
+  .sidebar-user .wrap {
+    width: 100% !important;
+    max-height: 82vh !important;
+    margin: 0 auto !important;
+    border-radius: 28px !important;
+    overflow: hidden !important;
+  }
+  .main-content {
+    pointer-events: all !important;
+    width: 100% !important;
+    padding-top: 1rem !important;
+    padding-bottom: 5rem !important;
+  }
+  .main-content .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .main-content .row {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .main-content .row > [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .main-content .wrap-container {
+    width: 100% !important;
+    padding-left: 1.25rem !important;
+    padding-right: 3.5rem !important; /* ensures text and counters never collide with floating right navigation */
+  }
+}
+
+
 /* ── Modern Responsive Container & Section Padding System ── */
 
 /* Wrap Container: Consistent side gutters across all devices */

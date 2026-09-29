@@ -48,19 +48,6 @@ export default function SidebarUser() {
           </div>
         </div>
 
-        {/* User Logo */}
-        <div className="user-logo d-none d-lg-block">
-          <img
-            className="image-switch"
-            data-light="/assets/images/logo/logo.svg"
-            data-dark="/assets/images/logo/logo-2.svg"
-            loading="lazy"
-            width={40}
-            height={40}
-            src="/assets/images/logo/logo-2.svg"
-            alt="Logo"
-          />
-        </div>
 
         {/* Social Icons */}
         <ul className="tf-social-icon-2 user-social d-grid">

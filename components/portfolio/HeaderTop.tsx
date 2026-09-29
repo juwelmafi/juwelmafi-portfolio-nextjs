@@ -30,18 +30,6 @@ export default function HeaderTop() {
 
   return (
     <div className="tf-header-wrap">
-      <Link href="/" className="logo-site d-lg-none">
-        <img
-          className="image-switch"
-          data-light="/assets/images/logo/logo.svg"
-          data-dark="/assets/images/logo/logo-2.svg"
-          loading="lazy"
-          width={40}
-          height={40}
-          src="/assets/images/logo/logo-2.svg"
-          alt="Logo"
-        />
-      </Link>
       <div className="left">
         <div className="time-local text-body-3">
           <p className="date">{dateTime.date}</p>

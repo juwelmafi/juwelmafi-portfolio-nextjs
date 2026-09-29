@@ -41,7 +41,7 @@ const emptyEntry = (pageKey: string, pageLabel: string): SeoEntry => ({
   canonicalUrl: "",
 });
 
-// Pre-filled with the CURRENT live website metadata from code
+// Pre-filled with the EXACT live website metadata from code
 const DEFAULT_SEO_DATA: Record<string, Omit<SeoEntry, "id">> = {
   home: {
     pageKey: "home", pageLabel: "Home Page",
@@ -56,57 +56,69 @@ const DEFAULT_SEO_DATA: Record<string, Omit<SeoEntry, "id">> = {
   },
   projects: {
     pageKey: "projects", pageLabel: "Projects Page",
-    metaTitle: "Projects — Juwel Hossain",
-    metaDescription: "Explore live MERN stack and Next.js projects built by Juwel Hossain.",
-    ogTitle: "Projects — Juwel Hossain",
-    ogDescription: "Live MERN stack and Next.js web development projects.",
-    ogImage: "", twitterTitle: "", twitterDescription: "",
+    metaTitle: "Projects & Works — Juwel Hossain",
+    metaDescription: "Explore full-stack web applications, scalable platforms, open-source repositories, and client deployments by Juwel Hossain.",
+    ogTitle: "Projects & Works — Juwel Hossain",
+    ogDescription: "Production web platforms, real-world full-stack architectures, and open-source applications built with Next.js, React, Node.js, and MongoDB Atlas.",
+    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
+    twitterTitle: "Projects & Works — Juwel Hossain",
+    twitterDescription: "Explore full-stack web applications, scalable platforms, open-source repositories, and client deployments by Juwel Hossain.",
     canonicalUrl: "https://juwelmafi.vercel.app/projects",
   },
   blog: {
     pageKey: "blog", pageLabel: "Blog Page",
-    metaTitle: "Blog — Juwel Hossain",
-    metaDescription: "Articles and thoughts on web development, MERN stack, and self-growth.",
-    ogTitle: "Blog — Juwel Hossain",
-    ogDescription: "Articles and thoughts on web development, MERN stack, and self-growth.",
-    ogImage: "", twitterTitle: "", twitterDescription: "",
+    metaTitle: "Blog & Knowledge Base — Juwel Hossain",
+    metaDescription: "Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.",
+    ogTitle: "Blog & Knowledge Base — Juwel Hossain",
+    ogDescription: "Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.",
+    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
+    twitterTitle: "Blog & Knowledge Base — Juwel Hossain",
+    twitterDescription: "Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.",
     canonicalUrl: "https://juwelmafi.vercel.app/blog",
   },
   services: {
     pageKey: "services", pageLabel: "Services Page",
-    metaTitle: "Services — Juwel Hossain",
-    metaDescription: "Professional web development services: Full-Stack, Frontend, and Cloud deployment.",
-    ogTitle: "Services — Juwel Hossain",
-    ogDescription: "Full-Stack web development services by Juwel Hossain.",
-    ogImage: "", twitterTitle: "", twitterDescription: "",
+    metaTitle: "Services & Solutions — Juwel Hossain",
+    metaDescription: "Explore professional full-stack web development, MERN & Next.js engineering, UI/UX design, and cloud database architecture services by Juwel Hossain.",
+    ogTitle: "Services & Solutions — Juwel Hossain",
+    ogDescription: "High-converting web applications, resilient Next.js architectures, fluid UI/UX systems, and cloud infrastructure built for long-term scalability.",
+    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
+    twitterTitle: "Services & Solutions — Juwel Hossain",
+    twitterDescription: "Explore professional full-stack web development, MERN & Next.js engineering, UI/UX design, and cloud database architecture services by Juwel Hossain.",
     canonicalUrl: "https://juwelmafi.vercel.app/services",
   },
   contact: {
     pageKey: "contact", pageLabel: "Contact Page",
-    metaTitle: "Contact — Juwel Hossain",
-    metaDescription: "Get in touch with Juwel Hossain for freelance projects, collaborations, or any questions.",
-    ogTitle: "Contact — Juwel Hossain",
-    ogDescription: "Get in touch with Juwel Hossain.",
-    ogImage: "", twitterTitle: "", twitterDescription: "",
+    metaTitle: "Contact & Inquiries — Juwel Hossain",
+    metaDescription: "Get in touch with Juwel Hossain for full-stack web development collaborations, freelance projects, technical consulting, and inquiries.",
+    ogTitle: "Contact & Inquiries — Juwel Hossain",
+    ogDescription: "Let's build something memorable together. Drop a message for project collaborations, technical consulting, or freelance opportunities.",
+    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
+    twitterTitle: "Contact & Inquiries — Juwel Hossain",
+    twitterDescription: "Get in touch with Juwel Hossain for full-stack web development collaborations, freelance projects, technical consulting, and inquiries.",
     canonicalUrl: "https://juwelmafi.vercel.app/contact",
   },
   courses: {
     pageKey: "courses", pageLabel: "Courses Page",
     metaTitle: "Courses — Juwel Hossain",
-    metaDescription: "Video courses and tutorials on MERN Stack, Next.js, and modern web development.",
-    ogTitle: "Courses — Juwel Hossain",
-    ogDescription: "Video courses and tutorials on MERN Stack and Next.js.",
-    ogImage: "", twitterTitle: "", twitterDescription: "",
+    metaDescription: "Free web development courses and tutorials on Next.js, React, MERN stack, and more.",
+    ogTitle: "Courses & Tutorials — Juwel Hossain",
+    ogDescription: "Practical web development courses — Next.js, MERN stack, React, and beyond. All free.",
+    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
+    twitterTitle: "Courses — Juwel Hossain",
+    twitterDescription: "Free web development courses and tutorials on Next.js, React, MERN stack, and more.",
     canonicalUrl: "https://juwelmafi.vercel.app/courses",
   },
   about: {
     pageKey: "about", pageLabel: "About Page",
-    metaTitle: "About — Juwel Hossain",
-    metaDescription: "Learn more about Juwel Hossain — Full-Stack Developer from Bangladesh.",
-    ogTitle: "About — Juwel Hossain",
-    ogDescription: "Full-Stack Developer from Madaripur, Bangladesh.",
-    ogImage: "", twitterTitle: "", twitterDescription: "",
-    canonicalUrl: "https://juwelmafi.vercel.app/about",
+    metaTitle: "About Me — Juwel Hossain",
+    metaDescription: "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.",
+    ogTitle: "About Me — Juwel Hossain",
+    ogDescription: "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.",
+    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
+    twitterTitle: "About Me — Juwel Hossain",
+    twitterDescription: "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.",
+    canonicalUrl: "https://juwelmafi.vercel.app/#about",
   },
 };
 
@@ -135,9 +147,27 @@ export default function AdminSeoPage() {
   useEffect(() => { load(); }, [load]);
 
   const getEntry = (pageKey: string): SeoEntry => {
-    const page = PAGES.find((p) => p.key === pageKey)!;
-    // DB data takes priority; if not yet saved, show the current live defaults
-    return seoData[pageKey] ?? (DEFAULT_SEO_DATA[pageKey] as SeoEntry) ?? emptyEntry(pageKey, page.label);
+    const page = PAGES.find((p) => p.key === pageKey) || { key: pageKey, label: pageKey };
+    const saved = seoData[pageKey];
+    const def = DEFAULT_SEO_DATA[pageKey] || emptyEntry(pageKey, page.label);
+
+    if (!saved) {
+      return { ...emptyEntry(pageKey, page.label), ...def };
+    }
+
+    return {
+      ...emptyEntry(pageKey, page.label),
+      ...def,
+      ...saved,
+      metaTitle: saved.metaTitle || def.metaTitle || "",
+      metaDescription: saved.metaDescription || def.metaDescription || "",
+      ogTitle: saved.ogTitle || def.ogTitle || "",
+      ogDescription: saved.ogDescription || def.ogDescription || "",
+      ogImage: saved.ogImage || def.ogImage || "",
+      twitterTitle: saved.twitterTitle || def.twitterTitle || "",
+      twitterDescription: saved.twitterDescription || def.twitterDescription || "",
+      canonicalUrl: saved.canonicalUrl || def.canonicalUrl || "",
+    };
   };
 
   const setField = (field: keyof SeoEntry, value: string) => {

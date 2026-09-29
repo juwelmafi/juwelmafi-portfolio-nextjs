@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import {
   FaSave, FaGlobe, FaUser, FaShareAlt, FaLink, FaImage, FaEdit
 } from "react-icons/fa";
-import { MdTextFields } from "react-icons/md";
+import { MdTextFields, MdOutlineTitle } from "react-icons/md";
 import Swal from "sweetalert2";
 
 interface ContentItem {
@@ -15,37 +15,62 @@ interface ContentItem {
   group: string;
 }
 
-// Default content structure — pre-filled with CURRENT live website values
+// Default content — EXACT values currently showing on the live website
 const DEFAULT_CONTENT: Omit<ContentItem, "id">[] = [
   // Hero
-  { key: "hero.name",      label: "Your Name",                  value: "Juwel Hossain",                                                                                              type: "text",     group: "Hero" },
-  { key: "hero.title",     label: "Hero Title / Role",          value: "Self Learner & Full-Stack Developer",                                                                         type: "text",     group: "Hero" },
-  { key: "hero.tagline",   label: "Hero Bio (below name)",      value: "Coding is my passion. I enjoy building beautiful, accessible, and scalable web experiences — one component at a time.", type: "textarea", group: "Hero" },
-  { key: "hero.badge",     label: "Hero Badge Text",            value: "Available for Work",                                                                                          type: "text",     group: "Hero" },
-  { key: "hero.cta",       label: "CTA Button Text",            value: "Let's Talk",                                                                                                 type: "text",     group: "Hero" },
-  { key: "hero.resumeUrl", label: "Resume / CV Download URL",   value: "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing",                       type: "url",      group: "Hero" },
-  { key: "hero.avatar",    label: "Avatar / Profile Image URL", value: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",                                                              type: "image",    group: "Hero" },
-  // About
-  { key: "about.bio",       label: "About Bio",          value: "Coding is my passion. I enjoy building beautiful, accessible, and scalable web experiences — one component at a time.", type: "textarea", group: "About" },
-  { key: "about.location",  label: "Location",           value: "Madaripur, Bangladesh",          type: "text", group: "About" },
-  { key: "about.email",     label: "Contact Email",      value: "juwelhossain16457@gmail.com",    type: "text", group: "About" },
-  { key: "about.phone",     label: "Phone / WhatsApp",   value: "+880 01859797307",               type: "text", group: "About" },
+  { key: "hero.name",             label: "Your Name",                         value: "Juwel Hossain",                                                                                              type: "text",     group: "Hero" },
+  { key: "hero.headline",         label: "Hero Main Headline (Big Text)",     value: "I’m building websites & platforms that people remember",                                                       type: "textarea", group: "Hero" },
+  { key: "hero.greeting",         label: "Sidebar Animated Roles / Greeting", value: "Hey, I’m Juwel / Full-Stack Dev / MERN Specialist",                                                           type: "text",     group: "Hero" },
+  { key: "hero.tagline",          label: "Sidebar Bio (Short Description)",   value: "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.", type: "textarea", group: "Hero" },
+  { key: "hero.badge",            label: "Availability Status Badge",         value: "Available for Work",                                                                                          type: "text",     group: "Hero" },
+  { key: "hero.cta",              label: "CTA Button Text",                   value: "Let’s talk",                                                                                                 type: "text",     group: "Hero" },
+  { key: "hero.resumeUrl",        label: "Resume / CV Download URL",          value: "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing",                       type: "url",      group: "Hero" },
+  { key: "hero.avatar",           label: "Profile Photo URL (Sidebar Image)", value: "/assets/images/avatar/avatar.png",                                                                           type: "image",    group: "Hero" },
+  { key: "hero.statExp",          label: "Experience Counter Stat",           value: "3+ Years of experience",                                                                                     type: "text",     group: "Hero" },
+  { key: "hero.statProjects",     label: "Projects Delivered Stat",           value: "20+ Projects Delivered",                                                                                     type: "text",     group: "Hero" },
+  { key: "hero.techMarqueeTitle", label: "Tech Marquee Section Title",        value: "Tools & Technologies I Use",                                                                                 type: "text",     group: "Hero" },
+
+  // About Me
+  { key: "about.tag",             label: "About Section Badge / Tag",         value: "About Me",                                                                                                   type: "text",     group: "About" },
+  { key: "about.title",           label: "About Section Main Heading",        value: "Passionate MERN Stack Developer crafting scalable web applications with clean architecture & speed",         type: "textarea", group: "About" },
+  { key: "about.bio",             label: "About Description (Main Bio)",      value: "I’m a passionate MERN Stack Developer based in Bangladesh with a strong focus on frontend and full-stack solutions. I enjoy crafting interactive, accessible, and scalable web applications. I’m currently studying Computer Science & Engineering (CSE) at Sonargaon University, channeling my deep love for coding into building modern web experiences that solve real-world problems. Beyond writing clean code, I believe in focused learning, self-discipline, and improving 1% every day. I also create self-development and tech content on YouTube (@juwelmafi) to help aspiring learners grow with structure.", type: "textarea", group: "About" },
+  { key: "about.location",        label: "Location",                          value: "Madaripur, Bangladesh",                                                                                      type: "text",     group: "About" },
+  { key: "about.email",           label: "Contact Email",                     value: "juwelhossain16457@gmail.com",                                                                                type: "text",     group: "About" },
+  { key: "about.phone",           label: "Phone / WhatsApp",                  value: "+880 1859-797307",                                                                                           type: "text",     group: "About" },
+
+  // Page Headers
+  { key: "projects.headerTitle",  label: "Projects Page Main Title",          value: "Projects & Deployments",                                                                                     type: "text",     group: "Page Headers" },
+  { key: "projects.headerDesc",   label: "Projects Page Description",         value: "Production web platforms, real-world full-stack architectures, and open-source applications built with Next.js, React, Node.js, and MongoDB Atlas.", type: "textarea", group: "Page Headers" },
+  { key: "blog.headerTitle",      label: "Blog Page Main Title",              value: "Blog & Knowledge Base",                                                                                      type: "text",     group: "Page Headers" },
+  { key: "blog.headerDesc",       label: "Blog Page Description",             value: "Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.", type: "textarea", group: "Page Headers" },
+  { key: "services.headerTitle",  label: "Services Page Main Title",          value: "Engineering & Design Services",                                                                              type: "text",     group: "Page Headers" },
+  { key: "services.headerDesc",   label: "Services Page Description",         value: "High-converting web applications, resilient Next.js architectures, fluid UI/UX systems, and cloud infrastructure built for long-term scalability.", type: "textarea", group: "Page Headers" },
+  { key: "courses.headerTitle",   label: "Courses Page Main Title",           value: "Courses & Tutorials",                                                                                        type: "text",     group: "Page Headers" },
+  { key: "courses.headerDesc",    label: "Courses Page Description",          value: "Practical web development courses — Next.js, MERN stack, React, and beyond. All free.",                     type: "textarea", group: "Page Headers" },
+  { key: "contact.headerTitle",   label: "Contact Page Main Title",           value: "Let’s Connect & Build Something Great Together",                                                             type: "text",     group: "Page Headers" },
+  { key: "contact.headerDesc",    label: "Contact Page Description",          value: "Let's build something memorable together. Drop a message for project collaborations, technical consulting, or freelance opportunities.", type: "textarea", group: "Page Headers" },
+
   // Social Links
-  { key: "social.github",    label: "GitHub URL",      value: "https://github.com/juwelmafi",                 type: "url", group: "Social Links" },
-  { key: "social.linkedin",  label: "LinkedIn URL",    value: "https://www.linkedin.com/in/juwelmafi",        type: "url", group: "Social Links" },
-  { key: "social.youtube",   label: "YouTube URL",     value: "https://www.youtube.com/@juwelmafi",           type: "url", group: "Social Links" },
-  { key: "social.twitter",   label: "Twitter / X URL", value: "",                                             type: "url", group: "Social Links" },
-  { key: "social.facebook",  label: "Facebook URL",    value: "",                                             type: "url", group: "Social Links" },
-  { key: "social.instagram", label: "Instagram URL",   value: "",                                             type: "url", group: "Social Links" },
+  { key: "social.youtube",        label: "YouTube Channel URL",               value: "https://www.youtube.com/@juwelmafi",                                                                         type: "url",      group: "Social Links" },
+  { key: "social.linkedin",       label: "LinkedIn Profile URL",              value: "https://www.linkedin.com/in/juwelmafi",                                                                      type: "url",      group: "Social Links" },
+  { key: "social.github",         label: "GitHub Profile URL",                value: "https://github.com/juwelmafi",                                                                               type: "url",      group: "Social Links" },
+  { key: "social.twitter",        label: "Twitter / X Profile URL",           value: "https://x.com/juwelmafi",                                                                                    type: "url",      group: "Social Links" },
+  { key: "social.facebook",       label: "Facebook Profile URL",              value: "https://facebook.com/juwelmafi",                                                                             type: "url",      group: "Social Links" },
+
   // Site Settings
-  { key: "site.logo",      label: "Site Logo URL",             value: "/assets/images/logo/favicon.svg",                                                               type: "image", group: "Site Settings" },
-  { key: "site.favicon",   label: "Favicon URL",               value: "/assets/images/logo/favicon.svg",                                                               type: "url",   group: "Site Settings" },
-  { key: "site.resumeUrl", label: "Resume / CV URL (global)",  value: "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing",          type: "url",   group: "Site Settings" },
+  { key: "site.logo",             label: "Site Logo URL",                     value: "/assets/images/logo/favicon.svg",                                                                            type: "image",    group: "Site Settings" },
+  { key: "site.favicon",          label: "Favicon URL",                       value: "/assets/images/logo/favicon.svg",                                                                            type: "url",      group: "Site Settings" },
+  { key: "site.resumeUrl",        label: "Global Resume / CV URL",            value: "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing",                       type: "url",      group: "Site Settings" },
+  { key: "site.footerTitle",      label: "Footer Brand Name",                 value: "JUWEL.",                                                                                                     type: "text",     group: "Site Settings" },
+  { key: "site.footerTagline",    label: "Footer Brand Tagline",              value: "MERN Stack Developer & Content Creator",                                                                     type: "text",     group: "Site Settings" },
+  { key: "site.footerDesc",       label: "Footer Description",                value: "Building beautiful, functional web experiences. Sharing knowledge through YouTube.",                          type: "textarea", group: "Site Settings" },
+  { key: "site.copyright",        label: "Footer Copyright Text",             value: "© 2026 Juwel Hossain. All rights reserved.",                                                                type: "text",     group: "Site Settings" },
 ];
 
 const GROUP_ICONS: Record<string, React.ReactNode> = {
   "Hero":          <FaUser />,
   "About":         <FaEdit />,
+  "Page Headers":  <MdOutlineTitle />,
   "Social Links":  <FaShareAlt />,
   "Site Settings": <FaGlobe />,
 };
@@ -60,12 +85,36 @@ export default function AdminContentsPage() {
     try {
       const res = await fetch("/api/site-content");
       const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        setItems(data);
-      } else {
-        // Seed defaults into UI (will be saved when user clicks Save)
-        setItems(DEFAULT_CONTENT.map((d) => ({ ...d })));
+
+      const dbMap = new Map<string, ContentItem>();
+      if (Array.isArray(data)) {
+        data.forEach((item: ContentItem) => {
+          if (item && item.key) dbMap.set(item.key, item);
+        });
       }
+
+      // Merge: Start with DEFAULT_CONTENT so every item exists with exact live website defaults.
+      // If DB has a saved value for this key and it's non-empty, use it.
+      const merged: ContentItem[] = DEFAULT_CONTENT.map((def) => {
+        const saved = dbMap.get(def.key);
+        return {
+          ...def,
+          id: saved?.id,
+          value: saved?.value !== undefined && saved?.value !== "" ? saved.value : def.value,
+        };
+      });
+
+      // Also include any extra custom items from DB that might not be in DEFAULT_CONTENT
+      const defaultKeys = new Set(DEFAULT_CONTENT.map((d) => d.key));
+      if (Array.isArray(data)) {
+        data.forEach((item: ContentItem) => {
+          if (item && item.key && !defaultKeys.has(item.key)) {
+            merged.push(item);
+          }
+        });
+      }
+
+      setItems(merged);
     } catch {
       setItems(DEFAULT_CONTENT.map((d) => ({ ...d })));
     } finally {
@@ -133,7 +182,7 @@ export default function AdminContentsPage() {
             Site Contents
           </h1>
           <p className="text-xs sm:text-sm mt-1 text-[#888899]">
-            Manage dynamic website content — hero, about, social links and more.
+            Manage dynamic website content — hero, about, page headers, social links, and more.
           </p>
         </div>
         <button
@@ -178,7 +227,7 @@ export default function AdminContentsPage() {
               <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" /></svg>
             </span>
             <span style={{ color: "var(--text-muted)" }}>
-              These fields show the <strong className="text-white">current live values</strong> on your website. Edit any field and click <strong className="text-white">Save All Changes</strong> to update the content in the database.
+              These fields show the <strong className="text-white">exact live values</strong> currently visible on your website. Edit any field and click <strong className="text-white">Save All Changes</strong> to persist changes to the database.
             </span>
           </div>
 
@@ -198,7 +247,7 @@ export default function AdminContentsPage() {
                   </label>
                   {item.type === "textarea" ? (
                     <textarea
-                      rows={3}
+                      rows={item.key === "about.bio" ? 6 : 3}
                       className="form-input"
                       value={item.value}
                       onChange={(e) => setValue(item.key, e.target.value)}

@@ -101,7 +101,7 @@ export default function Footer() {
         <div className="mt-10 pt-6" style={{ borderTop: "1px solid var(--border)" }}>
           <p className="text-center text-xs flex flex-wrap items-center justify-center gap-1.5" style={{ color: "var(--text-subtle)" }}>
             <span>© {new Date().getFullYear()} <span style={{ color: "var(--text-muted)" }} className="font-medium">Juwel Hossain</span>.</span>
-            <span className="inline-flex items-center gap-1">Crafted with <FaHeart className="text-red-500 text-xs inline" /> and lots of ☕</span>
+            <span className="inline-flex items-center gap-1">Crafted with <FaHeart className="text-red-500 text-xs inline" /> and dedication</span>
           </p>
         </div>
       </div>

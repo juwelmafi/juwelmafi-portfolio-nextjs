@@ -70,7 +70,7 @@ export default function Footer() {
             <h3 className="heading-font text-xs font-semibold uppercase tracking-widest mb-5" style={{ color: "var(--accent)" }}>
               Connect
             </h3>
-            <div className="flex gap-3">
+            <div className="flex items-center gap-3">
               {[
                 { icon: FaGithub, href: "https://github.com/juwelmafi", label: "GitHub" },
                 { icon: FaLinkedin, href: "https://www.linkedin.com/in/juwelmafi", label: "LinkedIn" },
@@ -82,11 +82,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="w-10 h-10 rounded-lg flex items-center justify-center text-base transition-all duration-300 hover:scale-110 hover:border-[var(--border-accent)] text-[var(--text-muted)] hover:text-[var(--accent)]"
-                  style={{
-                    background: "var(--bg-elevated)",
-                    border: "1px solid var(--border)",
-                  }}
+                  className="footer-social-btn"
                 >
                   <Icon />
                 </a>
@@ -103,11 +99,9 @@ export default function Footer() {
 
         {/* Divider */}
         <div className="mt-10 pt-6" style={{ borderTop: "1px solid var(--border)" }}>
-          <p className="text-center text-xs flex items-center justify-center gap-1" style={{ color: "var(--text-subtle)" }}>
-            © {new Date().getFullYear()}{" "}
-            <span style={{ color: "var(--text-muted)" }} className="font-medium">Juwel Hossain</span>
-            . Crafted with{" "}
-            <FaHeart className="text-red-500 text-xs" /> and lots of ☕
+          <p className="text-center text-xs flex flex-wrap items-center justify-center gap-1.5" style={{ color: "var(--text-subtle)" }}>
+            <span>© {new Date().getFullYear()} <span style={{ color: "var(--text-muted)" }} className="font-medium">Juwel Hossain</span>.</span>
+            <span className="inline-flex items-center gap-1">Crafted with <FaHeart className="text-red-500 text-xs inline" /> and lots of ☕</span>
           </p>
         </div>
       </div>

@@ -1,6 +1,11 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaYoutube, FaDownload, FaHeart } from "react-icons/fa";
+
+interface FooterProps {
+  content?: Record<string, string>;
+}
 
 const footerLinks = [
   { label: "Home",     href: "/" },
@@ -11,7 +16,39 @@ const footerLinks = [
   { label: "Contact",  href: "/contact" },
 ];
 
-export default function Footer() {
+export default function Footer({ content: initialContent }: FooterProps) {
+  const [content, setContent] = useState<Record<string, string>>(initialContent || {});
+
+  useEffect(() => {
+    fetch("/api/site-content")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const map: Record<string, string> = {};
+          data.forEach((d) => {
+            if (d && d.key && typeof d.value === "string") {
+              map[d.key] = d.value;
+            }
+          });
+          setContent((prev) => ({ ...prev, ...map }));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const rawTitle = content["site.footerTitle"] || "JUWEL";
+  const brandTitle = rawTitle.endsWith(".") ? rawTitle.slice(0, -1) : rawTitle;
+  const brandTagline = content["site.footerTagline"] || "MERN Stack Developer & Content Creator";
+  const brandDesc = content["site.footerDesc"] || "Building beautiful, functional web experiences. Sharing knowledge through YouTube.";
+  const resumeUrl = content["site.resumeUrl"] || "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing";
+  const email = content["about.email"] || "juwelhossain16457@gmail.com";
+  const location = content["about.location"] || "Madaripur, Bangladesh";
+  const copyright = content["site.copyright"] || `© ${new Date().getFullYear()} Juwel Hossain. All rights reserved.`;
+
+  const github = content["social.github"] || "https://github.com/juwelmafi";
+  const linkedin = content["social.linkedin"] || "https://www.linkedin.com/in/juwelmafi";
+  const youtube = content["social.youtube"] || "https://www.youtube.com/@juwelmafi";
+
   return (
     <footer
       className="relative"
@@ -23,24 +60,26 @@ export default function Footer() {
           <div className="space-y-4">
             <div>
               <h2 className="heading-font text-xl font-bold text-white tracking-wide">
-                JUWEL<span style={{ color: "var(--accent)" }}>.</span>
+                {brandTitle}<span style={{ color: "var(--accent)" }}>.</span>
               </h2>
               <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
-                MERN Stack Developer & Content Creator
+                {brandTagline}
               </p>
             </div>
             <p className="text-xs leading-relaxed max-w-xs" style={{ color: "var(--text-subtle)" }}>
-              Building beautiful, functional web experiences. Sharing knowledge through YouTube.
+              {brandDesc}
             </p>
-            <a
-              href="https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing"
-              target="_blank"
-              rel="noreferrer"
-              className="btn-primary text-xs px-4 py-2.5"
-            >
-              <FaDownload className="text-sm" />
-              Download CV
-            </a>
+            {resumeUrl && (
+              <a
+                href={resumeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-primary text-xs px-4 py-2.5"
+              >
+                <FaDownload className="text-sm" />
+                Download CV
+              </a>
+            )}
           </div>
 
           {/* Navigation */}
@@ -72,10 +111,10 @@ export default function Footer() {
             </h3>
             <div className="flex items-center gap-3">
               {[
-                { icon: FaGithub, href: "https://github.com/juwelmafi", label: "GitHub" },
-                { icon: FaLinkedin, href: "https://www.linkedin.com/in/juwelmafi", label: "LinkedIn" },
-                { icon: FaYoutube, href: "https://www.youtube.com/@juwelmafi", label: "YouTube" },
-              ].map(({ icon: Icon, href, label }) => (
+                { icon: FaGithub, href: github, label: "GitHub" },
+                { icon: FaLinkedin, href: linkedin, label: "LinkedIn" },
+                { icon: FaYoutube, href: youtube, label: "YouTube" },
+              ].filter((s) => Boolean(s.href)).map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
@@ -88,19 +127,23 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-            <p className="text-xs mt-6" style={{ color: "var(--text-subtle)" }}>
-              juwelhossain16457@gmail.com
-            </p>
-            <p className="text-xs mt-1" style={{ color: "var(--text-subtle)" }}>
-              Madaripur, Bangladesh
-            </p>
+            {email && (
+              <p className="text-xs mt-6" style={{ color: "var(--text-subtle)" }}>
+                {email}
+              </p>
+            )}
+            {location && (
+              <p className="text-xs mt-1" style={{ color: "var(--text-subtle)" }}>
+                {location}
+              </p>
+            )}
           </div>
         </div>
 
         {/* Divider */}
         <div className="mt-10 pt-6" style={{ borderTop: "1px solid var(--border)" }}>
           <p className="text-center text-xs flex flex-wrap items-center justify-center gap-1.5" style={{ color: "var(--text-subtle)" }}>
-            <span>© {new Date().getFullYear()} <span style={{ color: "var(--text-muted)" }} className="font-medium">Juwel Hossain</span>.</span>
+            <span>{copyright}</span>
             <span className="inline-flex items-center gap-1">Crafted with <FaHeart className="text-red-500 text-xs inline" /> and dedication</span>
           </p>
         </div>

@@ -3,14 +3,39 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/layout/Footer";
 import ContactForm from "@/components/portfolio/ContactForm";
+import { getSiteContentMap, getPageSeo } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "Contact & Inquiries — Juwel Hossain",
-  description:
-    "Get in touch with Juwel Hossain for full-stack web development collaborations, freelance projects, technical consulting, and inquiries.",
-};
+export const dynamic = "force-dynamic";
 
-export default function ContactPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo("contact");
+  const title = seo?.metaTitle || "Contact & Inquiries — Juwel Hossain";
+  const description =
+    seo?.metaDescription ||
+    "Get in touch with Juwel Hossain for full-stack web development collaborations, freelance projects, technical consulting, and inquiries.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: seo?.ogTitle || title,
+      description: seo?.ogDescription || description,
+      images: seo?.ogImage ? [{ url: seo.ogImage }] : undefined,
+    },
+    twitter: {
+      title: seo?.twitterTitle || title,
+      description: seo?.twitterDescription || description,
+    },
+  };
+}
+
+export default async function ContactPage() {
+  const content = await getSiteContentMap();
+  const headerTitle = content["contact.headerTitle"] || "Contact & Inquiries";
+  const headerDesc =
+    content["contact.headerDesc"] ||
+    "Let's build something memorable together. Drop a message for project collaborations, technical consulting, or freelance opportunities.";
+
   return (
     <>
       <main className="min-h-screen pt-16 sm:pt-20 md:pt-24 pb-28 md:pb-36 px-4 sm:px-6 md:px-10 lg:pl-16 lg:pr-28" style={{ background: "var(--bg-base)" }}>
@@ -31,11 +56,10 @@ export default function ContactPage() {
             <div>
               <span className="section-label">Get in Touch</span>
               <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-3">
-                Contact &amp; Inquiries
+                {headerTitle}
               </h1>
               <p className="text-sm sm:text-base max-w-2xl leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                Let&apos;s build something memorable together. Drop a message for project collaborations, technical
-                consulting, or freelance opportunities.
+                {headerDesc}
               </p>
             </div>
           </div>
@@ -46,7 +70,7 @@ export default function ContactPage() {
           </Suspense>
         </div>
       </main>
-      <Footer />
+      <Footer content={content} />
     </>
   );
 }

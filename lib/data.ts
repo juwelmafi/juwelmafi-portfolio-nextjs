@@ -3,6 +3,8 @@ import ProjectModel from "@/models/Project";
 import BlogModel from "@/models/Blog";
 import CourseModel from "@/models/Course";
 import ServiceModel from "@/models/Service";
+import SiteContentModel from "@/models/SiteContent";
+import SeoMetaModel from "@/models/SeoMeta";
 import { Project, Blog, Course, Service } from "@/types";
 import fs from "fs";
 import path from "path";
@@ -323,3 +325,87 @@ export async function getServiceById(id: string): Promise<Service | null> {
   }
   return DEFAULT_SERVICES.find((s) => s.id === id) || null;
 }
+
+export const DEFAULT_SITE_CONTENT: Record<string, string> = {
+  "hero.name": "Juwel Hossain",
+  "hero.headline": "I’m building websites & platforms that people remember",
+  "hero.greeting": "Hey, I’m Juwel / Full-Stack Dev / MERN Specialist",
+  "hero.tagline": "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.",
+  "hero.badge": "Available for Work",
+  "hero.cta": "Let’s talk",
+  "hero.resumeUrl": "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing",
+  "hero.avatar": "/assets/images/avatar/avatar.png",
+  "hero.statExp": "3+ Years of experience",
+  "hero.statProjects": "20+ Projects Delivered",
+  "hero.techMarqueeTitle": "Tools & Technologies I Use",
+  "about.tag": "About Me",
+  "about.title": "Passionate MERN Stack Developer crafting scalable web applications with clean architecture & speed",
+  "about.bio": "I’m a passionate MERN Stack Developer based in Bangladesh with a strong focus on frontend and full-stack solutions. I enjoy crafting interactive, accessible, and scalable web applications. I’m currently studying Computer Science & Engineering (CSE) at Sonargaon University, channeling my deep love for coding into building modern web experiences that solve real-world problems. Beyond writing clean code, I believe in focused learning, self-discipline, and improving 1% every day. I also create self-development and tech content on YouTube (@juwelmafi) to help aspiring learners grow with structure.",
+  "about.location": "Madaripur, Bangladesh",
+  "about.email": "juwelhossain16457@gmail.com",
+  "about.phone": "+880 1859-797307",
+  "projects.headerTitle": "Projects & Deployments",
+  "projects.headerDesc": "Production web platforms, real-world full-stack architectures, and open-source applications built with Next.js, React, Node.js, and MongoDB Atlas.",
+  "blog.headerTitle": "Blog & Knowledge Base",
+  "blog.headerDesc": "Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.",
+  "services.headerTitle": "Engineering & Design Services",
+  "services.headerDesc": "High-converting web applications, resilient Next.js architectures, fluid UI/UX systems, and cloud infrastructure built for long-term scalability.",
+  "courses.headerTitle": "Courses & Tutorials",
+  "courses.headerDesc": "Practical web development courses — Next.js, MERN stack, React, and beyond. All free.",
+  "contact.headerTitle": "Let’s Connect & Build Something Great Together",
+  "contact.headerDesc": "Let's build something memorable together. Drop a message for project collaborations, technical consulting, or freelance opportunities.",
+  "social.youtube": "https://www.youtube.com/@juwelmafi",
+  "social.linkedin": "https://www.linkedin.com/in/juwelmafi",
+  "social.github": "https://github.com/juwelmafi",
+  "social.twitter": "https://x.com/juwelmafi",
+  "social.facebook": "https://facebook.com/juwelmafi",
+  "site.logo": "/assets/images/logo/favicon.svg",
+  "site.favicon": "/assets/images/logo/favicon.svg",
+  "site.resumeUrl": "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing",
+  "site.footerTitle": "JUWEL.",
+  "site.footerTagline": "MERN Stack Developer & Content Creator",
+  "site.footerDesc": "Building beautiful, functional web experiences. Sharing knowledge through YouTube.",
+  "site.copyright": "© 2026 Juwel Hossain. All rights reserved.",
+};
+
+export async function getSiteContentMap(): Promise<Record<string, string>> {
+  try {
+    await connectDB();
+    const docs = await SiteContentModel.find().lean();
+    const result: Record<string, string> = { ...DEFAULT_SITE_CONTENT };
+    if (Array.isArray(docs)) {
+      docs.forEach((d: { key?: string; value?: string }) => {
+        if (d && d.key && typeof d.value === "string" && d.value.trim() !== "") {
+          result[d.key] = d.value;
+        }
+      });
+    }
+    return result;
+  } catch (err) {
+    console.warn("Error fetching site content from MongoDB:", err);
+    return { ...DEFAULT_SITE_CONTENT };
+  }
+}
+
+export async function getPageSeo(pageKey: string) {
+  try {
+    await connectDB();
+    const doc = await SeoMetaModel.findOne({ pageKey }).lean();
+    if (doc) {
+      return {
+        metaTitle: doc.metaTitle || undefined,
+        metaDescription: doc.metaDescription || undefined,
+        ogTitle: doc.ogTitle || undefined,
+        ogDescription: doc.ogDescription || undefined,
+        ogImage: doc.ogImage || undefined,
+        twitterTitle: doc.twitterTitle || undefined,
+        twitterDescription: doc.twitterDescription || undefined,
+        canonicalUrl: doc.canonicalUrl || undefined,
+      };
+    }
+  } catch (err) {
+    console.warn(`Error fetching SEO for ${pageKey}:`, err);
+  }
+  return null;
+}
+

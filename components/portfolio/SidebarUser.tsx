@@ -2,9 +2,37 @@
 import { useState, useEffect } from "react";
 import { FaYoutube, FaLinkedin, FaGithub } from "react-icons/fa";
 
-const rotatingWords = ["Juwel", "Full-Stack Dev", "MERN Specialist"];
+interface SidebarUserProps {
+  content?: Record<string, string>;
+}
 
-export default function SidebarUser() {
+export default function SidebarUser({ content: initialContent }: SidebarUserProps) {
+  const [content, setContent] = useState<Record<string, string>>(initialContent || {});
+
+  useEffect(() => {
+    fetch("/api/site-content")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const map: Record<string, string> = {};
+          data.forEach((d) => {
+            if (d && d.key && typeof d.value === "string") {
+              map[d.key] = d.value;
+            }
+          });
+          setContent((prev) => ({ ...prev, ...map }));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // Parse rotating words from hero.greeting
+  // e.g. "Hey, I’m Juwel / Full-Stack Dev / MERN Specialist"
+  const rawGreeting = content["hero.greeting"] || "Hey, I’m Juwel / Full-Stack Dev / MERN Specialist";
+  const cleaned = rawGreeting.replace(/^hey,\s*i['’]m\s*/i, "");
+  const parsedWords = cleaned.split(/[\/,]/).map((s) => s.trim()).filter(Boolean);
+  const rotatingWords = parsedWords.length > 0 ? parsedWords : ["Juwel", "Full-Stack Dev", "MERN Specialist"];
+
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -12,7 +40,22 @@ export default function SidebarUser() {
       setIndex((prev) => (prev + 1) % rotatingWords.length);
     }, 2800);
     return () => clearInterval(timer);
-  }, []);
+  }, [rotatingWords.length]);
+
+  const avatar = content["hero.avatar"] || "/assets/images/avatar/avatar.png";
+  const name = content["hero.name"] || "Juwel Hossain";
+  const badge = content["hero.badge"] || "Available for Work";
+  const tagline =
+    content["hero.tagline"] ||
+    "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.";
+  const cta = content["hero.cta"] || "Let’s talk";
+  const resumeUrl =
+    content["hero.resumeUrl"] ||
+    "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing";
+
+  const youtube = content["social.youtube"] || "https://www.youtube.com/@juwelmafi";
+  const linkedin = content["social.linkedin"] || "https://www.linkedin.com/in/juwelmafi";
+  const github = content["social.github"] || "https://github.com/juwelmafi";
 
   return (
     <div className="sidebar-user">
@@ -23,8 +66,8 @@ export default function SidebarUser() {
             <img
               width={468}
               height={856}
-              src="/assets/images/avatar/avatar.png"
-              alt="Juwel Hossain"
+              src={avatar}
+              alt={name}
               className="object-cover w-full h-full"
             />
           </div>
@@ -42,55 +85,60 @@ export default function SidebarUser() {
               />
             </div>
             <p className="avaiable-dot vertical text-body-3 text-white fw-medium">
-              <span className="text-vertical">Available for Work</span>
+              <span className="text-vertical">{badge}</span>
               <span className="dot"></span>
             </p>
           </div>
         </div>
 
-
         {/* Social Icons */}
         <ul className="tf-social-icon-2 user-social d-grid">
-          <li>
-            <a
-              href="https://www.youtube.com/@juwelmafi"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="YouTube"
-              className="flex items-center justify-center text-[#FF0000] hover:scale-110 transition-transform"
-            >
-              <FaYoutube className="w-5 h-5" />
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.linkedin.com/in/juwelmafi"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className="flex items-center justify-center text-white hover:text-[#00DE51] hover:scale-110 transition-all"
-            >
-              <FaLinkedin className="w-5 h-5" />
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://github.com/juwelmafi"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-              className="flex items-center justify-center text-white hover:text-[#00DE51] hover:scale-110 transition-all"
-            >
-              <FaGithub className="w-5 h-5" />
-            </a>
-          </li>
+          {youtube && (
+            <li>
+              <a
+                href={youtube}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="YouTube"
+                className="flex items-center justify-center text-[#FF0000] hover:scale-110 transition-transform"
+              >
+                <FaYoutube className="w-5 h-5" />
+              </a>
+            </li>
+          )}
+          {linkedin && (
+            <li>
+              <a
+                href={linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                className="flex items-center justify-center text-white hover:text-[#00DE51] hover:scale-110 transition-all"
+              >
+                <FaLinkedin className="w-5 h-5" />
+              </a>
+            </li>
+          )}
+          {github && (
+            <li>
+              <a
+                href={github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                className="flex items-center justify-center text-white hover:text-[#00DE51] hover:scale-110 transition-all"
+              >
+                <FaGithub className="w-5 h-5" />
+              </a>
+            </li>
+          )}
         </ul>
 
         {/* User Info */}
         <div className="user-info">
           <p className="avaiable-dot text-body-3 fw-medium d-sm-none text-white">
             <span className="dot"></span>
-            <span>Available for Work</span>
+            <span>{badge}</span>
           </p>
           <h5 className="greeting letter-space--2 text-white animationtext clip font-bold">
             Hey, I’m{" "}
@@ -101,7 +149,7 @@ export default function SidebarUser() {
             </span>
           </h5>
           <p className="introduce text-white/70 letter-space--05 text-body-3 leading-relaxed mt-2">
-            Passionate MERN &amp; Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.
+            {tagline}
           </p>
           <div className="br-line my-3 sm:my-4 border-t border-white/10"></div>
           <div className="action-group flex items-center gap-3 sm:gap-4 flex-wrap">
@@ -113,17 +161,19 @@ export default function SidebarUser() {
               <span className="w-4 h-4 rounded-full bg-black/15 flex items-center justify-center shrink-0 transition-transform group-hover:rotate-45">
                 <i className="icon icon-arrow-right-top text-[8.5px] text-black font-bold"></i>
               </span>
-              <span className="!text-[#0A0A14] font-extrabold whitespace-nowrap">Let’s talk</span>
+              <span className="!text-[#0A0A14] font-extrabold whitespace-nowrap">{cta}</span>
             </a>
-            <a
-              href="https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="action-down text-white/80 hover:text-[#00DE51] transition-colors inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap py-1"
-            >
-              <i className="icon icon-download text-xs"></i>
-              <span>Download CV</span>
-            </a>
+            {resumeUrl && (
+              <a
+                href={resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="action-down text-white/80 hover:text-[#00DE51] transition-colors inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap py-1"
+              >
+                <i className="icon icon-download text-xs"></i>
+                <span>Download CV</span>
+              </a>
+            )}
           </div>
         </div>
       </div>

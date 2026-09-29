@@ -1,19 +1,43 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/layout/Footer";
-import { getServices } from "@/lib/data";
+import { getServices, getSiteContentMap, getPageSeo } from "@/lib/data";
 import ServicesShowcase from "@/components/portfolio/ServicesShowcase";
 
-export const metadata: Metadata = {
-  title: "Services & Solutions — Juwel Hossain",
-  description:
-    "Explore professional full-stack web development, MERN & Next.js engineering, UI/UX design, and cloud database architecture services by Juwel Hossain.",
-};
+export const dynamic = "force-dynamic";
 
-export const revalidate = 60;
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo("services");
+  const title = seo?.metaTitle || "Services & Solutions — Juwel Hossain";
+  const description =
+    seo?.metaDescription ||
+    "Explore professional full-stack web development, MERN & Next.js engineering, UI/UX design, and cloud database architecture services by Juwel Hossain.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: seo?.ogTitle || title,
+      description: seo?.ogDescription || description,
+      images: seo?.ogImage ? [{ url: seo.ogImage }] : undefined,
+    },
+    twitter: {
+      title: seo?.twitterTitle || title,
+      description: seo?.twitterDescription || description,
+    },
+  };
+}
 
 export default async function ServicesPage() {
-  const services = await getServices(true);
+  const [services, content] = await Promise.all([
+    getServices(true),
+    getSiteContentMap(),
+  ]);
+
+  const headerTitle = content["services.headerTitle"] || "Engineering & Design Services";
+  const headerDesc =
+    content["services.headerDesc"] ||
+    "High-converting web applications, resilient Next.js architectures, fluid UI/UX systems, and cloud infrastructure built for long-term scalability.";
 
   return (
     <>
@@ -35,11 +59,10 @@ export default async function ServicesPage() {
             <div>
               <span className="section-label">Services &amp; Solutions</span>
               <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-4 leading-tight">
-                Engineering &amp; Design Services
+                {headerTitle}
               </h1>
               <p className="text-sm sm:text-base max-w-2xl leading-relaxed text-white/70">
-                High-converting web applications, resilient Next.js architectures, fluid UI/UX systems, and cloud
-                infrastructure built for long-term scalability.
+                {headerDesc}
               </p>
             </div>
           </div>
@@ -48,7 +71,7 @@ export default async function ServicesPage() {
           <ServicesShowcase initialServices={services} />
         </div>
       </main>
-      <Footer />
+      <Footer content={content} />
     </>
   );
 }

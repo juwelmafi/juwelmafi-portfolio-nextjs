@@ -2,18 +2,43 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/components/layout/Footer";
-import { getCourses } from "@/lib/data";
+import { getCourses, getSiteContentMap, getPageSeo } from "@/lib/data";
 import { FaVideo, FaFilm } from "react-icons/fa";
 
-export const metadata: Metadata = {
-  title: "Courses — Juwel Hossain",
-  description: "Free web development courses and tutorials on Next.js, React, MERN stack, and more.",
-};
+export const dynamic = "force-dynamic";
 
-export const revalidate = 60;
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo("courses");
+  const title = seo?.metaTitle || "Courses — Juwel Hossain";
+  const description =
+    seo?.metaDescription ||
+    "Free web development courses and tutorials on Next.js, React, MERN stack, and more.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: seo?.ogTitle || title,
+      description: seo?.ogDescription || description,
+      images: seo?.ogImage ? [{ url: seo.ogImage }] : undefined,
+    },
+    twitter: {
+      title: seo?.twitterTitle || title,
+      description: seo?.twitterDescription || description,
+    },
+  };
+}
 
 export default async function CoursesPage() {
-  const courses = await getCourses(true);
+  const [courses, content] = await Promise.all([
+    getCourses(true),
+    getSiteContentMap(),
+  ]);
+
+  const headerTitle = content["courses.headerTitle"] || "Courses & Tutorials";
+  const headerDesc =
+    content["courses.headerDesc"] ||
+    "Practical web development courses — Next.js, MERN stack, React, and beyond. All free.";
 
   return (
     <>
@@ -31,10 +56,10 @@ export default async function CoursesPage() {
             <div>
               <span className="section-label">Free Learning</span>
               <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-3">
-                Courses &amp; Tutorials
+                {headerTitle}
               </h1>
               <p className="text-sm sm:text-base max-w-2xl leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                Practical web development courses — Next.js, MERN stack, React, and beyond. All free.
+                {headerDesc}
               </p>
             </div>
           </div>
@@ -152,7 +177,7 @@ export default async function CoursesPage() {
           )}
         </div>
       </main>
-      <Footer />
+      <Footer content={content} />
     </>
   );
 }

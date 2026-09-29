@@ -23,6 +23,7 @@ export default function BlogPage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [loading, setLoading] = useState(true);
+  const [content, setContent] = useState<Record<string, string>>({});
 
   useEffect(() => {
     fetch("/api/blogs")
@@ -32,7 +33,27 @@ export default function BlogPage() {
       })
       .catch(console.error)
       .finally(() => setLoading(false));
+
+    fetch("/api/site-content")
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const map: Record<string, string> = {};
+          data.forEach((d) => {
+            if (d && d.key && typeof d.value === "string") {
+              map[d.key] = d.value;
+            }
+          });
+          setContent(map);
+        }
+      })
+      .catch(() => {});
   }, []);
+
+  const headerTitle = content["blog.headerTitle"] || "Blog & Knowledge Base";
+  const headerDesc =
+    content["blog.headerDesc"] ||
+    "Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.";
 
   const filtered =
     activeCategory === "All"
@@ -58,13 +79,13 @@ export default function BlogPage() {
             <div>
               <span className="section-label">Articles &amp; Writing</span>
               <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-3">
-                Blog &amp; Knowledge Base
+                {headerTitle}
               </h1>
               <p
                 className="text-sm sm:text-base max-w-2xl leading-relaxed"
                 style={{ color: "var(--text-muted)" }}
               >
-                Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.
+                {headerDesc}
               </p>
             </div>
           </div>
@@ -180,7 +201,7 @@ export default function BlogPage() {
           )}
         </div>
       </main>
-      <Footer />
+      <Footer content={content} />
     </>
   );
 }

@@ -1,19 +1,43 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/layout/Footer";
-import { getProjects } from "@/lib/data";
+import { getProjects, getSiteContentMap, getPageSeo } from "@/lib/data";
 import ProjectsShowcase from "@/components/portfolio/ProjectsShowcase";
 
-export const metadata: Metadata = {
-  title: "Projects & Works — Juwel Hossain",
-  description:
-    "Explore full-stack web applications, scalable platforms, open-source repositories, and client deployments by Juwel Hossain.",
-};
+export const dynamic = "force-dynamic";
 
-export const revalidate = 60;
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo("projects");
+  const title = seo?.metaTitle || "Projects & Works — Juwel Hossain";
+  const description =
+    seo?.metaDescription ||
+    "Explore full-stack web applications, scalable platforms, open-source repositories, and client deployments by Juwel Hossain.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: seo?.ogTitle || title,
+      description: seo?.ogDescription || description,
+      images: seo?.ogImage ? [{ url: seo.ogImage }] : undefined,
+    },
+    twitter: {
+      title: seo?.twitterTitle || title,
+      description: seo?.twitterDescription || description,
+    },
+  };
+}
 
 export default async function ProjectsPage() {
-  const projects = await getProjects();
+  const [projects, content] = await Promise.all([
+    getProjects(),
+    getSiteContentMap(),
+  ]);
+
+  const headerTitle = content["projects.headerTitle"] || "Projects & Deployments";
+  const headerDesc =
+    content["projects.headerDesc"] ||
+    "Production web platforms, real-world full-stack architectures, and open-source applications built with Next.js, React, Node.js, and MongoDB Atlas.";
 
   return (
     <>
@@ -35,11 +59,10 @@ export default async function ProjectsPage() {
             <div>
               <span className="section-label">Portfolio Showcase</span>
               <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-3">
-                Projects &amp; Deployments
+                {headerTitle}
               </h1>
               <p className="text-sm sm:text-base max-w-2xl leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                Production web platforms, real-world full-stack architectures, and open-source applications built
-                with Next.js, React, Node.js, and MongoDB Atlas.
+                {headerDesc}
               </p>
             </div>
           </div>
@@ -48,7 +71,7 @@ export default async function ProjectsPage() {
           <ProjectsShowcase initialProjects={projects} />
         </div>
       </main>
-      <Footer />
+      <Footer content={content} />
     </>
   );
 }

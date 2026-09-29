@@ -23,19 +23,19 @@ import { MdDashboard, MdOutlineTune } from "react-icons/md";
 import Swal from "sweetalert2";
 
 const sidebarLinks = [
-  { label: "Dashboard", href: "/admin",          icon: MdOutlineTune },
-  { label: "Profile",   href: "/admin/profile",  icon: FaUser },
-  { label: "Services",  href: "/admin/services",  icon: FaCogs },
-  { label: "Projects",  href: "/admin/projects",  icon: FaProjectDiagram },
-  { label: "Courses",   href: "/admin/courses",   icon: FaGraduationCap },
-  { label: "Blogs",     href: "/admin/blogs",     icon: FaBlog },
-  { label: "Contents",  href: "/admin/contents",  icon: FaEdit },
-  { label: "SEO",       href: "/admin/seo",       icon: FaSearch },
+  { label: "Dashboard", href: "/admin", icon: MdOutlineTune },
+  { label: "Profile", href: "/admin/profile", icon: FaUser },
+  { label: "Services", href: "/admin/services", icon: FaCogs },
+  { label: "Projects", href: "/admin/projects", icon: FaProjectDiagram },
+  { label: "Courses", href: "/admin/courses", icon: FaGraduationCap },
+  { label: "Blogs", href: "/admin/blogs", icon: FaBlog },
+  { label: "Contents", href: "/admin/contents", icon: FaEdit },
+  { label: "SEO", href: "/admin/seo", icon: FaSearch },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
-  const router   = useRouter();
+  const router = useRouter();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [quickCreateOpen, setQuickCreateOpen] = useState(false);
@@ -106,7 +106,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="min-h-screen bg-[#0A0A14] text-[#F0F0F5] p-2 sm:p-4 lg:p-6 xl:p-8 flex flex-col justify-center">
       {/* Master Frame Container (Responsive Black & Emerald Console) */}
       <div className="w-full max-w-[1520px] mx-auto dashboard-master-frame flex flex-col lg:flex-row min-h-0 lg:min-h-[880px] shadow-2xl relative bg-[#0F111D]">
-        
+
         {/* Left Sidebar */}
         <aside className="w-full lg:w-64 xl:w-72 flex-shrink-0 flex flex-col justify-between p-4 sm:p-5 lg:p-6 border-none">
           <div>
@@ -114,7 +114,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="flex items-center justify-between gap-3 mb-6 sm:mb-8">
               <Link href="/admin" className="flex items-center gap-2 group min-w-0">
                 <span className="text-[22px] sm:text-2xl font-bold tracking-tight text-white group-hover:text-[#00DE51] transition-colors truncate">
-                  Interface<span className="text-[#00DE51]">.</span>
+                  Juwel<span className="text-[#00DE51]">.</span>
                 </span>
               </Link>
 
@@ -163,8 +163,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {/* Navigation Links (Collapsed on mobile unless hamburger toggled) */}
             <nav className={`space-y-1.5 ${mobileMenuOpen ? "!block" : "!hidden lg:!block"}`}>
               {sidebarLinks.map(({ label, href, icon: Icon }) => {
-                const isActive = href === "/admin" 
-                  ? pathname === "/admin" 
+                const isActive = href === "/admin"
+                  ? pathname === "/admin"
                   : pathname.startsWith(href);
 
                 return (

@@ -1027,16 +1027,27 @@ textarea {
   pointer-events: none !important;
 }
 
-/* ── Hero Main Title (Massive, Space-filling Typography) ── */
+/* ── Hero Main Title (Responsive & Mobile Viewport-Safe Typography) ── */
 .hero-main-title {
-  font-size: clamp(2.4rem, 4.5vw, 4.85rem) !important;
-  line-height: 1.14 !important;
+  font-size: clamp(2.2rem, 4.5vw, 4.85rem) !important;
+  line-height: 1.15 !important;
   font-weight: 800 !important;
-  letter-spacing: -0.035em !important;
+  letter-spacing: -0.03em !important;
   color: #FFFFFF !important;
   margin-bottom: 2rem !important;
   width: 100% !important;
   max-width: 100% !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+}
+
+@media (max-width: 640px) {
+  .hero-main-title {
+    font-size: clamp(1.6rem, 6.8vw, 2.15rem) !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 1.5rem !important;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -1053,12 +1064,24 @@ textarea {
   }
 }
 
-.hero-main-title span {
+/* Badge spans keep inline-block & nowrap so badge pills stay intact */
+.hero-main-title span.is-bg {
   display: inline-block !important;
-  padding: 0.05em 0.28em !important;
-  margin: 0 0.06em !important;
+  padding: 0.05em 0.32em !important;
+  margin: 0.05em 0.08em !important;
   vertical-align: baseline !important;
   white-space: nowrap !important;
+}
+
+/* Regular text spans inside hero title MUST be inline and allow natural wrapping */
+.hero-main-title span:not(.is-bg),
+.hero-main-title .hero-headline-text {
+  display: inline !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
 }
 
 /* ── Hero Stat Numbers (Massive & Neon Glowing) ── */

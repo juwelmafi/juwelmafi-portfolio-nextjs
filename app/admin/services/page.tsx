@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Service } from "@/types";
-import { FaPlus, FaEdit, FaTrash, FaCheck, FaTimes } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash, FaCheck, FaTimes, FaCogs } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 export default function AdminServices() {
@@ -65,7 +65,9 @@ export default function AdminServices() {
         </div>
       ) : services.length === 0 ? (
         <div className="text-center py-20 glass-card">
-          <p className="text-4xl mb-3">🛠️</p>
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#00DE51]/10 flex items-center justify-center">
+            <FaCogs className="text-2xl text-[#00DE51]" />
+          </div>
           <h2 className="heading-font text-[18px] lg:text-[20px] font-semibold text-white mb-2">No services yet</h2>
           <p className="text-sm mb-6 text-[#888899]">
             Add your first service offering to get started.

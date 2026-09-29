@@ -11,6 +11,10 @@ const TAG_OPTIONS = [
   "MongoDB", "Web Dev", "Tips", "Self-Growth", "Career", "Physics"
 ];
 
+const CATEGORY_OPTIONS = [
+  "Tech", "Skill", "Personal Brand", "Self-Development", "Other"
+];
+
 export default function NewBlogPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
@@ -20,6 +24,7 @@ export default function NewBlogPage() {
     excerpt: "",
     content: "",
     tags: [],
+    category: "",
     coverImage: "",
     published: false,
   });
@@ -117,6 +122,24 @@ export default function NewBlogPage() {
           <p className="text-xs mt-1" style={{ color: "var(--text-subtle)" }}>
             URL: /blog/{form.slug || "your-slug"}
           </p>
+        </div>
+
+        {/* Category */}
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-subtle)" }}>
+            Category *
+          </label>
+          <select
+            required
+            className="form-input"
+            value={form.category}
+            onChange={(e) => setForm({ ...form, category: e.target.value })}
+          >
+            <option value="">Select a category</option>
+            {CATEGORY_OPTIONS.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
         </div>
 
         {/* Excerpt */}

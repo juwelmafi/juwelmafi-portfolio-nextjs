@@ -15,7 +15,9 @@ import {
   FaTimes,
   FaDatabase,
   FaArrowRight,
-  FaBars
+  FaBars,
+  FaEdit,
+  FaSearch
 } from "react-icons/fa";
 import { MdDashboard, MdOutlineTune } from "react-icons/md";
 import Swal from "sweetalert2";
@@ -27,6 +29,8 @@ const sidebarLinks = [
   { label: "Projects",  href: "/admin/projects",  icon: FaProjectDiagram },
   { label: "Courses",   href: "/admin/courses",   icon: FaGraduationCap },
   { label: "Blogs",     href: "/admin/blogs",     icon: FaBlog },
+  { label: "Contents",  href: "/admin/contents",  icon: FaEdit },
+  { label: "SEO",       href: "/admin/seo",       icon: FaSearch },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

@@ -79,7 +79,9 @@ export default function AdminCoursesPage() {
         </div>
       ) : courses.length === 0 ? (
         <div className="text-center py-20 glass-card">
-          <p className="text-4xl mb-3">🎓</p>
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#00DE51]/10 flex items-center justify-center">
+            <FaGraduationCap className="text-2xl text-[#00DE51]" />
+          </div>
           <h2 className="heading-font text-[18px] lg:text-[20px] font-semibold text-white mb-2">No courses yet</h2>
           <p className="text-sm mb-6 text-[#888899]">
             Add your first video course or seed the default courses from the dashboard.

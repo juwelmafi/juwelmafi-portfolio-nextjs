@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/components/layout/Footer";
 import { getCourses } from "@/lib/data";
+import { FaVideo, FaFilm } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "Courses — Juwel Hossain",
@@ -40,7 +41,9 @@ export default async function CoursesPage() {
 
           {courses.length === 0 ? (
             <div className="text-center py-24 glass-card rounded-3xl p-12">
-              <p className="text-5xl mb-4">🎬</p>
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#00DE51]/10 flex items-center justify-center">
+                <FaVideo className="text-2xl text-[#00DE51]" />
+              </div>
               <h2 className="heading-font text-xl font-semibold text-white mb-2">No courses yet</h2>
               <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                 Check back soon — video content is on the way!
@@ -69,7 +72,7 @@ export default async function CoursesPage() {
                           className="w-full h-full flex items-center justify-center"
                           style={{ background: "linear-gradient(135deg, #0A0A14, #1A1A2E)" }}
                         >
-                          <span className="text-5xl">🎬</span>
+                          <FaFilm className="text-4xl text-[#00DE51]/50" />
                         </div>
                       )}
 

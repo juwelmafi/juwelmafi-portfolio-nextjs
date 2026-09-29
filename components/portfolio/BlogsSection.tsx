@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getBlogs } from "@/lib/data";
 import { Blog } from "@/types";
+import { FaNewspaper } from "react-icons/fa";
 
 export default async function BlogsSection() {
   let blogs: Blog[] = [];
@@ -134,7 +135,7 @@ export default async function BlogsSection() {
                     className="w-full h-full flex items-center justify-center"
                     style={{ background: "linear-gradient(135deg, #0A0A14, #1A1A2E)" }}
                   >
-                    <span className="text-xl">📝</span>
+                    <FaNewspaper className="text-2xl text-[#00DE51]/50" />
                   </div>
                 )}
               </div>

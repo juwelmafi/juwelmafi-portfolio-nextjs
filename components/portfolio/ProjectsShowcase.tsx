@@ -226,7 +226,7 @@ export default function ProjectsShowcase({ initialProjects }: ProjectsShowcasePr
       {filteredProjects.length === 0 ? (
         <div className="text-center py-20 px-6 glass-drop-card max-w-lg mx-auto border-none">
           <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center text-2xl text-[#00DE51]">
-            🔍
+            <FaSearch />
           </div>
           <h3 className="heading-font text-lg font-bold text-white mb-2">
             No projects in "{selectedCategory}"

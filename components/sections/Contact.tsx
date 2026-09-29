@@ -20,7 +20,7 @@ export default function Contact() {
       )
       .then(() => {
         Swal.fire({
-          title: "Message Sent! 🎉",
+          title: "Message Sent!",
           text: "Thanks for reaching out. I'll get back to you soon.",
           icon: "success",
           confirmButtonColor: "#FDCB6E",

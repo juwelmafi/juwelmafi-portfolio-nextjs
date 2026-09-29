@@ -24,6 +24,7 @@ export interface Blog {
   excerpt: string;
   content: string;
   tags: string[];
+  category: string;
   coverImage: string;
   published: boolean;
   createdAt?: string;

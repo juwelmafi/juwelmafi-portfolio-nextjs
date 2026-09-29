@@ -11,6 +11,10 @@ const TAG_OPTIONS = [
   "MongoDB", "Web Dev", "Tips", "Self-Growth", "Career", "Physics"
 ];
 
+const CATEGORY_OPTIONS = [
+  "Tech", "Skill", "Personal Brand", "Self-Development", "Other"
+];
+
 export default function EditBlogPage() {
   const router = useRouter();
   const params = useParams();
@@ -121,6 +125,24 @@ export default function EditBlogPage() {
             onChange={(e) => setForm({ ...form, slug: e.target.value })}
           />
         </div>
+
+        {/* Category */}
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-subtle)" }}>
+            Category *
+          </label>
+          <select
+            className="form-input"
+            value={form.category ?? ""}
+            onChange={(e) => setForm({ ...form, category: e.target.value })}
+          >
+            <option value="">Select a category</option>
+            {CATEGORY_OPTIONS.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
+
         <div>
           <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-subtle)" }}>
             Excerpt *

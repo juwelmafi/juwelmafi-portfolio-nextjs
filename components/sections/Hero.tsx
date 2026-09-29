@@ -75,7 +75,7 @@ export default function Hero() {
           <div className="flex-1 max-w-2xl">
             {/* Badge */}
             <div className="mb-6">
-              <span className="section-label">👋 Available for Work</span>
+              <span className="section-label">Available for Work</span>
             </div>
 
             {/* Name */}

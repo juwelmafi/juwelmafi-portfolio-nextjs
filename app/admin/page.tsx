@@ -12,7 +12,12 @@ import {
   FaPlus,
   FaExternalLinkAlt,
   FaCalendarAlt,
-  FaDatabase
+  FaDatabase,
+  FaRocket,
+  FaBolt,
+  FaEdit,
+  FaWrench,
+  FaVideo
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 
@@ -196,7 +201,7 @@ export default function AdminDashboard() {
         subtitle: "Production web application & live deployment registered in database.",
         date: "28 Sep",
         link: "/admin/projects",
-        icon: "🚀",
+        icon: "rocket",
       });
     } else {
       list.push({
@@ -205,7 +210,7 @@ export default function AdminDashboard() {
         subtitle: "Dynamic SSR and MongoDB aggregation pipelines connected.",
         date: "12 June",
         link: "/admin/projects",
-        icon: "⚡",
+        icon: "bolt",
       });
     }
 
@@ -216,7 +221,7 @@ export default function AdminDashboard() {
         subtitle: `Course published with ${courses[0].totalLessons || 6} interactive video lessons.`,
         date: "18 June",
         link: "/admin/courses",
-        icon: "🎓",
+        icon: "graduation",
       });
     } else {
       list.push({
@@ -225,7 +230,7 @@ export default function AdminDashboard() {
         subtitle: "Comprehensive curriculum with video tutorials and code repositories.",
         date: "15 June",
         link: "/admin/courses",
-        icon: "🎥",
+        icon: "video",
       });
     }
 
@@ -236,7 +241,7 @@ export default function AdminDashboard() {
         subtitle: "Technical article written with markdown support and live read metrics.",
         date: "25 June",
         link: "/admin/blogs",
-        icon: "✍️",
+        icon: "edit",
       });
     } else {
       list.push({
@@ -245,7 +250,7 @@ export default function AdminDashboard() {
         subtitle: "Custom SaaS dashboards, REST APIs, and high-performance UI solutions.",
         date: "21 June",
         link: "/admin/services",
-        icon: "🛠️",
+        icon: "wrench",
       });
     }
 
@@ -509,7 +514,14 @@ export default function AdminDashboard() {
                   className="block bg-[#161928] hover:bg-[#1C2033] p-2.5 sm:p-3 rounded-xl transition-all duration-200 no-underline group shadow-sm hover:shadow-md"
                 >
                   <div className="flex items-start gap-2.5">
-                    <span className="text-sm mt-0.5">{note.icon}</span>
+                    <span className="w-7 h-7 rounded-lg bg-[#00DE51]/10 flex items-center justify-center text-[#00DE51] flex-shrink-0 mt-0.5 text-xs">
+                      {note.icon === "rocket"    && <FaRocket />}
+                      {note.icon === "bolt"      && <FaBolt />}
+                      {note.icon === "graduation"&& <FaGraduationCap />}
+                      {note.icon === "video"     && <FaVideo />}
+                      {note.icon === "edit"      && <FaEdit />}
+                      {note.icon === "wrench"    && <FaWrench />}
+                    </span>
                     <div className="min-w-0 flex-1">
                       <p className="text-xs sm:text-sm font-semibold text-white/95 group-hover:text-[#00DE51] transition-colors truncate">
                         {note.title}

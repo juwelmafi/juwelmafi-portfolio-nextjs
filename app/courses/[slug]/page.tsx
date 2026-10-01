@@ -1,7 +1,8 @@
 import { Metadata } from "next";
-import Footer from "@/components/layout/Footer";
+import HeaderRetro from "@/components/retro/HeaderRetro";
+import FooterRetro from "@/components/retro/FooterRetro";
 import CoursePlayer from "@/components/CoursePlayer";
-import { getCourseBySlug, getCourses } from "@/lib/data";
+import { getCourseBySlug, getCourses, getSiteContentMap } from "@/lib/data";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -35,18 +36,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CourseDetailPage({ params }: Props) {
   const { slug } = await params;
-  const course = await getCourseBySlug(slug);
+  const [course, content] = await Promise.all([
+    getCourseBySlug(slug),
+    getSiteContentMap(),
+  ]);
 
   if (!course || !course.lessons || course.lessons.length === 0) {
     notFound();
   }
 
   return (
-    <div style={{ background: "var(--bg-base)", minHeight: "100vh" }} className="py-8 px-4 sm:px-6 lg:pl-12 lg:pr-28">
-      <div>
+    <div className="retro-page-container">
+      <HeaderRetro content={content} />
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <CoursePlayer course={course} />
-      </div>
-      <Footer />
+      </main>
+      <FooterRetro content={content} />
     </div>
   );
 }

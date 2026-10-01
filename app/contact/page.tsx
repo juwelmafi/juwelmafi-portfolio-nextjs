@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import Footer from "@/components/layout/Footer";
-import ContactForm from "@/components/portfolio/ContactForm";
+import HeaderRetro from "@/components/retro/HeaderRetro";
+import FooterRetro from "@/components/retro/FooterRetro";
+import ContactRetro from "@/components/retro/ContactRetro";
 import { getSiteContentMap, getPageSeo } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
@@ -31,46 +32,58 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ContactPage() {
   const content = await getSiteContentMap();
-  const headerTitle = content["contact.headerTitle"] || "Contact & Inquiries";
-  const headerDesc =
-    content["contact.headerDesc"] ||
-    "Let's build something memorable together. Drop a message for project collaborations, technical consulting, or freelance opportunities.";
+
+  const eyebrow = content?.["contact.eyebrow"] || "DISPATCH #001 · REACH OUT";
+  const title = content?.["contact.title"] || "Transmit a message.";
+  const desc =
+    content?.["contact.desc"] ||
+    "Tell me about your product requirements, team needs, or questions. I read every message and respond promptly with actionable insights.";
 
   return (
-    <>
-      <main className="min-h-screen pt-16 sm:pt-20 md:pt-24 pb-28 md:pb-36 px-4 sm:px-6 md:px-10 lg:pl-16 lg:pr-28" style={{ background: "var(--bg-base)" }}>
-        <div className="max-w-6xl mx-auto">
-          {/* Header Section */}
-          <div className="mb-12 md:mb-16">
+    <div className="retro-page-container">
+      <HeaderRetro content={content} />
+
+      <main className="py-12 sm:py-16 lg:py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Header Eyebrow & Navigation */}
+          <div className="mb-10 sm:mb-12">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 mb-8"
-              style={{
-                background: "rgba(0, 222, 81, 0.12)",
-                color: "#00DE51",
-                border: "none",
-              }}
+              className="inline-flex items-center gap-2 font-hand text-base sm:text-lg text-[#191712] hover:underline mb-4"
             >
-              ← Back to Portfolio
+              ← Back to Overview
             </Link>
-            <div>
-              <span className="section-label">Get in Touch</span>
-              <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-3">
-                {headerTitle}
-              </h1>
-              <p className="text-sm sm:text-base max-w-2xl leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                {headerDesc}
-              </p>
-            </div>
+            
+            <p className="retro-eyebrow">
+              {eyebrow}
+            </p>
+
+            <h1 className="font-script font-bold text-4xl sm:text-5xl lg:text-6xl text-[#191712] mb-3">
+              {title.toLowerCase().includes("message") ? (
+                <>
+                  {title.replace(/message\.?/i, "").trim()}{" "}
+                  <span className="marked">message.</span>
+                </>
+              ) : (
+                title
+              )}
+            </h1>
+
+            <p className="font-hand text-lg sm:text-xl text-[#57534E] max-w-2xl">
+              {desc}
+            </p>
           </div>
 
-          {/* Interactive Contact Form & Reach Out Cards */}
-          <Suspense fallback={<div className="text-center py-20 text-white/50 text-sm">Loading contact form...</div>}>
-            <ContactForm />
+          {/* Interactive Retro Contact Form */}
+          <Suspense fallback={<div className="font-typewriter text-center py-20 text-[#57534E]">Loading transmission terminal...</div>}>
+            <ContactRetro content={content} />
           </Suspense>
+
         </div>
       </main>
-      <Footer content={content} />
-    </>
+
+      <FooterRetro content={content} />
+    </div>
   );
 }

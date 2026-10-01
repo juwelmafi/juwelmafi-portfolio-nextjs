@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import SiteContentModel from "@/models/SiteContent";
 import { auth } from "@/auth";
+import { revalidatePath } from "next/cache";
 
 // GET /api/site-content — returns all content as { key: value } map
 export async function GET() {
@@ -36,6 +37,11 @@ export async function POST(req: NextRequest) {
       { key, label, value, type, group },
       { upsert: true, new: true }
     );
+    revalidatePath("/");
+    revalidatePath("/contact");
+    revalidatePath("/explore");
+    revalidatePath("/admin/contents");
+
     return NextResponse.json({
       ...doc.toObject(),
       id: doc._id.toString(),
@@ -48,22 +54,35 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// PUT /api/site-content — bulk update array of { key, value } (admin only)
+// PUT /api/site-content — bulk update array of content items (admin only)
 export async function PUT(req: NextRequest) {
   const session = await auth();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   try {
     await connectDB();
-    const items: { key: string; value: string }[] = await req.json();
-    const ops = items.map(({ key, value }) => ({
+    const items: Array<{ key: string; value: string; label?: string; type?: string; group?: string }> = await req.json();
+    const ops = items.map((item) => ({
       updateOne: {
-        filter: { key },
-        update: { $set: { value } },
-        upsert: false,
+        filter: { key: item.key },
+        update: {
+          $set: {
+            value: item.value,
+            ...(item.label ? { label: item.label } : {}),
+            ...(item.type ? { type: item.type } : {}),
+            ...(item.group ? { group: item.group } : {}),
+          },
+        },
+        upsert: true,
       },
     }));
     await SiteContentModel.bulkWrite(ops);
+
+    revalidatePath("/");
+    revalidatePath("/contact");
+    revalidatePath("/explore");
+    revalidatePath("/admin/contents");
+
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("[PUT /api/site-content]", err);

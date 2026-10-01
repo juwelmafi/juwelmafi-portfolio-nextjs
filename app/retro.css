@@ -1,0 +1,594 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Patrick+Hand&family=Special+Elite&display=swap');
+
+:root {
+  --paper: #fbf6e6;
+  --paper-deep: #f2ead4;
+  --ink: #191712;
+  --ink-soft: #5d5744;
+  --ink-faint: rgba(25, 23, 18, 0.42);
+
+  --rule: rgba(120, 165, 205, 0.34);
+  --margin-red: #d9584d;
+  --marker: #ffe45e;
+  --marker-2: #b8ecd0;
+  --sticky-pink: #ffc9dc;
+  --sticky-blue: #c2e5f7;
+  --sticky-yellow: #ffeaa0;
+  --tape: rgba(246, 228, 150, 0.62);
+
+  --hand: "Caveat", "Bradley Hand", "Comic Sans MS", cursive;
+  --neat: "Patrick Hand", "Comic Sans MS", "Chalkboard SE", cursive;
+  --type: "Special Elite", "Courier New", monospace;
+
+  --rule-height: 34px;
+  --gutter: clamp(20px, 5vw, 40px);
+  --sketch: 255px 14px 225px 16px / 16px 225px 14px 255px;
+  --sketch-2: 18px 220px 16px 240px / 240px 16px 220px 18px;
+  --ink-line: 2.5px solid var(--ink);
+}
+
+/* Global Retro Text Selection Highlight */
+::selection {
+  background-color: #FFE45E !important;
+  color: #191712 !important;
+}
+
+::-moz-selection {
+  background-color: #FFE45E !important;
+  color: #191712 !important;
+}
+
+*::selection {
+  background-color: #FFE45E !important;
+  color: #191712 !important;
+}
+
+*::-moz-selection {
+  background-color: #FFE45E !important;
+  color: #191712 !important;
+}
+
+/* ========================================================= */
+/* TYPOGRAPHY: 100% MATCHING THE REFERENCE                   */
+/* ========================================================= */
+body, p, span, a, button, input, textarea, select {
+  font-family: var(--neat);
+  letter-spacing: 0.015em;
+}
+
+.font-hand {
+  font-family: var(--neat) !important;
+}
+
+.font-script {
+  font-family: var(--hand) !important;
+}
+
+.font-typewriter {
+  font-family: var(--type) !important;
+}
+
+/* Red typewriter eyebrow / label (Product #000 style) */
+.retro-eyebrow {
+  font-family: var(--type) !important;
+  color: #C2410C !important;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.75rem;
+}
+
+.section-label {
+  font-family: var(--type) !important;
+  color: #C2410C !important;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+}
+
+/* ========================================================= */
+/* NOTEBOOK LINED PAPER BACKGROUND (EXACT REFERENCE FEEL)    */
+/* ========================================================= */
+.retro-page-container {
+  background-color: var(--paper) !important;
+  color: var(--ink) !important;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  font-family: var(--neat);
+  font-size: 19px;
+  line-height: var(--rule-height);
+  
+  /* Authentic notebook ruled lines + red margin line */
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent 0 calc(var(--gutter) + 34px),
+      rgba(217, 88, 77, 0.45) calc(var(--gutter) + 35px),
+      transparent calc(var(--gutter) + 37px)
+    ),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0,
+      transparent calc(var(--rule-height) - 1px),
+      var(--rule) calc(var(--rule-height) - 1px),
+      var(--rule) var(--rule-height)
+    ) !important;
+}
+
+/* Highlighter Yellow Bubble (Matching Reference) */
+.marked,
+.marker-yellow {
+  padding: 0 0.18em;
+  border-radius: 0.35em;
+  background-image: linear-gradient(
+    104deg,
+    transparent 0.5%,
+    var(--marker) 2.2%,
+    var(--marker) 95.5%,
+    transparent 98.5%
+  ) !important;
+  background-color: var(--marker);
+  color: var(--ink) !important;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  display: inline-block;
+}
+
+/* Wavy Red Underline (Matching Reference under "receipt.") */
+.underlined,
+.wavy-red {
+  padding-bottom: 0.08em;
+  background-repeat: repeat-x;
+  background-position: 0 88%;
+  background-size: 44px 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='12'%3E%3Cpath d='M1 7c8-5 14 4 22-1s13 3 20-1' fill='none' stroke='%23d9584d' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  text-decoration: none !important;
+}
+
+/* ========================================================= */
+/* HAND-DRAWN SKETCH BORDERS & BOXES                        */
+/* ========================================================= */
+.hand-box {
+  border: 2.5px solid var(--ink);
+  border-radius: var(--sketch);
+  background-color: #FFFFFF;
+  box-shadow: 4px 5px 0 var(--ink);
+}
+
+.hand-box-alt {
+  border: 2.5px solid var(--ink);
+  border-radius: var(--sketch-2);
+  background-color: #FFFFFF;
+  box-shadow: 4px 5px 0 var(--ink);
+}
+
+.hand-dashed-box {
+  border: 2px dashed var(--ink);
+  border-radius: 12px;
+  background-color: transparent;
+  padding: 20px 24px;
+}
+
+/* ========================================================= */
+/* BUTTONS: 100% MATCHING REFERENCE                          */
+/* ========================================================= */
+/* Black Hand-drawn Button ("Get my certificate →") */
+.btn-hand-black,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--ink);
+  color: #fbf6e6 !important;
+  font-family: var(--hand);
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1;
+  padding: 10px 24px;
+  border: 2.5px solid var(--ink);
+  border-radius: var(--sketch);
+  box-shadow: 4px 5px 0 #fbf6e6, 6px 7px 0 var(--ink);
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.btn-hand-black:hover,
+.btn-primary:hover {
+  background-color: var(--marker);
+  color: var(--ink) !important;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 3px 0 #fbf6e6, 4px 5px 0 var(--ink);
+}
+
+/* Pink Hand-drawn Button ("Buy it as a gift 🎁") */
+.btn-hand-pink,
+.btn-gift {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--sticky-pink);
+  color: var(--ink) !important;
+  font-family: var(--hand);
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1;
+  padding: 10px 24px;
+  border: 2.5px solid var(--ink);
+  border-radius: var(--sketch);
+  box-shadow: 4px 5px 0 #fbf6e6, 6px 7px 0 var(--ink);
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.btn-hand-pink:hover,
+.btn-gift:hover {
+  background-color: var(--marker);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 3px 0 #fbf6e6, 4px 5px 0 var(--ink);
+}
+
+/* Small Button ("Do it" / "Hire me") */
+.btn-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 18px;
+  border: 2px solid var(--ink);
+  border-radius: var(--sketch);
+  color: #fbf6e6 !important;
+  background-color: var(--ink);
+  font-family: var(--hand);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: all 0.15s ease;
+}
+
+.btn-small:hover {
+  color: var(--ink) !important;
+  background-color: var(--marker);
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* White Hand-drawn Outline Button */
+.btn-hand-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  color: var(--ink) !important;
+  font-family: var(--hand);
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 6px 20px;
+  border: 2px solid var(--ink);
+  border-radius: var(--sketch);
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: all 0.15s ease;
+}
+
+.btn-hand-white:hover {
+  background-color: var(--marker);
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* ========================================================= */
+/* REALISTIC MASKING TAPE & STICKERS                         */
+/* ========================================================= */
+.tape {
+  position: absolute;
+  width: 132px;
+  height: 34px;
+  background: var(--tape);
+  border-left: 1px dashed rgba(25, 23, 18, 0.18);
+  border-right: 1px dashed rgba(25, 23, 18, 0.18);
+  box-shadow: 0 1px 3px rgba(25, 23, 18, 0.14);
+}
+
+.tape-top {
+  z-index: 10;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2.6deg);
+}
+
+/* 0g Round Yellow Sticker */
+.sticker-round,
+.sticker-0g {
+  width: 74px;
+  height: 74px;
+  padding: 0;
+  border: 2.5px solid var(--ink);
+  border-radius: 50%;
+  background: var(--marker);
+  font-family: var(--hand);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(2px 3px 0 rgba(25, 23, 18, 0.18));
+  user-select: none;
+}
+
+/* Cyan Oval Sticker ("ships fast" / "ships never") */
+.sticker-oval,
+.sticker-cyan-oval {
+  padding: 0.5em 1em;
+  border: 2.5px solid var(--ink);
+  border-radius: 50%;
+  background: var(--sticky-blue);
+  font-family: var(--hand);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(2px 3px 0 rgba(25, 23, 18, 0.18));
+  user-select: none;
+}
+
+/* Red Starburst Sticker ("certified clean") - Reference Image 3 */
+.sticker-star {
+  position: absolute;
+  width: 104px;
+  height: 104px;
+  display: grid;
+  place-items: center;
+  background: var(--margin-red);
+  color: #fff8ec;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.05;
+  text-align: center;
+  clip-path: polygon(
+    50% 0%, 61% 18%, 82% 12%, 80% 33%, 100% 43%, 84% 57%,
+    95% 76%, 74% 78%, 68% 98%, 50% 87%, 32% 98%, 26% 78%,
+    5% 76%, 16% 57%, 0% 43%, 20% 33%, 18% 12%, 39% 18%
+  );
+  filter: drop-shadow(2px 3px 0 rgba(25, 23, 18, 0.18));
+  user-select: none;
+  z-index: 10;
+}
+
+/* Ribbon Tab for Popular Service Card - Reference Image 2 */
+.ribbon {
+  position: absolute;
+  top: -14px;
+  right: 18px;
+  padding: 4px 14px;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--marker);
+  border: 2px solid var(--ink);
+  border-radius: var(--sketch);
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: rotate(4deg);
+  z-index: 5;
+}
+
+/* Gold Certificate Rubber Stamp */
+.stamp-gold-cert {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  border: 2.5px double var(--margin-red);
+  color: var(--margin-red);
+  font-family: var(--type);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: rotate(-14deg);
+  opacity: 0.85;
+  user-select: none;
+  line-height: 1.15;
+}
+
+/* MRZ Code Bar */
+.retro-mrz {
+  font-family: var(--type);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  border-top: 1.5px solid var(--ink);
+  padding-top: 6px;
+  word-break: break-all;
+}
+
+/* Spec Sheet Leader Rows - Reference Image 3 */
+.spec-dotted-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--type);
+  font-size: 0.95rem;
+  padding: 6px 0;
+  border-bottom: 1px dotted rgba(25, 23, 18, 0.25);
+  gap: 8px;
+}
+
+.spec-dotted-key {
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  max-width: 44%;
+  word-break: break-word;
+}
+
+.spec-dotted-val {
+  font-family: var(--hand);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: right;
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.2;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .spec-dotted-row {
+    padding: 5px 0;
+    gap: 6px;
+  }
+  .spec-dotted-key {
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    max-width: 42%;
+  }
+  .spec-dotted-val {
+    font-size: 1.05rem;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 380px) {
+  .spec-dotted-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    padding: 4px 0;
+  }
+  .spec-dotted-key {
+    font-size: 0.65rem;
+    max-width: 100%;
+  }
+  .spec-dotted-val {
+    font-size: 1rem;
+    text-align: left;
+    width: 100%;
+  }
+}
+
+/* Feature Check Row at Bottom of Hero */
+.hero-checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  font-family: var(--type);
+  font-size: 0.85rem;
+  color: #C2410C;
+  letter-spacing: 0.1em;
+}
+
+/* ========================================================= */
+/* PRICING & SERVICES - REFERENCE IMAGE 2                    */
+/* ========================================================= */
+.prices {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .prices {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.price {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 24px;
+  border: 2.5px solid var(--ink);
+  border-radius: var(--sketch);
+  background-color: #FFFFFF;
+  box-shadow: 4px 5px 0 var(--ink);
+  text-decoration: none !important;
+  color: var(--ink) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.price:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 8px 0 var(--ink);
+}
+
+.price-popular {
+  border-width: 3.5px;
+  box-shadow: 5px 7px 0 var(--ink);
+}
+
+.price-name {
+  font-family: var(--type);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #C2410C;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.price-tag {
+  font-family: var(--hand);
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.price small {
+  font-family: var(--neat);
+  font-size: 1rem;
+  color: var(--ink-soft);
+  display: block;
+  margin-bottom: 18px;
+}
+
+.price-title {
+  font-family: var(--neat);
+  font-size: 1rem;
+  color: var(--ink-soft);
+  border-top: 1.5px dotted rgba(25, 23, 18, 0.35);
+  padding-top: 14px;
+  display: block;
+}
+
+.price-title b {
+  font-family: var(--hand);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--ink);
+  display: block;
+  margin-top: 2px;
+}

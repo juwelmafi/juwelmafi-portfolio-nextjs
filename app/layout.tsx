@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./theme.css";
 import "./globals.css";
+import "./retro.css";
 import { SessionProvider } from "next-auth/react";
 import GlobalNav from "@/components/portfolio/GlobalNav";
 import { getPageSeo } from "@/lib/data";
@@ -13,6 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
     "Personal portfolio of Juwel Hossain (juwelmafi) — Full-Stack Developer & UI/UX Specialist. Explore featured projects, tech stack, and get in touch.";
 
   return {
+    metadataBase: new URL(process.env.NEXTAUTH_URL || "https://juwelmafi.dev"),
     title,
     description,
     keywords: [
@@ -49,8 +51,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth" data-theme="dark">
-      <body className="counter-scroll video-v1 dark-mode type-dark-v1">
+    <html lang="en" className="scroll-smooth">
+      <body className="counter-scroll">
         <SessionProvider>
           <GlobalNav />
           {children}

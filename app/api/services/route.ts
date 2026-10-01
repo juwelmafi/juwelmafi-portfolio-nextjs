@@ -36,6 +36,23 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     const service = await ServiceModel.create(body);
+
+    // Direct collection update ensures custom minimal fields persist even if schema was cached
+    try {
+      await ServiceModel.collection.updateOne(
+        { _id: service._id },
+        {
+          $set: {
+            kicker: body.kicker || "SERVICE",
+            deliverables: body.deliverables || "",
+            ribbon: body.ribbon || "",
+          },
+        }
+      );
+    } catch (e) {
+      console.warn("Direct collection update warning:", e);
+    }
+
     return NextResponse.json(
       { id: service._id.toString(), ...service.toObject(), _id: undefined },
       { status: 201 }

@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
@@ -14,12 +15,11 @@ import {
   FaHome,
   FaTimes,
   FaDatabase,
-  FaArrowRight,
   FaBars,
   FaEdit,
-  FaSearch
+  FaSearch,
 } from "react-icons/fa";
-import { MdDashboard, MdOutlineTune } from "react-icons/md";
+import { MdOutlineTune } from "react-icons/md";
 import Swal from "sweetalert2";
 
 const sidebarLinks = [
@@ -47,11 +47,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       text: "This will populate projects, services, video courses and blogs if missing.",
       icon: "question",
       showCancelButton: true,
-      confirmButtonColor: "#00DE51",
-      cancelButtonColor: "#2C3148",
+      confirmButtonColor: "#191712",
+      cancelButtonColor: "#A8A29E",
       confirmButtonText: "Yes, seed now",
-      background: "#121422",
-      color: "#F0F0F5",
+      background: "#FAF6EC",
+      color: "#191712",
     });
 
     if (!confirm.isConfirmed) return;
@@ -66,9 +66,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         title: "Database Seeded!",
         text: data.message,
         icon: "success",
-        background: "#121422",
-        color: "#F0F0F5",
-        confirmButtonColor: "#00DE51",
+        background: "#FAF6EC",
+        color: "#191712",
+        confirmButtonColor: "#191712",
       });
       window.location.reload();
     } catch (err: unknown) {
@@ -77,8 +77,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         title: "Notice",
         text: msg,
         icon: "info",
-        background: "#121422",
-        color: "#F0F0F5",
+        background: "#FAF6EC",
+        color: "#191712",
       });
     } finally {
       setSeeding(false);
@@ -88,10 +88,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0A0A14]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-2 border-[#00DE51] border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm text-[#888899]">Loading Console...</p>
+      <div className="retro-page-container min-h-screen flex items-center justify-center">
+        <div className="hand-box p-8 bg-[#FFFFFF] text-center">
+          <p className="font-script font-bold text-3xl text-[#191712] mb-2">
+            Loading Terminal...
+          </p>
+          <p className="font-typewriter text-xs text-[#78716C]">
+            INITIALIZING SECURE SESSION
+          </p>
         </div>
       </div>
     );
@@ -103,65 +107,54 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A14] text-[#F0F0F5] p-2 sm:p-4 lg:p-6 xl:p-8 flex flex-col justify-center">
-      {/* Master Frame Container (Responsive Black & Emerald Console) */}
-      <div className="w-full max-w-[1520px] mx-auto dashboard-master-frame flex flex-col lg:flex-row min-h-0 lg:min-h-[880px] shadow-2xl relative bg-[#0F111D]">
+    <div className="retro-page-container min-h-screen p-3 sm:p-5 lg:p-8 flex flex-col justify-start">
+      
+      {/* Master Container Card */}
+      <div className="w-full max-w-[1540px] mx-auto hand-box p-4 sm:p-6 lg:p-8 bg-[#FFFFFF] shadow-[6px_7px_0px_#191712] flex flex-col lg:flex-row gap-8 min-h-[850px] relative">
 
-        {/* Left Sidebar */}
-        <aside className="w-full lg:w-64 xl:w-72 flex-shrink-0 flex flex-col justify-between p-4 sm:p-5 lg:p-6 border-none">
+        {/* ── LEFT SIDEBAR ─────────────────────────────────────────── */}
+        <aside className="w-full lg:w-64 xl:w-72 shrink-0 flex flex-col justify-between border-b-2 lg:border-b-0 lg:border-r-2 border-[#191712] pb-6 lg:pb-0 lg:pr-6">
           <div>
             {/* Brand Header */}
             <div className="flex items-center justify-between gap-3 mb-6 sm:mb-8">
-              <Link href="/admin" className="flex items-center gap-2 group min-w-0">
-                <span className="text-[22px] sm:text-2xl font-bold tracking-tight text-white group-hover:text-[#00DE51] transition-colors truncate">
-                  Juwel<span className="text-[#00DE51]">.</span>
-                </span>
+              <Link href="/admin" className="flex items-center gap-2.5 group">
+                <div className="w-10 h-10 border-2 border-[#191712] rounded-xl bg-[#FFE45E] flex items-center justify-center font-script font-bold text-2xl text-[#191712] shadow-[2px_2px_0px_#191712] group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform">
+                  jh.
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-script font-bold text-2xl text-[#191712] leading-tight">
+                    Admin <span className="marked">Hub</span>
+                  </span>
+                  <span className="font-typewriter text-[10px] text-[#78716C] uppercase tracking-wider">
+                    Juwel Hossain
+                  </span>
+                </div>
               </Link>
 
-              {/* Action Buttons: Green 4-dot button + Mobile Hamburger */}
-              <div className="flex items-center gap-2 flex-shrink-0">
-                {/* Emerald Green 4-dot circular badge button (Quick actions) */}
-                <div
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setQuickCreateOpen(true)}
-                  className="cursor-pointer hover:scale-105 active:scale-95 transition-transform flex-shrink-0"
-                  style={{
-                    width: "36px",
-                    height: "36px",
-                    backgroundColor: "#00DE51",
-                    color: "#0A0A14",
-                    borderRadius: "9999px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow: "0 4px 16px rgba(0, 222, 81, 0.4)",
-                  }}
-                  title="Quick Create Item"
-                  aria-label="Quick Actions"
-                >
-                  <svg width="15" height="15" viewBox="0 0 16 16" fill="#0A0A14">
-                    <circle cx="4.5" cy="4.5" r="2" />
-                    <circle cx="11.5" cy="4.5" r="2" />
-                    <circle cx="4.5" cy="11.5" r="2" />
-                    <circle cx="11.5" cy="11.5" r="2" />
-                  </svg>
-                </div>
-
-                {/* Mobile Menu Hamburger Toggle (Visible only on phone/tablet < lg) */}
+              {/* Action Buttons: Quick Create + Mobile Toggle */}
+              <div className="flex items-center gap-2">
                 <button
+                  type="button"
+                  onClick={() => setQuickCreateOpen(true)}
+                  className="w-8 h-8 rounded-full border-2 border-[#191712] bg-[#FFE45E] flex items-center justify-center font-bold text-xs text-[#191712] shadow-[1px_1px_0px_#191712] hover:bg-[#FDE047] cursor-pointer"
+                  title="Quick Actions"
+                >
+                  <FaPlus size={11} />
+                </button>
+
+                <button
+                  type="button"
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="flex lg:!hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[#00DE51] transition items-center justify-center text-lg cursor-pointer"
-                  title="Toggle Navigation Menu"
+                  className="lg:hidden p-1.5 border-2 border-[#191712] rounded bg-[#FAF7EE] text-[#191712] cursor-pointer"
                   aria-label="Toggle navigation menu"
                 >
-                  {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+                  {mobileMenuOpen ? <FaTimes size={16} /> : <FaBars size={16} />}
                 </button>
               </div>
             </div>
 
-            {/* Navigation Links (Collapsed on mobile unless hamburger toggled) */}
-            <nav className={`space-y-1.5 ${mobileMenuOpen ? "!block" : "!hidden lg:!block"}`}>
+            {/* Navigation Links */}
+            <nav className={`space-y-1.5 ${mobileMenuOpen ? "block" : "hidden lg:block"}`}>
               {sidebarLinks.map(({ label, href, icon: Icon }) => {
                 const isActive = href === "/admin"
                   ? pathname === "/admin"
@@ -172,186 +165,161 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     key={label}
                     href={href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`dashboard-nav-item ${isActive ? "active" : ""}`}
+                    className={`flex items-center gap-3 px-3.5 py-2 rounded-md transition-all font-hand text-lg ${
+                      isActive
+                        ? "bg-[#FFE45E] border-2 border-[#191712] text-[#191712] font-bold shadow-[2px_2px_0px_#191712]"
+                        : "hover:bg-[#FAF7EE] border border-transparent text-[#292524]"
+                    }`}
                   >
-                    <span className="dashboard-nav-icon-badge">
-                      <Icon className="text-base" />
+                    <span className="w-6 text-center text-[#191712]">
+                      <Icon size={16} />
                     </span>
-                    <span className="truncate">{label}</span>
+                    <span>{label}</span>
                   </Link>
                 );
               })}
             </nav>
           </div>
 
-          {/* Bottom Sidebar Action Area */}
-          <div className={`mt-8 space-y-5 ${mobileMenuOpen ? "!block" : "!hidden lg:!block"}`}>
-            {/* Elevated "+ New item" Glass Drop Card */}
-            <div className="dashboard-sidebar-action-card text-center">
+          {/* Bottom Sidebar Area */}
+          <div className={`mt-8 space-y-4 ${mobileMenuOpen ? "block" : "hidden lg:block"}`}>
+            
+            {/* Quick Action Box */}
+            <div className="p-4 bg-[#FAF7EE] border-2 border-[#191712] rounded-md text-center">
               <button
+                type="button"
                 onClick={() => setQuickCreateOpen(true)}
-                className="dashboard-action-btn"
+                className="btn-small w-full justify-center text-sm py-1.5 cursor-pointer"
               >
-                <span className="w-5 h-5 rounded-md bg-black/15 flex items-center justify-center text-xs">
-                  <FaPlus />
-                </span>
-                <span>New item</span>
+                + New Document
               </button>
-              <p className="text-[11px] text-[#7E849E] mt-3 tracking-wide">
-                Click &apos;+&apos; to create your new items.
+              <p className="font-hand text-xs text-[#78716C] mt-2">
+                Create project, blog, or course module.
               </p>
             </div>
 
-            {/* User Session & External Links */}
-            <div className="pt-2 flex flex-col gap-2">
-              <div className="flex items-center justify-between px-1">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-7 h-7 rounded-full bg-[#00DE51]/15 text-[#00DE51] flex items-center justify-center text-xs font-bold">
-                    J
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-medium text-white truncate">Juwel Hossain</p>
-                    <p className="text-[10px] text-[#00DE51] flex items-center gap-1 font-medium truncate">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#00DE51]" /> Admin
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-1.5">
-                  <Link
-                    href="/"
-                    target="_blank"
-                    className="p-2 rounded-lg text-[#888899] hover:text-white hover:bg-white/5 transition text-xs"
-                    title="View Portfolio Live"
-                  >
-                    <FaHome className="text-sm" />
-                  </Link>
-                  <button
-                    onClick={() => signOut({ callbackUrl: "/login" })}
-                    className="p-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition text-xs cursor-pointer"
-                    title="Sign Out"
-                  >
-                    <FaSignOutAlt className="text-sm" />
-                  </button>
-                </div>
+            {/* User Session & Links */}
+            <div className="pt-2 border-t border-[#191712]/20 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FFE45E] border border-[#191712]" />
+                <span className="font-typewriter text-xs text-[#191712] font-bold">
+                  Online
+                </span>
               </div>
-              <p className="text-[10px] text-[#555566] px-1 text-center lg:text-left mt-1">
-                MERN Portfolio Console &bull; Live DB
-              </p>
+
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/"
+                  target="_blank"
+                  className="p-1.5 border border-[#191712] rounded bg-[#FAF7EE] hover:bg-[#FFE45E] text-[#191712] transition-colors"
+                  title="View Portfolio Live"
+                >
+                  <FaHome size={14} />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: "/login" })}
+                  className="p-1.5 border border-[#DC2626] rounded bg-[#FEE2E2] hover:bg-[#FECACA] text-[#DC2626] transition-colors cursor-pointer"
+                  title="Sign Out"
+                >
+                  <FaSignOutAlt size={14} />
+                </button>
+              </div>
             </div>
+
           </div>
         </aside>
 
-        {/* Main Workspace Surface (Responsive Black & Emerald Canvas) */}
-        <main className="dashboard-inner-surface flex-1 m-0 mt-3 lg:m-4 p-3.5 sm:p-5 lg:p-7 flex flex-col min-w-0 overflow-y-auto">
+        {/* ── MAIN WORKSPACE SURFACE ───────────────────────────────── */}
+        <main className="flex-1 min-w-0 flex flex-col overflow-y-auto">
           {children}
         </main>
+
       </div>
 
-      {/* Quick Create Modal */}
+      {/* ── QUICK CREATE MODAL (RETRO STYLE) ────────────────────────── */}
       {quickCreateOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4 animate-in fade-in duration-200">
-          <div className="dashboard-content-card w-full max-w-md p-5 sm:p-6 relative bg-[#121422] border-none shadow-2xl">
-            <div className="flex items-center justify-between pb-3.5 mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#00DE51]/20 text-[#00DE51] flex items-center justify-center text-base">
-                  <FaPlus />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white">Create New Item</h3>
-                  <p className="text-xs text-[#888899]">Select an item to publish directly</p>
-                </div>
-              </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
+          <div className="relative w-full max-w-lg hand-box p-6 sm:p-8 bg-[#FFFFFF] shadow-[8px_8px_0px_#191712]">
+            
+            {/* Top Tape */}
+            <div className="tape tape-top" aria-hidden="true" />
+
+            <div className="flex items-center justify-between border-b-2 border-[#191712] pb-3 mb-6">
+              <p className="retro-eyebrow !mb-0">
+                QUICK CREATION TERMINAL
+              </p>
               <button
+                type="button"
                 onClick={() => setQuickCreateOpen(false)}
-                className="text-white/50 hover:text-white transition p-1.5 rounded-lg hover:bg-white/5 cursor-pointer"
+                className="w-7 h-7 border-2 border-[#191712] rounded bg-[#FAF7EE] flex items-center justify-center font-bold text-xs text-[#191712] hover:bg-[#FFE45E] cursor-pointer"
               >
-                <FaTimes className="text-base" />
+                ✕
               </button>
             </div>
 
-            <div className="space-y-2">
+            <h3 className="font-script font-bold text-3xl text-[#191712] mb-4">
+              What do you want to <span className="marked">create</span>?
+            </h3>
+
+            <div className="grid grid-cols-2 gap-3 mb-6">
               <Link
                 href="/admin/projects/new"
                 onClick={() => setQuickCreateOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] transition group text-sm text-white"
+                className="p-3 bg-[#FAF7EE] border-2 border-[#191712] rounded-md font-hand text-lg font-bold text-[#191712] hover:bg-[#FFE45E] transition-all flex items-center gap-2"
               >
-                <div className="flex items-center gap-3">
-                  <FaProjectDiagram className="text-[#00DE51] text-base" />
-                  <div>
-                    <p className="font-semibold text-white">New Project</p>
-                    <p className="text-xs text-[#888899]">Case study, live preview &amp; GitHub link</p>
-                  </div>
-                </div>
-                <FaArrowRight className="text-xs text-white/30 group-hover:text-[#00DE51] group-hover:translate-x-1 transition" />
-              </Link>
-
-              <Link
-                href="/admin/courses/new"
-                onClick={() => setQuickCreateOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] transition group text-sm text-white"
-              >
-                <div className="flex items-center gap-3">
-                  <FaGraduationCap className="text-[#00DE51] text-base" />
-                  <div>
-                    <p className="font-semibold text-white">New Course &amp; Tutorials</p>
-                    <p className="text-xs text-[#888899]">Video masterclass lessons and topics</p>
-                  </div>
-                </div>
-                <FaArrowRight className="text-xs text-white/30 group-hover:text-[#00DE51] group-hover:translate-x-1 transition" />
-              </Link>
-
-              <Link
-                href="/admin/services/new"
-                onClick={() => setQuickCreateOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] transition group text-sm text-white"
-              >
-                <div className="flex items-center gap-3">
-                  <FaCogs className="text-[#00DE51] text-base" />
-                  <div>
-                    <p className="font-semibold text-white">New Service Offering</p>
-                    <p className="text-xs text-[#888899]">Pricing, features &amp; deliverable scope</p>
-                  </div>
-                </div>
-                <FaArrowRight className="text-xs text-white/30 group-hover:text-[#00DE51] group-hover:translate-x-1 transition" />
+                <FaProjectDiagram />
+                <span>New Project</span>
               </Link>
 
               <Link
                 href="/admin/blogs/new"
                 onClick={() => setQuickCreateOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] transition group text-sm text-white"
+                className="p-3 bg-[#FAF7EE] border-2 border-[#191712] rounded-md font-hand text-lg font-bold text-[#191712] hover:bg-[#FFE45E] transition-all flex items-center gap-2"
               >
-                <div className="flex items-center gap-3">
-                  <FaBlog className="text-[#00DE51] text-base" />
-                  <div>
-                    <p className="font-semibold text-white">Write Blog Post</p>
-                    <p className="text-xs text-[#888899]">Markdown technical guides &amp; articles</p>
-                  </div>
-                </div>
-                <FaArrowRight className="text-xs text-white/30 group-hover:text-[#00DE51] group-hover:translate-x-1 transition" />
+                <FaBlog />
+                <span>New Blog</span>
               </Link>
 
-              <div className="pt-2">
-                <button
-                  onClick={handleQuickSeed}
-                  disabled={seeding}
-                  className="w-full flex items-center justify-between p-3 rounded-xl bg-[#00DE51]/10 hover:bg-[#00DE51]/20 transition group text-sm text-[#00DE51] cursor-pointer"
-                >
-                  <div className="flex items-center gap-3">
-                    <FaDatabase className="text-base" />
-                    <div className="text-left">
-                      <p className="font-semibold">{seeding ? "Importing Data..." : "Seed Default Sample Data"}</p>
-                      <p className="text-xs text-[#00DE51]/80">Populate live database with portfolio items</p>
-                    </div>
-                  </div>
-                  <FaArrowRight className="text-xs text-[#00DE51]/60 group-hover:text-[#00DE51] group-hover:translate-x-1 transition" />
-                </button>
-              </div>
+              <Link
+                href="/admin/courses/new"
+                onClick={() => setQuickCreateOpen(false)}
+                className="p-3 bg-[#FAF7EE] border-2 border-[#191712] rounded-md font-hand text-lg font-bold text-[#191712] hover:bg-[#FFE45E] transition-all flex items-center gap-2"
+              >
+                <FaGraduationCap />
+                <span>New Course</span>
+              </Link>
+
+              <Link
+                href="/admin/services/new"
+                onClick={() => setQuickCreateOpen(false)}
+                className="p-3 bg-[#FAF7EE] border-2 border-[#191712] rounded-md font-hand text-lg font-bold text-[#191712] hover:bg-[#FFE45E] transition-all flex items-center gap-2"
+              >
+                <FaCogs />
+                <span>New Service</span>
+              </Link>
             </div>
+
+            {/* Seed Database Option */}
+            <div className="pt-4 border-t border-[#191712]/20 flex items-center justify-between">
+              <span className="font-typewriter text-xs text-[#78716C]">
+                Missing portfolio content?
+              </span>
+              <button
+                type="button"
+                onClick={handleQuickSeed}
+                disabled={seeding}
+                className="btn-small text-xs py-1.5 px-3 cursor-pointer"
+              >
+                <FaDatabase size={11} className="mr-1.5" />
+                {seeding ? "Seeding..." : "Seed Default Data"}
+              </button>
+            </div>
+
           </div>
         </div>
       )}
+
     </div>
   );
 }
-

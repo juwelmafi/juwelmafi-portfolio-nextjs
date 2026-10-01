@@ -1,71 +1,53 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaSave, FaTimes, FaPlus } from "react-icons/fa";
+import { FaArrowLeft, FaSave, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import Swal from "sweetalert2";
 
-const COMMON_TAGS = [
-  "Next.js & React",
-  "Node.js & Express",
-  "MongoDB Integration",
-  "REST & GraphQL APIs",
-  "TailwindCSS",
-  "Framer Motion",
-  "UI/UX Design",
-  "Performance Tuning",
-  "NextAuth & JWT",
-  "Vercel Cloud Hosting",
-  "Stripe Integration",
+const CATEGORY_PRESETS = [
+  "FULL-STACK",
+  "SHOPIFY",
+  "LANDING PAGE",
+  "UI/UX DESIGN",
+  "WORDPRESS",
+  "API & BACKEND",
+  "SPEED & SEO",
+  "CUSTOM",
+];
+
+const RIBBON_PRESETS = [
+  "",
+  "Most requested",
+  "Popular",
+  "Best value",
+  "High demand",
 ];
 
 export default function NewServicePage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
-  const [featureInput, setFeatureInput] = useState("");
   const [form, setForm] = useState({
     title: "",
+    kicker: "FULL-STACK",
     desc: "",
-    tags: [] as string[],
-    img1: "",
-    img2: "",
-    features: [] as string[],
+    deliverables: "",
+    ribbon: "",
     order: 0,
     published: true,
   });
 
-  const toggleTag = (tag: string) => {
-    setForm((f) => ({
-      ...f,
-      tags: f.tags.includes(tag) ? f.tags.filter((t) => t !== tag) : [...f.tags, tag],
-    }));
-  };
-
-  const addFeature = () => {
-    if (!featureInput.trim()) return;
-    setForm((f) => ({
-      ...f,
-      features: [...f.features, featureInput.trim()],
-    }));
-    setFeatureInput("");
-  };
-
-  const removeFeature = (idx: number) => {
-    setForm((f) => ({
-      ...f,
-      features: f.features.filter((_, i) => i !== idx),
-    }));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.title || !form.desc) {
+    if (!form.title.trim()) {
       Swal.fire({
         title: "Validation Error",
-        text: "Please provide a title and description for the service.",
+        text: "Please provide a Service Name (e.g. MERN Website, Shopify Store).",
         icon: "warning",
-        background: "#12121E",
-        color: "#F0F0F5",
+        background: "#FAF6EC",
+        color: "#191712",
+        confirmButtonColor: "#191712",
       });
       return;
     }
@@ -84,20 +66,23 @@ export default function NewServicePage() {
 
       await Swal.fire({
         title: "Service Created!",
+        text: "The new service is now cataloged in your portfolio.",
         icon: "success",
-        background: "#12121E",
-        color: "#F0F0F5",
-        confirmButtonColor: "#00DE51",
+        background: "#FAF6EC",
+        color: "#191712",
+        confirmButtonColor: "#191712",
       });
       router.push("/admin/services");
-    } catch (err) {
+      router.refresh();
+    } catch (err: any) {
       console.error(err);
       Swal.fire({
         title: "Error",
-        text: "Failed to create service",
+        text: err?.message || "Failed to create service",
         icon: "error",
-        background: "#12121E",
-        color: "#F0F0F5",
+        background: "#FAF6EC",
+        color: "#191712",
+        confirmButtonColor: "#191712",
       });
     } finally {
       setSaving(false);
@@ -105,189 +90,244 @@ export default function NewServicePage() {
   };
 
   return (
-    <div className="w-full max-w-4xl space-y-6">
-      <div className="flex items-center gap-4 pb-3 border-none">
+    <div className="space-y-6 max-w-5xl">
+      {/* Header */}
+      <div className="flex items-center gap-4 border-b-2 border-[#191712] pb-4">
         <Link
           href="/admin/services"
-          className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/5 text-[#8E95B3] hover:text-white hover:bg-white/10 transition shadow-sm"
+          className="w-9 h-9 border-2 border-[#191712] rounded bg-[#FAF7EE] hover:bg-[#FFE45E] flex items-center justify-center text-[#191712] shadow-[2px_2px_0px_#191712] transition-colors"
+          title="Back to Services"
         >
           <FaArrowLeft />
         </Link>
         <div>
-          <h1 className="heading-font text-[26px] lg:text-[32px] font-bold text-white leading-tight">Add New Service</h1>
-          <p className="text-xs sm:text-sm mt-0.5 text-[#888899]">
-            Create a new client offering to display on the dedicated Services page
+          <span className="font-typewriter text-xs text-[#C2410C] font-bold uppercase tracking-wider block">
+            SERVICE DOSSIER LEDGER
+          </span>
+          <h1 className="font-script font-bold text-3xl sm:text-4xl text-[#191712] leading-tight">
+            Add New Service
+          </h1>
+          <p className="font-hand text-base text-[#57534E] mt-0.5">
+            Configure minimal service details displayed as retro cards on the homepage.
           </p>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="glass-card p-6 space-y-5">
-          <h2 className="heading-font text-[18px] lg:text-[20px] font-semibold text-white">Basic Information</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Main Form (8 Cols) */}
+        <form onSubmit={handleSubmit} className="lg:col-span-7 space-y-6">
+          <div className="hand-box p-6 bg-[#FFFFFF] space-y-5">
+            <h2 className="font-script font-bold text-2xl text-[#191712]">
+              Service Information
+            </h2>
 
-          <div>
-            <label className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2">
-              Service Title *
-            </label>
-            <input
-              type="text"
-              required
-              placeholder="e.g. Full-Stack Web Development"
-              value={form.title}
-              onChange={(e) => setForm({ ...form, title: e.target.value })}
-              className="w-full bg-[#12121e] text-white text-sm px-4 py-3 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none transition-colors"
-            />
+            {/* Service Name */}
+            <div>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                Service Name * (Card Main Heading)
+              </label>
+              <input
+                required
+                type="text"
+                placeholder="e.g. MERN Website, Shopify Website, Graphic Design, Landing Page"
+                value={form.title}
+                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2.5 font-hand text-lg text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+              />
+              <p className="font-hand text-xs text-[#78716C] mt-1">
+                This is displayed in bold text replacing the old price tag.
+              </p>
+            </div>
+
+            {/* Category / Kicker */}
+            <div>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                Category / Top Kicker Tag
+              </label>
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {CATEGORY_PRESETS.map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setForm({ ...form, kicker: cat })}
+                    className={`text-xs px-2.5 py-1 rounded font-typewriter uppercase transition-all ${
+                      form.kicker === cat
+                        ? "bg-[#FFE45E] text-[#191712] font-bold border border-[#191712] shadow-[1px_1px_0px_#191712]"
+                        : "bg-[#FAF7EE] text-[#57534E] border border-[#191712]/40 hover:bg-[#F5EED9]"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+              <input
+                type="text"
+                placeholder="e.g. FULL-STACK, SHOPIFY & ECOMMERCE, LANDING PAGE"
+                value={form.kicker}
+                onChange={(e) => setForm({ ...form, kicker: e.target.value.toUpperCase() })}
+                className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2 font-typewriter text-xs uppercase tracking-wider text-[#C2410C] font-bold placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+              />
+            </div>
+
+            {/* Short Description */}
+            <div>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                Short Description *
+              </label>
+              <textarea
+                required
+                rows={3}
+                placeholder="e.g. Custom full-stack web applications with Next.js, Node & MongoDB. Fast, responsive, and scalable."
+                value={form.desc}
+                onChange={(e) => setForm({ ...form, desc: e.target.value })}
+                className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2.5 font-hand text-base text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full resize-none"
+              />
+            </div>
+
+            {/* Extra Info / Key Deliverables */}
+            <div>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                Key Deliverables / Extra Info
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. Clean Architecture · REST APIs · Responsive Design · SEO Ready"
+                value={form.deliverables}
+                onChange={(e) => setForm({ ...form, deliverables: e.target.value })}
+                className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2 font-hand text-base text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+              />
+              <p className="font-hand text-xs text-[#78716C] mt-1">
+                Displayed in the bottom box of the card (e.g. Certificate reads / Included).
+              </p>
+            </div>
+
+            {/* Ribbon Badge (Optional) */}
+            <div>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                Floating Ribbon Badge (Optional)
+              </label>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {RIBBON_PRESETS.map((r) => (
+                  <button
+                    key={r || "none"}
+                    type="button"
+                    onClick={() => setForm({ ...form, ribbon: r })}
+                    className={`text-xs px-3 py-1 rounded font-hand transition-all ${
+                      form.ribbon === r
+                        ? "bg-[#FFE45E] text-[#191712] font-bold border border-[#191712] shadow-[1px_1px_0px_#191712]"
+                        : "bg-[#FAF7EE] text-[#57534E] border border-[#191712]/40 hover:bg-[#F5EED9]"
+                    }`}
+                  >
+                    {r ? `★ ${r}` : "(None)"}
+                  </button>
+                ))}
+              </div>
+              <input
+                type="text"
+                placeholder="e.g. Most requested, Popular, Best value, or leave empty"
+                value={form.ribbon}
+                onChange={(e) => setForm({ ...form, ribbon: e.target.value })}
+                className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2 font-hand text-sm text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+              />
+            </div>
+
+            {/* Display Order & Published */}
+            <div className="grid grid-cols-2 gap-4 pt-2 border-t border-[#191712]/15">
+              <div>
+                <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                  Display Order
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  value={form.order}
+                  onChange={(e) => setForm({ ...form, order: Number(e.target.value) })}
+                  className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2 font-hand text-base text-[#191712] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+                />
+              </div>
+
+              <div className="flex items-center gap-2 pt-6">
+                <input
+                  type="checkbox"
+                  id="published"
+                  checked={form.published}
+                  onChange={(e) => setForm({ ...form, published: e.target.checked })}
+                  className="w-5 h-5 accent-[#191712] cursor-pointer"
+                />
+                <label
+                  htmlFor="published"
+                  className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider cursor-pointer"
+                >
+                  Published on Site
+                </label>
+              </div>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2">
-              Description *
-            </label>
-            <textarea
-              required
-              rows={4}
-              placeholder="Detailed description of what this service delivers..."
-              value={form.desc}
-              onChange={(e) => setForm({ ...form, desc: e.target.value })}
-              className="w-full bg-[#12121e] text-white text-sm p-4 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none transition-colors resize-none"
-            />
-          </div>
-        </div>
-
-        {/* Deliverables / Features Checklist */}
-        <div className="glass-card p-6 space-y-4">
-          <h2 className="heading-font text-base font-semibold text-white">Key Deliverables &amp; Scope</h2>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              placeholder="e.g. Role-Based Authentication & Authorization"
-              value={featureInput}
-              onChange={(e) => setFeatureInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  addFeature();
-                }
-              }}
-              className="flex-1 bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none"
-            />
-            <button
-              type="button"
-              onClick={addFeature}
-              className="btn-primary text-xs px-4 py-2"
+          {/* Action Buttons */}
+          <div className="flex items-center justify-end gap-3 pt-2">
+            <Link
+              href="/admin/services"
+              className="btn-outline px-5 py-2.5 text-sm font-bold"
             >
-              <FaPlus /> Add
+              Cancel
+            </Link>
+            <button
+              type="submit"
+              disabled={saving}
+              className="btn-primary px-6 py-2.5 text-sm font-bold flex items-center gap-2"
+            >
+              <FaSave /> {saving ? "Saving..." : "Save Service"}
             </button>
           </div>
+        </form>
 
-          {form.features.length > 0 && (
-            <div className="space-y-2 pt-2">
-              {form.features.map((feat, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/5 border-none text-xs text-white shadow-sm">
-                  <span>{feat}</span>
-                  <button
-                    type="button"
-                    onClick={() => removeFeature(i)}
-                    className="text-red-400 hover:text-red-300 ml-2"
-                  >
-                    <FaTimes />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Tags */}
-        <div className="glass-card p-6 space-y-4">
-          <h2 className="heading-font text-base font-semibold text-white">Technology Tags</h2>
-          <div className="flex flex-wrap gap-2">
-            {COMMON_TAGS.map((tag) => {
-              const active = form.tags.includes(tag);
-              return (
-                <button
-                  key={tag}
-                  type="button"
-                  onClick={() => toggleTag(tag)}
-                  className={`text-xs px-3 py-1.5 rounded-full transition-all cursor-pointer ${
-                    active
-                      ? "bg-[#00DE51] text-black font-bold shadow-md shadow-[#00DE51]/20 border-none"
-                      : "bg-[#181a2e] text-white/70 hover:bg-[#20233b] border-none shadow-sm"
-                  }`}
-                >
-                  {tag}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Media & Order */}
-        <div className="glass-card p-6 space-y-4">
-          <h2 className="heading-font text-base font-semibold text-white">Media &amp; Display Order</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                Primary Image URL
-              </label>
-              <input
-                type="text"
-                placeholder="/assets/images/section/service-1.jpg"
-                value={form.img1}
-                onChange={(e) => setForm({ ...form, img1: e.target.value })}
-                className="w-full bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                Secondary Image URL
-              </label>
-              <input
-                type="text"
-                placeholder="/assets/images/section/service-2.jpg"
-                value={form.img2}
-                onChange={(e) => setForm({ ...form, img2: e.target.value })}
-                className="w-full bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none"
-              />
-            </div>
+        {/* Live Card Preview (5 Cols) */}
+        <div className="lg:col-span-5 space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="font-typewriter text-xs uppercase font-bold text-[#191712] tracking-wider">
+              Live Card Preview
+            </span>
+            <span className="font-typewriter text-[11px] text-[#78716C]">
+              Links to /contact
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div>
-              <label className="block text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2">
-                Display Order
-              </label>
-              <input
-                type="number"
-                value={form.order}
-                onChange={(e) => setForm({ ...form, order: Number(e.target.value) })}
-                className="w-full bg-[#12121e] text-white text-sm px-4 py-2.5 rounded-xl border-none focus:ring-1 focus:ring-[#00DE51]/70 outline-none"
-              />
-            </div>
-            <div className="flex items-center gap-3 pt-6">
-              <input
-                type="checkbox"
-                id="published"
-                checked={form.published}
-                onChange={(e) => setForm({ ...form, published: e.target.checked })}
-                className="w-4 h-4 accent-[#00DE51] rounded"
-              />
-              <label htmlFor="published" className="text-sm font-medium text-white cursor-pointer">
-                Publish Immediately
-              </label>
+          <div className="p-4 bg-[#FAF7EE] border-2 border-[#191712] rounded-lg">
+            <div className="price price-popular relative shadow-[4px_5px_0px_#191712] bg-white border-2 border-[#191712] p-6 rounded-lg">
+              {form.ribbon && (
+                <span className="ribbon">
+                  {form.ribbon}
+                </span>
+              )}
+
+              <div>
+                <span className="price-name text-[#C2410C]">
+                  {form.kicker || "SERVICE"}
+                </span>
+                <strong className="price-tag text-3xl sm:text-4xl text-[#191712] block my-2">
+                  {form.title || "Service Name"}
+                </strong>
+                <small className="text-[#57534E] text-sm block">
+                  {form.desc || "Short description will appear here describing the scope and technology."}
+                </small>
+              </div>
+
+              <div className="price-title border-t border-dashed border-[#191712]/30 pt-3 mt-4 text-xs text-[#78716C]">
+                Deliverables &amp; Details:
+                <b className="block text-[#191712] font-bold text-sm mt-0.5">
+                  {form.deliverables || "Clean Architecture · High Performance"}
+                </b>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-[#191712]/15 flex items-center justify-between text-xs font-hand text-[#C2410C] font-bold">
+                <span>Click card to inquire</span>
+                <span>→ /contact</span>
+              </div>
             </div>
           </div>
         </div>
-
-        <div className="flex items-center gap-3">
-          <button type="submit" disabled={saving} className="btn-primary">
-            <FaSave /> {saving ? "Saving..." : "Create Service"}
-          </button>
-          <Link href="/admin/services" className="btn-outline">
-            Cancel
-          </Link>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }

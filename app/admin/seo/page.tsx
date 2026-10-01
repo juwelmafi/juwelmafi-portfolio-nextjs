@@ -3,15 +3,16 @@ import { useState, useEffect, useCallback } from "react";
 import { FaSave, FaSearch, FaShareAlt, FaTwitter, FaLink } from "react-icons/fa";
 import { MdOutlineTitle, MdDescription } from "react-icons/md";
 import Swal from "sweetalert2";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 const PAGES = [
   { key: "home",     label: "Home Page" },
-  { key: "about",    label: "About Page" },
   { key: "projects", label: "Projects Page" },
-  { key: "blog",     label: "Blog Page" },
   { key: "services", label: "Services Page" },
-  { key: "contact",  label: "Contact Page" },
+  { key: "blog",     label: "Blog Page" },
   { key: "courses",  label: "Courses Page" },
+  { key: "about",    label: "About Page" },
+  { key: "contact",  label: "Contact Page" },
 ];
 
 interface SeoEntry {
@@ -41,84 +42,91 @@ const emptyEntry = (pageKey: string, pageLabel: string): SeoEntry => ({
   canonicalUrl: "",
 });
 
-// Pre-filled with the EXACT live website metadata from code
+// Pre-filled with the EXACT live retro website metadata
 const DEFAULT_SEO_DATA: Record<string, Omit<SeoEntry, "id">> = {
   home: {
-    pageKey: "home", pageLabel: "Home Page",
-    metaTitle: "Juwel Hossain — MERN Stack & Next.js Developer",
-    metaDescription: "Personal portfolio of Juwel Hossain (juwelmafi) — Full-Stack Developer & UI/UX Specialist. Explore featured projects, tech stack, and get in touch.",
-    ogTitle: "Juwel Hossain — MERN Stack & Next.js Developer",
-    ogDescription: "Personal portfolio of Juwel Hossain — Full-Stack Developer & UI/UX Specialist.",
-    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
-    twitterTitle: "Juwel Hossain — MERN Stack & Next.js Developer",
-    twitterDescription: "Full-Stack Developer & UI/UX Specialist. Explore featured projects and get in touch.",
-    canonicalUrl: "https://juwelmafi.vercel.app/",
+    pageKey: "home",
+    pageLabel: "Home Page",
+    metaTitle: "Juwel Hossain — Full-Stack Engineer & Shopify Developer",
+    metaDescription: "Full-stack web developer specializing in Next.js, React, Node.js, and custom Shopify themes. Clean architecture, scalable web applications.",
+    ogTitle: "Juwel Hossain — Full-Stack Engineer & Shopify Developer",
+    ogDescription: "Full-stack web developer specializing in Next.js, React, Node.js, and custom Shopify solutions.",
+    ogImage: "/assets/images/avatar/juwel_retro.png",
+    twitterTitle: "Juwel Hossain — Full-Stack Engineer & Shopify Developer",
+    twitterDescription: "Full-stack web developer specializing in Next.js, React, Node.js, and custom Shopify solutions.",
+    canonicalUrl: "http://localhost:3000/",
   },
   projects: {
-    pageKey: "projects", pageLabel: "Projects Page",
-    metaTitle: "Projects & Works — Juwel Hossain",
-    metaDescription: "Explore full-stack web applications, scalable platforms, open-source repositories, and client deployments by Juwel Hossain.",
-    ogTitle: "Projects & Works — Juwel Hossain",
-    ogDescription: "Production web platforms, real-world full-stack architectures, and open-source applications built with Next.js, React, Node.js, and MongoDB Atlas.",
-    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
-    twitterTitle: "Projects & Works — Juwel Hossain",
-    twitterDescription: "Explore full-stack web applications, scalable platforms, open-source repositories, and client deployments by Juwel Hossain.",
-    canonicalUrl: "https://juwelmafi.vercel.app/projects",
-  },
-  blog: {
-    pageKey: "blog", pageLabel: "Blog Page",
-    metaTitle: "Blog & Knowledge Base — Juwel Hossain",
-    metaDescription: "Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.",
-    ogTitle: "Blog & Knowledge Base — Juwel Hossain",
-    ogDescription: "Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.",
-    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
-    twitterTitle: "Blog & Knowledge Base — Juwel Hossain",
-    twitterDescription: "Thoughts on web development, the MERN stack, Next.js architecture, and the journey of continuous engineering.",
-    canonicalUrl: "https://juwelmafi.vercel.app/blog",
+    pageKey: "projects",
+    pageLabel: "Projects Page",
+    metaTitle: "Featured Projects & Deployments | Juwel Hossain",
+    metaDescription: "Real-world full-stack web applications, custom platforms, and production systems built with Next.js, React, Node.js, and MongoDB.",
+    ogTitle: "Featured Projects & Deployments | Juwel Hossain",
+    ogDescription: "Real-world full-stack web applications, custom platforms, and production systems.",
+    ogImage: "/assets/images/avatar/juwel_retro.png",
+    twitterTitle: "Featured Projects & Deployments | Juwel Hossain",
+    twitterDescription: "Real-world full-stack web applications, custom platforms, and production systems.",
+    canonicalUrl: "http://localhost:3000/#projects",
   },
   services: {
-    pageKey: "services", pageLabel: "Services Page",
-    metaTitle: "Services & Solutions — Juwel Hossain",
-    metaDescription: "Explore professional full-stack web development, MERN & Next.js engineering, UI/UX design, and cloud database architecture services by Juwel Hossain.",
-    ogTitle: "Services & Solutions — Juwel Hossain",
-    ogDescription: "High-converting web applications, resilient Next.js architectures, fluid UI/UX systems, and cloud infrastructure built for long-term scalability.",
-    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
-    twitterTitle: "Services & Solutions — Juwel Hossain",
-    twitterDescription: "Explore professional full-stack web development, MERN & Next.js engineering, UI/UX design, and cloud database architecture services by Juwel Hossain.",
-    canonicalUrl: "https://juwelmafi.vercel.app/services",
+    pageKey: "services",
+    pageLabel: "Services Page",
+    metaTitle: "Engineering Services & Solutions | Juwel Hossain",
+    metaDescription: "Handcrafted engineering services: MERN stack development, custom Shopify themes, landing pages, and API architectures.",
+    ogTitle: "Engineering Services & Solutions | Juwel Hossain",
+    ogDescription: "Handcrafted engineering services: MERN stack, Next.js, custom Shopify themes, and full-stack solutions.",
+    ogImage: "/assets/images/avatar/juwel_retro.png",
+    twitterTitle: "Engineering Services & Solutions | Juwel Hossain",
+    twitterDescription: "Handcrafted engineering services: MERN stack, Next.js, custom Shopify themes, and full-stack solutions.",
+    canonicalUrl: "http://localhost:3000/#services",
   },
-  contact: {
-    pageKey: "contact", pageLabel: "Contact Page",
-    metaTitle: "Contact & Inquiries — Juwel Hossain",
-    metaDescription: "Get in touch with Juwel Hossain for full-stack web development collaborations, freelance projects, technical consulting, and inquiries.",
-    ogTitle: "Contact & Inquiries — Juwel Hossain",
-    ogDescription: "Let's build something memorable together. Drop a message for project collaborations, technical consulting, or freelance opportunities.",
-    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
-    twitterTitle: "Contact & Inquiries — Juwel Hossain",
-    twitterDescription: "Get in touch with Juwel Hossain for full-stack web development collaborations, freelance projects, technical consulting, and inquiries.",
-    canonicalUrl: "https://juwelmafi.vercel.app/contact",
+  blog: {
+    pageKey: "blog",
+    pageLabel: "Blog Page",
+    metaTitle: "Notebook & Essays | Juwel Hossain – Full-Stack Engineer",
+    metaDescription: "Handcrafted technical essays, MERN stack case studies, Next.js architecture notes, and software design principles.",
+    ogTitle: "Notebook & Essays | Juwel Hossain",
+    ogDescription: "Handcrafted technical essays, MERN stack case studies, and architecture notes.",
+    ogImage: "/assets/images/avatar/juwel_retro.png",
+    twitterTitle: "Notebook & Essays | Juwel Hossain",
+    twitterDescription: "Handcrafted technical essays and architecture notes.",
+    canonicalUrl: "http://localhost:3000/explore?tab=blogs",
   },
   courses: {
-    pageKey: "courses", pageLabel: "Courses Page",
-    metaTitle: "Courses — Juwel Hossain",
-    metaDescription: "Free web development courses and tutorials on Next.js, React, MERN stack, and more.",
-    ogTitle: "Courses & Tutorials — Juwel Hossain",
-    ogDescription: "Practical web development courses — Next.js, MERN stack, React, and beyond. All free.",
-    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
-    twitterTitle: "Courses — Juwel Hossain",
-    twitterDescription: "Free web development courses and tutorials on Next.js, React, MERN stack, and more.",
-    canonicalUrl: "https://juwelmafi.vercel.app/courses",
+    pageKey: "courses",
+    pageLabel: "Courses Page",
+    metaTitle: "Courses & Masterclasses | Juwel Hossain – Full-Stack Engineer",
+    metaDescription: "Practical, 100% free web development curriculum — Next.js 15, React 19, MERN stack, and component architecture.",
+    ogTitle: "Courses & Masterclasses | Juwel Hossain",
+    ogDescription: "Practical, 100% free web development video courses.",
+    ogImage: "/assets/images/avatar/juwel_retro.png",
+    twitterTitle: "Courses & Masterclasses | Juwel Hossain",
+    twitterDescription: "Practical web development courses — Next.js, MERN stack, React, and beyond. All free.",
+    canonicalUrl: "http://localhost:3000/explore?tab=courses",
   },
   about: {
-    pageKey: "about", pageLabel: "About Page",
-    metaTitle: "About Me — Juwel Hossain",
-    metaDescription: "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.",
-    ogTitle: "About Me — Juwel Hossain",
-    ogDescription: "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.",
-    ogImage: "https://i.ibb.co/xKd3jY5K/20250629-181542.png",
-    twitterTitle: "About Me — Juwel Hossain",
-    twitterDescription: "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps in Bangladesh.",
-    canonicalUrl: "https://juwelmafi.vercel.app/#about",
+    pageKey: "about",
+    pageLabel: "About Page",
+    metaTitle: "About Me | Juwel Hossain – MERN Stack & Next.js Engineer",
+    metaDescription: "CSE student at Sonargaon University, full-stack engineer crafting scalable web apps with clean architecture in Bangladesh.",
+    ogTitle: "About Me | Juwel Hossain",
+    ogDescription: "Passionate MERN & Next.js developer studying CSE at Sonargaon University, building scalable web apps.",
+    ogImage: "/assets/images/avatar/juwel_retro.png",
+    twitterTitle: "About Me | Juwel Hossain",
+    twitterDescription: "Passionate MERN & Next.js developer studying CSE at Sonargaon University.",
+    canonicalUrl: "http://localhost:3000/#education",
+  },
+  contact: {
+    pageKey: "contact",
+    pageLabel: "Contact Page",
+    metaTitle: "Let’s Talk & Inquiries | Juwel Hossain – Full-Stack Engineer",
+    metaDescription: "Drop a message for project collaborations, technical consulting, or freelance full-stack engineering opportunities.",
+    ogTitle: "Let’s Talk | Juwel Hossain",
+    ogDescription: "Let's build something memorable together. Drop a message for project collaborations.",
+    ogImage: "/assets/images/avatar/juwel_retro.png",
+    twitterTitle: "Let’s Talk | Juwel Hossain",
+    twitterDescription: "Get in touch with Juwel Hossain for full-stack web engineering inquiries.",
+    canonicalUrl: "http://localhost:3000/contact",
   },
 };
 
@@ -134,7 +142,9 @@ export default function AdminSeoPage() {
       const data = await res.json();
       const map: Record<string, SeoEntry> = {};
       if (Array.isArray(data)) {
-        data.forEach((d: SeoEntry) => { map[d.pageKey] = d; });
+        data.forEach((d: SeoEntry) => {
+          map[d.pageKey] = d;
+        });
       }
       setSeoData(map);
     } catch (e) {
@@ -144,7 +154,9 @@ export default function AdminSeoPage() {
     }
   }, []);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    load();
+  }, [load]);
 
   const getEntry = (pageKey: string): SeoEntry => {
     const page = PAGES.find((p) => p.key === pageKey) || { key: pageKey, label: pageKey };
@@ -191,14 +203,21 @@ export default function AdminSeoPage() {
       setSeoData((prev) => ({ ...prev, [activePage]: saved }));
       await Swal.fire({
         title: "SEO Saved!",
-        text: `Metadata for "${entry.pageLabel}" updated.`,
+        text: `Metadata for "${entry.pageLabel}" updated successfully.`,
         icon: "success",
-        background: "#12121E",
-        color: "#F0F0F5",
-        confirmButtonColor: "#00DE51",
+        background: "#FAF6EC",
+        color: "#191712",
+        confirmButtonColor: "#191712",
       });
     } catch {
-      Swal.fire({ title: "Error", text: "Failed to save SEO metadata.", icon: "error", background: "#12121E", color: "#F0F0F5" });
+      Swal.fire({
+        title: "Error",
+        text: "Failed to save SEO metadata.",
+        icon: "error",
+        background: "#FAF6EC",
+        color: "#191712",
+        confirmButtonColor: "#191712",
+      });
     } finally {
       setSaving(null);
     }
@@ -208,8 +227,9 @@ export default function AdminSeoPage() {
 
   if (loading) {
     return (
-      <div className="py-16 flex justify-center">
-        <div className="w-8 h-8 border-2 border-[#00DE51] border-t-transparent rounded-full animate-spin" />
+      <div className="py-16 flex flex-col items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#191712] border-t-transparent rounded-full animate-spin mb-3" />
+        <p className="font-typewriter text-xs text-[#78716C]">LOADING SEO DOSSIERS...</p>
       </div>
     );
   }
@@ -217,102 +237,112 @@ export default function AdminSeoPage() {
   return (
     <div className="w-full space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
+      <div className="flex items-center justify-between flex-wrap gap-4 border-b-2 border-[#191712] pb-5">
         <div>
-          <h1 className="heading-font text-[26px] lg:text-[32px] font-bold text-white leading-tight">
-            SEO &amp; Metadata
+          <p className="retro-eyebrow !mb-1">METADATA CONTROLLER</p>
+          <h1 className="font-script font-bold text-3xl sm:text-4xl text-[#191712] leading-tight">
+            SEO &amp; <span className="marked">Metadata</span>
           </h1>
-          <p className="text-xs sm:text-sm mt-1 text-[#888899]">
-            Configure page-level meta titles, descriptions, and Open Graph social sharing for each page.
+          <p className="font-hand text-base text-[#57534E] mt-0.5">
+            Configure page-level titles, meta descriptions, and Open Graph previews for search engines and social cards.
           </p>
         </div>
         <button
           onClick={handleSave}
           disabled={!!saving}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary"
         >
           {saving ? (
-            <><span className="w-4 h-4 border-2 border-black/30 border-t-black/80 rounded-full animate-spin" /> Saving...</>
+            <>
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              Saving...
+            </>
           ) : (
-            <><FaSave /> Save Page SEO</>
+            <>
+              <FaSave /> Save Page SEO
+            </>
           )}
         </button>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Page Selector */}
-        <nav className="flex lg:flex-col gap-2 flex-wrap lg:flex-nowrap lg:w-52 xl:w-60 flex-shrink-0">
-          {PAGES.map((p) => (
-            <button
-              key={p.key}
-              onClick={() => setActivePage(p.key)}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-left"
-              style={{
-                background: activePage === p.key ? "var(--accent)" : "rgba(255,255,255,0.04)",
-                color: activePage === p.key ? "#0A0A14" : "var(--text-muted)",
-              }}
-            >
-              {p.label}
-              {seoData[p.key]?.metaTitle && (
-                <span className="ml-auto w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ background: activePage === p.key ? "#0A0A14" : "#00DE51" }} />
-              )}
-            </button>
-          ))}
+        <nav className="flex lg:flex-col gap-2 flex-wrap lg:flex-nowrap lg:w-56 xl:w-64 flex-shrink-0">
+          {PAGES.map((p) => {
+            const isActive = activePage === p.key;
+            const hasCustomTitle = !!seoData[p.key]?.metaTitle;
+            return (
+              <button
+                key={p.key}
+                onClick={() => setActivePage(p.key)}
+                className={`flex items-center justify-between px-4 py-2.5 rounded-md text-sm font-hand transition-all text-left cursor-pointer ${
+                  isActive
+                    ? "bg-[#FFE45E] text-[#191712] border-2 border-[#191712] font-bold shadow-[2px_2px_0px_#191712]"
+                    : "bg-[#FAF7EE] text-[#57534E] border border-[#191712]/20 hover:border-[#191712] hover:bg-[#FBF6E6]"
+                }`}
+              >
+                <span>{p.label}</span>
+                {hasCustomTitle && (
+                  <span
+                    className="w-2.5 h-2.5 rounded-full border border-[#191712] bg-[#FFE45E]"
+                    title="Custom metadata active"
+                  />
+                )}
+              </button>
+            );
+          })}
         </nav>
 
         {/* SEO Fields */}
         <div className="flex-1 space-y-5">
           {/* Info banner */}
-          <div
-            className="flex items-start gap-3 px-4 py-3 rounded-xl text-xs leading-relaxed"
-            style={{ background: "rgba(0,222,81,0.08)", border: "1px solid rgba(0,222,81,0.2)" }}
-          >
-            <span className="text-[#00DE51] mt-0.5 flex-shrink-0">
-              <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" /></svg>
+          <div className="hand-dashed-box p-4 bg-[#FFFBEB] flex items-start gap-3">
+            <span className="font-typewriter font-bold text-sm bg-[#FFE45E] border border-[#191712] px-2 py-0.5 text-[#191712] shrink-0">
+              NOTE
             </span>
-            <span style={{ color: "var(--text-muted)" }}>
-              These fields show the <strong className="text-white">current live metadata</strong> for the selected page. Unsaved pages display defaults from the code. Click <strong className="text-white">Save Page SEO</strong> to persist to the database.
-            </span>
+            <p className="font-hand text-sm text-[#292524] leading-relaxed">
+              These fields show the <strong>exact live metadata</strong> for the selected page. Unsaved pages display defaults from the code. Click <strong>Save Page SEO</strong> to persist to the database.
+            </p>
           </div>
+
           {/* Basic SEO */}
-          <div className="glass-card rounded-2xl p-5 sm:p-6 space-y-5">
-            <h2 className="heading-font text-base font-semibold text-white pb-3 border-b border-white/10 flex items-center gap-2">
-              <FaSearch className="text-[#00DE51]" /> Basic SEO
+          <div className="hand-box p-5 sm:p-7 bg-[#FFFFFF] space-y-5">
+            <h2 className="font-script font-bold text-2xl text-[#191712] pb-3 border-b-2 border-[#191712] flex items-center gap-2">
+              <FaSearch className="text-[#191712]" /> Basic SEO
             </h2>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest mb-2 flex items-center gap-2" style={{ color: "var(--text-subtle)" }}>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-2 flex items-center gap-2">
                 <MdOutlineTitle /> Meta Title
               </label>
               <input
-                className="form-input"
+                className="form-input w-full font-hand text-base"
                 placeholder="Page Title — Your Site Name"
                 value={entry.metaTitle}
                 onChange={(e) => setField("metaTitle", e.target.value)}
-                maxLength={70}
+                maxLength={90}
               />
-              <p className="text-[11px] mt-1 opacity-50">{entry.metaTitle.length}/70 characters</p>
+              <p className="font-typewriter text-[11px] text-[#78716C] mt-1">{entry.metaTitle.length}/90 characters</p>
             </div>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest mb-2 flex items-center gap-2" style={{ color: "var(--text-subtle)" }}>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-2 flex items-center gap-2">
                 <MdDescription /> Meta Description
               </label>
               <textarea
                 rows={3}
-                className="form-input"
+                className="form-input w-full font-hand text-base"
                 placeholder="Brief description for search engines (150–160 chars recommended)"
                 value={entry.metaDescription}
                 onChange={(e) => setField("metaDescription", e.target.value)}
-                maxLength={160}
+                maxLength={200}
               />
-              <p className="text-[11px] mt-1 opacity-50">{entry.metaDescription.length}/160 characters</p>
+              <p className="font-typewriter text-[11px] text-[#78716C] mt-1">{entry.metaDescription.length}/200 characters</p>
             </div>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest mb-2 flex items-center gap-2" style={{ color: "var(--text-subtle)" }}>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-2 flex items-center gap-2">
                 <FaLink /> Canonical URL
               </label>
               <input
-                className="form-input"
+                className="form-input w-full font-hand text-base"
                 type="url"
                 placeholder="https://yoursite.com/page"
                 value={entry.canonicalUrl}
@@ -322,81 +352,67 @@ export default function AdminSeoPage() {
           </div>
 
           {/* Open Graph */}
-          <div className="glass-card rounded-2xl p-5 sm:p-6 space-y-5">
-            <h2 className="heading-font text-base font-semibold text-white pb-3 border-b border-white/10 flex items-center gap-2">
-              <FaShareAlt className="text-[#00DE51]" /> Open Graph (Facebook, LinkedIn, WhatsApp)
+          <div className="hand-box p-5 sm:p-7 bg-[#FFFFFF] space-y-5">
+            <h2 className="font-script font-bold text-2xl text-[#191712] pb-3 border-b-2 border-[#191712] flex items-center gap-2">
+              <FaShareAlt className="text-[#191712]" /> Open Graph (Social Cards)
             </h2>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-subtle)" }}>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-2">
                 OG Title
               </label>
               <input
-                className="form-input"
+                className="form-input w-full font-hand text-base"
                 placeholder="Social share title"
                 value={entry.ogTitle}
                 onChange={(e) => setField("ogTitle", e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-subtle)" }}>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-2">
                 OG Description
               </label>
               <textarea
                 rows={2}
-                className="form-input"
+                className="form-input w-full font-hand text-base"
                 placeholder="Social share description"
                 value={entry.ogDescription}
                 onChange={(e) => setField("ogDescription", e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-subtle)" }}>
-                OG Image URL
-              </label>
-              <input
-                className="form-input"
-                type="url"
-                placeholder="https://... (1200×630px recommended)"
+              <ImageUploader
+                label="OG / Social Share Image"
                 value={entry.ogImage}
-                onChange={(e) => setField("ogImage", e.target.value)}
+                onChange={(url) => setField("ogImage", url)}
+                placeholder="https://... or /assets/..."
+                helperText="Preview image shown when sharing links on Facebook, Twitter, and LinkedIn"
               />
-              {entry.ogImage && (
-                <div className="mt-2">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={entry.ogImage}
-                    alt="OG preview"
-                    className="h-20 rounded-lg object-cover border border-white/10"
-                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                  />
-                </div>
-              )}
             </div>
           </div>
 
           {/* Twitter Card */}
-          <div className="glass-card rounded-2xl p-5 sm:p-6 space-y-5">
-            <h2 className="heading-font text-base font-semibold text-white pb-3 border-b border-white/10 flex items-center gap-2">
-              <FaTwitter className="text-[#00DE51]" /> Twitter / X Card
+          <div className="hand-box p-5 sm:p-7 bg-[#FFFFFF] space-y-5">
+            <h2 className="font-script font-bold text-2xl text-[#191712] pb-3 border-b-2 border-[#191712] flex items-center gap-2">
+              <FaTwitter className="text-[#191712]" /> Twitter / X Card
             </h2>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-subtle)" }}>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-2">
                 Twitter Title
               </label>
               <input
-                className="form-input"
+                className="form-input w-full font-hand text-base"
                 placeholder="Twitter card title"
                 value={entry.twitterTitle}
                 onChange={(e) => setField("twitterTitle", e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--text-subtle)" }}>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-2">
                 Twitter Description
               </label>
               <textarea
                 rows={2}
-                className="form-input"
+                className="form-input w-full font-hand text-base"
                 placeholder="Twitter card description"
                 value={entry.twitterDescription}
                 onChange={(e) => setField("twitterDescription", e.target.value)}

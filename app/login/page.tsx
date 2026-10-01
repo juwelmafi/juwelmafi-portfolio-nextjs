@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginPage() {
@@ -27,7 +28,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (result?.error) {
-      setError("Invalid credentials. Please check your email and password.");
+      setError("Invalid credentials. Please verify your email and password.");
     } else {
       router.push("/admin");
       router.refresh();
@@ -35,44 +36,61 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      className="min-h-screen w-full flex items-center justify-center px-4 py-8 sm:py-12 relative overflow-hidden"
-      style={{ background: "#0b0d14" }}
-    >
-      <div className="w-full max-w-[420px] mx-auto z-10">
-        <div
-          className="w-full rounded-3xl p-6 sm:p-8 backdrop-blur-xl"
-          style={{
-            background: "rgba(17, 20, 32, 0.9)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            boxShadow: "0 20px 50px -10px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 222, 81, 0.04)",
-          }}
+    <div className="retro-page-container min-h-screen w-full flex items-center justify-center px-4 py-12 relative overflow-hidden">
+      
+      {/* Return to Portfolio Link */}
+      <div className="absolute top-6 left-6 sm:left-10 z-20">
+        <Link
+          href="/"
+          className="font-hand text-lg text-[#191712] hover:underline"
         >
+          ← Return to Portfolio
+        </Link>
+      </div>
+
+      <div className="w-full max-w-md mx-auto relative z-10">
+        
+        {/* Masking tape on top of the login card */}
+        <div className="tape tape-top" aria-hidden="true" />
+
+        {/* Hand-drawn Login Docket Card */}
+        <div className="hand-box p-8 sm:p-10 bg-[#FFFFFF] relative shadow-[6px_7px_0px_#191712]">
+          
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-[#00DE51]/15 text-[#00DE51] shadow-md shadow-[#00DE51]/20">
-              <FaLock className="text-xl text-[#00DE51]" />
+            <div className="w-12 h-12 border-2 border-[#191712] rounded-xl bg-[#FFE45E] flex items-center justify-center mx-auto mb-3 shadow-[2px_2px_0px_#191712]">
+              <FaLock className="text-xl text-[#191712]" />
             </div>
-            <h1 className="heading-font text-2xl sm:text-3xl font-bold text-white leading-tight">
-              Admin Login
+
+            <p className="retro-eyebrow mb-1">
+              AUTHORIZED ACCESS ONLY
+            </p>
+
+            <h1 className="font-script font-bold text-3xl sm:text-4xl text-[#191712] leading-tight">
+              Admin <span className="marked">Terminal</span>
             </h1>
-            <p className="text-xs sm:text-sm mt-1.5 text-[#888899]">
-              Access the portfolio dashboard
+
+            <p className="font-hand text-base sm:text-lg text-[#57534E] mt-1">
+              Sign in to manage projects, blogs, and curriculum.
             </p>
           </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-6 p-3 bg-[#FEE2E2] border-2 border-[#DC2626] rounded-md font-hand text-base text-[#991B1B]">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email Field */}
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider mb-2 text-[#9999a8]">
-                Email
+              <label className="block font-typewriter text-xs uppercase tracking-wider mb-1.5 text-[#191712] font-bold">
+                Admin Email Address
               </label>
               <div className="relative flex items-center w-full">
-                <span
-                  className="absolute left-4 flex items-center justify-center pointer-events-none z-10"
-                  style={{ color: "#71717a", width: "20px", height: "20px" }}
-                >
-                  <FaEnvelope className="text-sm" />
+                <span className="absolute left-3.5 text-[#78716C]">
+                  <FaEnvelope size={14} />
                 </span>
                 <input
                   type="email"
@@ -80,116 +98,61 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@example.com"
-                  className="w-full h-12 rounded-xl text-sm text-white placeholder-zinc-500 transition-all outline-none"
-                  style={{
-                    backgroundColor: "rgba(255, 255, 255, 0.04)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    paddingLeft: "46px",
-                    paddingRight: "16px",
-                    boxSizing: "border-box",
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = "#00DE51";
-                    e.currentTarget.style.boxShadow = "0 0 0 3px rgba(0, 222, 81, 0.15)";
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
+                  className="w-full pl-10 pr-4 py-2.5 bg-[#FAF7EE] border-2 border-[#191712] rounded-md font-hand text-lg text-[#191712] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] transition-all"
                 />
               </div>
             </div>
 
             {/* Password Field */}
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider mb-2 text-[#9999a8]">
-                Password
+              <label className="block font-typewriter text-xs uppercase tracking-wider mb-1.5 text-[#191712] font-bold">
+                Security Password
               </label>
               <div className="relative flex items-center w-full">
-                <span
-                  className="absolute left-4 flex items-center justify-center pointer-events-none z-10"
-                  style={{ color: "#71717a", width: "20px", height: "20px" }}
-                >
-                  <FaLock className="text-sm" />
+                <span className="absolute left-3.5 text-[#78716C]">
+                  <FaLock size={14} />
                 </span>
                 <input
                   type={showPass ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full h-12 rounded-xl text-sm text-white placeholder-zinc-500 transition-all outline-none"
-                  style={{
-                    backgroundColor: "rgba(255, 255, 255, 0.04)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    paddingLeft: "46px",
-                    paddingRight: "46px",
-                    boxSizing: "border-box",
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = "#00DE51";
-                    e.currentTarget.style.boxShadow = "0 0 0 3px rgba(0, 222, 81, 0.15)";
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
+                  placeholder="••••••••••••"
+                  className="w-full pl-10 pr-11 py-2.5 bg-[#FAF7EE] border-2 border-[#191712] rounded-md font-hand text-lg text-[#191712] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPass(!showPass)}
-                  aria-label={showPass ? "Hide password" : "Show password"}
-                  className="absolute right-3 w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white transition-colors cursor-pointer rounded-lg"
+                  className="absolute right-3.5 text-[#78716C] hover:text-[#191712] cursor-pointer"
+                  tabIndex={-1}
                 >
-                  {showPass ? <FaEyeSlash className="text-sm" /> : <FaEye className="text-sm" />}
+                  {showPass ? <FaEyeSlash size={16} /> : <FaEye size={16} />}
                 </button>
               </div>
             </div>
 
-            {error && (
-              <p
-                className="text-sm px-4 py-3 rounded-xl"
-                style={{
-                  background: "rgba(248, 113, 113, 0.1)",
-                  color: "#f87171",
-                  border: "1px solid rgba(248, 113, 113, 0.25)",
-                }}
+            {/* Submit Button */}
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-hand-black w-full justify-center text-xl cursor-pointer"
               >
-                {error}
-              </p>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full h-12 rounded-xl font-bold text-sm text-black flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg hover:shadow-[#00DE51]/20 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-              style={{
-                backgroundColor: "#00DE51",
-                boxShadow: "0 10px 25px -5px rgba(0, 222, 81, 0.3)",
-              }}
-            >
-              {loading ? (
-                <>
-                  <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                  <span>Signing In...</span>
-                </>
-              ) : (
-                "Sign In"
-              )}
-            </button>
+                {loading ? "Authenticating..." : "Enter Terminal →"}
+              </button>
+            </div>
           </form>
 
-          <div className="mt-6 text-center">
-            <a
-              href="/"
-              className="text-xs text-[#888899] hover:text-[#00DE51] transition-colors font-medium inline-flex items-center gap-1.5"
-            >
-              <span>←</span>
-              <span>Back to Website</span>
-            </a>
+          {/* Bottom Security Stamp */}
+          <div className="mt-8 pt-4 border-t border-[#191712]/20 flex items-center justify-between font-typewriter text-[11px] text-[#78716C]">
+            <span>STATUS: SECURE 256-BIT</span>
+            <span>NP-ADMIN-AUTH</span>
           </div>
+
         </div>
+
       </div>
+
     </div>
   );
 }

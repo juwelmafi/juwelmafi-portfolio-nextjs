@@ -62,7 +62,10 @@ export interface Service {
   id?: string;
   title: string;
   desc: string;
-  tags: string[];
+  kicker?: string;       // e.g. "FULL-STACK", "SHOPIFY", "LANDING PAGE", "UI/UX DESIGN"
+  deliverables?: string; // extra info e.g. "Clean Code · REST APIs · 100% Mobile Responsive"
+  ribbon?: string;       // optional badge e.g. "Most requested", "Popular"
+  tags?: string[];
   img1?: string;
   img2?: string;
   features?: string[];
@@ -71,3 +74,4 @@ export interface Service {
   createdAt?: string;
   updatedAt?: string;
 }
+

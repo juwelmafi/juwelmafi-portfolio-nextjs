@@ -68,7 +68,14 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title) {
-      Swal.fire({ title: "Validation Error", text: "Please enter a course title.", icon: "warning" });
+      Swal.fire({
+        title: "Validation Error",
+        text: "Please enter a course title.",
+        icon: "warning",
+        background: "#FAF6EC",
+        color: "#191712",
+        confirmButtonColor: "#191712",
+      });
       return;
     }
 
@@ -99,17 +106,17 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to save course");
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Failed to save course");
       }
 
       await Swal.fire({
-        title: "Saved!",
-        text: `Course has been ${isEditing ? "updated" : "created"} successfully.`,
+        title: isEditing ? "Course Updated!" : "Course Created!",
+        text: "Course curriculum successfully recorded.",
         icon: "success",
-        background: "#12121E",
-        color: "#F0F0F5",
-        confirmButtonColor: "#00DE51",
+        background: "#FAF6EC",
+        color: "#191712",
+        confirmButtonColor: "#191712",
       });
 
       router.push("/admin/courses");
@@ -120,8 +127,9 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
         title: "Error",
         text: msg,
         icon: "error",
-        background: "#12121E",
-        color: "#F0F0F5",
+        background: "#FAF6EC",
+        color: "#191712",
+        confirmButtonColor: "#191712",
       });
     } finally {
       setSaving(false);
@@ -131,52 +139,60 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
   return (
     <form onSubmit={handleSubmit} className="space-y-8 max-w-5xl mx-auto">
       {/* Course Core Details Card */}
-      <div className="glass-card p-6 sm:p-8 space-y-6">
-        <h2 className="heading-font text-xl font-bold text-white border-none pb-4">
+      <div className="hand-box p-6 sm:p-8 bg-[#FFFFFF] space-y-6">
+        <h2 className="font-script font-bold text-2xl text-[#191712] border-b-2 border-[#191712] pb-3">
           Course Information
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-xs font-mono text-white/70 mb-2">Course Title *</label>
+            <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider block mb-2">
+              Course Title *
+            </label>
             <input
               type="text"
               required
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
               placeholder="e.g., Full-Stack Next.js 15 & MERN Masterclass"
-              className="form-input"
+              className="form-input w-full font-hand text-base"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-mono text-white/70 mb-2">URL Slug</label>
+            <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider block mb-2">
+              URL Slug
+            </label>
             <input
               type="text"
               value={form.slug}
               onChange={(e) => setForm({ ...form, slug: e.target.value })}
               placeholder="auto-generated-from-title"
-              className="form-input font-mono"
+              className="form-input w-full font-typewriter text-sm"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-mono text-white/70 mb-2">Category</label>
+            <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider block mb-2">
+              Category
+            </label>
             <input
               type="text"
               value={form.category}
               onChange={(e) => setForm({ ...form, category: e.target.value })}
               placeholder="e.g., Next.js & MERN"
-              className="form-input"
+              className="form-input w-full font-hand text-base"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-mono text-white/70 mb-2">Level</label>
+            <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider block mb-2">
+              Level
+            </label>
             <select
               value={form.level}
               onChange={(e) => setForm({ ...form, level: e.target.value })}
-              className="form-input bg-[#12121e]"
+              className="form-input w-full font-hand text-base"
             >
               <option value="All Levels">All Levels</option>
               <option value="Beginner">Beginner</option>
@@ -186,36 +202,42 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
           </div>
 
           <div>
-            <label className="block text-xs font-mono text-white/70 mb-2">Badge / Tagline</label>
+            <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider block mb-2">
+              Badge / Ribbon
+            </label>
             <input
               type="text"
               value={form.badge}
               onChange={(e) => setForm({ ...form, badge: e.target.value })}
               placeholder="e.g., Featured Masterclass"
-              className="form-input"
+              className="form-input w-full font-hand text-base"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-mono text-white/70 mb-2">Cover Thumbnail URL</label>
+            <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider block mb-2">
+              Cover Thumbnail URL
+            </label>
             <input
               type="text"
               value={form.thumbnail}
               onChange={(e) => setForm({ ...form, thumbnail: e.target.value })}
               placeholder="https://..."
-              className="form-input"
+              className="form-input w-full font-hand text-base"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-mono text-white/70 mb-2">Course Overview Description</label>
+          <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider block mb-2">
+            Course Overview Description
+          </label>
           <textarea
             rows={3}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
             placeholder="Comprehensive description of what developers will learn..."
-            className="form-input resize-none"
+            className="form-input w-full font-hand text-base resize-none"
           />
         </div>
 
@@ -225,31 +247,31 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
             id="published"
             checked={form.published}
             onChange={(e) => setForm({ ...form, published: e.target.checked })}
-            className="w-4 h-4 rounded accent-[#00DE51]"
+            className="w-4 h-4 rounded accent-[#191712]"
           />
-          <label htmlFor="published" className="text-sm font-medium text-white cursor-pointer">
+          <label htmlFor="published" className="font-hand text-base font-bold text-[#191712] cursor-pointer">
             Publish this course publicly on website
           </label>
         </div>
       </div>
 
       {/* YouTube Lessons Builder Card */}
-      <div className="glass-card p-6 sm:p-8 space-y-6">
-        <div className="flex items-center justify-between border-none pb-4">
+      <div className="hand-box p-6 sm:p-8 bg-[#FFFFFF] space-y-6">
+        <div className="flex items-center justify-between border-b-2 border-[#191712] pb-4">
           <div>
-            <h2 className="heading-font text-xl font-bold text-white flex items-center gap-2">
-              <FaYoutube className="text-red-500" /> YouTube Lessons &amp; Chapters ({lessons.length})
+            <h2 className="font-script font-bold text-2xl text-[#191712] flex items-center gap-2">
+              <FaYoutube className="text-[#DC2626]" /> YouTube Lessons &amp; Chapters ({lessons.length})
             </h2>
-            <p className="text-xs text-white/50 mt-1">
-              Add YouTube video links. The player will wrap them in clean, website-native controls.
+            <p className="font-hand text-sm text-[#57534E] mt-1">
+              Add YouTube video links. The player will wrap them in clean, website-native notebook controls.
             </p>
           </div>
           <button
             type="button"
             onClick={handleAddLesson}
-            className="btn-outline text-xs py-2 px-3.5"
+            className="btn-small text-xs py-1.5 px-3 cursor-pointer"
           >
-            <FaPlus /> Add Lesson
+            <FaPlus className="mr-1" /> Add Lesson
           </button>
         </div>
 
@@ -259,17 +281,17 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
             return (
               <div
                 key={idx}
-                className="p-5 rounded-2xl bg-[#141624] border-none shadow-sm space-y-4 relative"
+                className="p-5 rounded-md bg-[#FAF7EE] border-2 border-[#191712] shadow-[2px_2px_0px_#191712] space-y-4 relative"
               >
-                <div className="flex items-center justify-between pb-3 border-none">
-                  <span className="text-xs font-mono font-bold text-[#00DE51] bg-[#00DE51]/10 px-2.5 py-0.5 rounded-full">
+                <div className="flex items-center justify-between pb-3 border-b border-[#191712]/20">
+                  <span className="font-typewriter text-xs font-bold text-[#191712] bg-[#FFE45E] border border-[#191712] px-2.5 py-0.5 rounded shadow-[1px_1px_0px_#191712]">
                     Lesson {idx + 1}
                   </span>
                   {lessons.length > 1 && (
                     <button
                       type="button"
                       onClick={() => handleRemoveLesson(idx)}
-                      className="text-xs text-red-400 hover:text-red-300 p-1 transition-colors"
+                      className="text-xs text-[#DC2626] hover:text-red-700 p-1 transition-colors cursor-pointer"
                       title="Remove Lesson"
                     >
                       <FaTrash />
@@ -279,7 +301,7 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[11px] font-mono text-white/60 mb-1">
+                    <label className="block font-typewriter text-[11px] font-bold text-[#191712] uppercase tracking-wider mb-1">
                       Lesson Title *
                     </label>
                     <input
@@ -288,12 +310,12 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
                       value={lesson.title}
                       onChange={(e) => handleLessonChange(idx, "title", e.target.value)}
                       placeholder="e.g., 01. Next.js 15 App Router Architecture"
-                      className="form-input text-sm"
+                      className="form-input w-full font-hand text-base"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-mono text-white/60 mb-1">
+                    <label className="block font-typewriter text-[11px] font-bold text-[#191712] uppercase tracking-wider mb-1">
                       YouTube Video URL or Video ID *
                     </label>
                     <input
@@ -302,17 +324,17 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
                       value={lesson.youtubeUrl}
                       onChange={(e) => handleLessonChange(idx, "youtubeUrl", e.target.value)}
                       placeholder="https://www.youtube.com/watch?v=... or ID"
-                      className="form-input text-sm font-mono"
+                      className="form-input w-full font-typewriter text-xs"
                     />
                     {extractedId && (
-                      <p className="text-[11px] text-[#00DE51] font-mono mt-1">
+                      <p className="font-typewriter text-[11px] text-[#C2410C] font-bold mt-1">
                         Detected Video ID: {extractedId}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-mono text-white/60 mb-1">
+                    <label className="block font-typewriter text-[11px] font-bold text-[#191712] uppercase tracking-wider mb-1">
                       Duration
                     </label>
                     <input
@@ -320,12 +342,12 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
                       value={lesson.duration}
                       onChange={(e) => handleLessonChange(idx, "duration", e.target.value)}
                       placeholder="e.g., 24:15"
-                      className="form-input text-sm font-mono"
+                      className="form-input w-full font-typewriter text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-mono text-white/60 mb-1">
+                    <label className="block font-typewriter text-[11px] font-bold text-[#191712] uppercase tracking-wider mb-1">
                       Lesson Summary
                     </label>
                     <input
@@ -333,13 +355,13 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
                       value={lesson.summary}
                       onChange={(e) => handleLessonChange(idx, "summary", e.target.value)}
                       placeholder="Key takeaways from this episode..."
-                      className="form-input text-sm"
+                      className="form-input w-full font-hand text-base"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-mono text-white/60 mb-1 flex items-center gap-1.5">
+                  <label className="block font-typewriter text-[11px] font-bold text-[#191712] uppercase tracking-wider mb-1 flex items-center gap-1.5">
                     <FaCode /> Optional Starter Code / Snippet
                   </label>
                   <textarea
@@ -347,7 +369,7 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
                     value={lesson.codeSnippet || ""}
                     onChange={(e) => handleLessonChange(idx, "codeSnippet", e.target.value)}
                     placeholder="// Paste relevant code snippets or notes for learners..."
-                    className="form-input text-xs font-mono resize-none"
+                    className="form-input w-full font-mono text-xs resize-none"
                   />
                 </div>
               </div>
@@ -358,7 +380,7 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
         <button
           type="button"
           onClick={handleAddLesson}
-          className="w-full py-3.5 rounded-2xl border-none bg-[#141624] hover:bg-[#1a1d30] shadow-sm text-white/70 hover:text-[#00DE51] text-xs font-mono font-semibold transition-all flex items-center justify-center gap-2"
+          className="w-full py-3 rounded-md border-2 border-dashed border-[#191712] bg-[#FAF7EE] hover:bg-[#FFE45E] text-[#191712] font-hand text-base font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <FaPlus /> Add Another Lesson
         </button>

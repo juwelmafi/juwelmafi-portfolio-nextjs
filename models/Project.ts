@@ -12,10 +12,11 @@ export interface IProject extends Document {
   details: string;
   challenge: string;
   goal: string;
-  category?: string;
+  category: string;
   reverse: boolean;
   order: number;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 const ProjectSchema = new Schema<IProject>(
@@ -31,11 +32,22 @@ const ProjectSchema = new Schema<IProject>(
     details:    { type: String, default: "" },
     challenge:  { type: String, default: "" },
     goal:       { type: String, default: "" },
-    category:   { type: String, default: "" },
+    category:   { type: String, default: "MERN" },
     reverse:    { type: Boolean, default: false },
     order:      { type: Number, default: 0 },
   },
-  { timestamps: true }
+  { timestamps: true, strict: false }
 );
 
-export default models.Project || model<IProject>("Project", ProjectSchema);
+// In Next.js dev server with hot reload, delete cached model if it lacks category path
+if (models.Project && !models.Project.schema?.paths?.category) {
+  delete (models as Record<string, unknown>).Project;
+}
+
+const ProjectModel = models.Project || model<IProject>("Project", ProjectSchema);
+
+if (ProjectModel.schema && !ProjectModel.schema.paths.category) {
+  ProjectModel.schema.add({ category: { type: String, default: "MERN" } });
+}
+
+export default ProjectModel;

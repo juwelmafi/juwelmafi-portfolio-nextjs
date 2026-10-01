@@ -4,24 +4,25 @@
 
 /* ── Design Tokens ─────────────────────────────────────── */
 :root {
-  --bg-base:      #0A0A14;
-  --bg-card:      #12121E;
-  --bg-elevated:  #1A1A2E;
-  --bg-surface:   #1E1E32;
-  --accent:       #00DE51;
-  --accent-dim:   #00B843;
-  --accent-glow:  rgba(0, 222, 81, 0.15);
-  --text-primary: #F0F0F5;
-  --text-muted:   #888899;
-  --text-subtle:  #555566;
-  --border:       rgba(255,255,255,0.06);
-  --border-accent:rgba(0, 222, 81, 0.3);
+  --bg-base:      #FBF6E6;
+  --bg-card:      #FFFFFF;
+  --bg-elevated:  #FAF7EE;
+  --bg-surface:   #FAF7EE;
+  --accent:       #FFE45E;
+  --accent-dim:   #FDE047;
+  --accent-glow:  rgba(255, 228, 94, 0.25);
+  --text-primary: #191712;
+  --text-muted:   #57534E;
+  --text-subtle:  #78716C;
+  --border:       #191712;
+  --border-accent:#191712;
   --radius-sm:    8px;
-  --radius-md:    14px;
-  --radius-lg:    20px;
-  --shadow-card:  0 4px 24px rgba(0,0,0,0.4);
-  --shadow-glow:  0 0 30px rgba(0, 222, 81, 0.12);
+  --radius-md:    12px;
+  --radius-lg:    16px;
+  --shadow-card:  4px 5px 0px #191712;
+  --shadow-glow:  0 0 20px rgba(255, 228, 94, 0.4);
 }
+
 
 /* ── Base Reset & Horizontal Scroll Fix ─────────────────── */
 *, *::before, *::after {
@@ -349,8 +350,23 @@ html, body {
 
 /* ── Selection ─────────────────────────────────────────── */
 ::selection {
-  background: rgba(0, 222, 81, 0.25);
-  color: var(--accent);
+  background-color: #FFE45E !important;
+  color: #191712 !important;
+}
+
+::-moz-selection {
+  background-color: #FFE45E !important;
+  color: #191712 !important;
+}
+
+*::selection {
+  background-color: #FFE45E !important;
+  color: #191712 !important;
+}
+
+*::-moz-selection {
+  background-color: #FFE45E !important;
+  color: #191712 !important;
 }
 
 /* ── Animation & Visibility Overrides ───────────────────── */
@@ -502,20 +518,23 @@ button[type="submit"]:not([class*="p-"]):not([class*="px-"]):not([class*="py-"])
   align-items: center !important;
   justify-content: center !important;
   gap: 8px !important;
-  background: var(--accent) !important;
-  color: #0A0A14 !important;
+  background: #191712 !important;
+  color: #FFFFFF !important;
   font-weight: 700 !important;
   font-size: 0.875rem !important;
-  padding: 0.75rem 1.6rem !important;
-  border-radius: var(--radius-sm) !important;
-  border: none !important;
+  padding: 0.7rem 1.5rem !important;
+  border-radius: 8px !important;
+  border: 2px solid #191712 !important;
+  box-shadow: 3px 3px 0px #191712 !important;
   cursor: pointer !important;
-  transition: all 0.25s ease !important;
+  transition: all 0.2s ease !important;
 }
 .btn-primary:hover {
-  background: #33FF77 !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 8px 20px rgba(0, 222, 81, 0.3) !important;
+  background: #FFE45E !important;
+  color: #191712 !important;
+  border-color: #191712 !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 4px 4px 0px #191712 !important;
 }
 
 .btn-outline {
@@ -523,20 +542,21 @@ button[type="submit"]:not([class*="p-"]):not([class*="px-"]):not([class*="py-"])
   align-items: center !important;
   justify-content: center !important;
   gap: 8px !important;
-  background: transparent !important;
-  color: var(--text-primary) !important;
+  background: #FAF7EE !important;
+  color: #191712 !important;
   font-weight: 600 !important;
   font-size: 0.875rem !important;
-  padding: 0.75rem 1.6rem !important;
-  border-radius: var(--radius-sm) !important;
-  border: 1px solid var(--border) !important;
+  padding: 0.65rem 1.4rem !important;
+  border-radius: 8px !important;
+  border: 2px solid #191712 !important;
+  box-shadow: 2px 2px 0px #191712 !important;
   cursor: pointer !important;
-  transition: all 0.25s ease !important;
+  transition: all 0.2s ease !important;
 }
 .btn-outline:hover {
-  border-color: var(--border-accent) !important;
-  color: var(--accent) !important;
-  background: var(--accent-glow) !important;
+  border-color: #191712 !important;
+  color: #191712 !important;
+  background: #FFE45E !important;
 }
 
 .btn-accent-outline {
@@ -546,15 +566,16 @@ button[type="submit"]:not([class*="p-"]):not([class*="px-"]):not([class*="py-"])
   gap: 6px !important;
   font-weight: 600 !important;
   padding: 0.6rem 1.25rem !important;
-  border-radius: var(--radius-sm) !important;
-  border: 1px solid var(--border-accent) !important;
-  color: var(--accent) !important;
-  background: var(--accent-glow) !important;
-  transition: all 0.25s ease !important;
+  border-radius: 8px !important;
+  border: 2px solid #191712 !important;
+  color: #191712 !important;
+  background: #FFE45E !important;
+  box-shadow: 2px 2px 0px #191712 !important;
+  transition: all 0.2s ease !important;
   cursor: pointer !important;
 }
 .btn-accent-outline:hover {
-  background: rgba(0, 222, 81, 0.25) !important;
+  background: #FDE047 !important;
   transform: translateY(-1px) !important;
 }
 
@@ -620,24 +641,22 @@ button[type="submit"]:not([class*="p-"]):not([class*="px-"]):not([class*="py-"])
   }
 }
 
-/* ── Borderless Glass Drop Card System ─────────────────────── */
+/* ── Retro Hand-drawn Card System ─────────────────────── */
 .glass-card,
 .glass-drop-card {
   box-sizing: border-box !important;
   position: relative !important;
-  background: radial-gradient(130% 130% at 20% 10%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 60%, rgba(255, 255, 255, 0) 100%), rgba(20, 23, 36, 0.75) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  border: none !important;
-  outline: none !important;
-  border-radius: 24px !important;
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1) !important;
-  transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease !important;
+  background: #FFFFFF !important;
+  border: 2px solid #191712 !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 5px 0px #191712 !important;
+  color: #191712 !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
 }
 
 .glass-card:hover,
 .glass-drop-card:hover {
-  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.75), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 5px 6px 0px #191712 !important;
 }
 
 .glass-card.overflow-hidden,
@@ -1392,143 +1411,123 @@ textarea {
   justify-content: center !important;
   gap: 0.65rem !important;
   padding: 0.75rem 1rem !important;
-  border-radius: 14px !important;
-  background: linear-gradient(135deg, #00DE51 0%, #00B843 100%) !important;
-  color: #0A0A14 !important;
+  border-radius: 8px !important;
+  background: #191712 !important;
+  color: #FFFFFF !important;
   font-weight: 700 !important;
   font-size: 0.875rem !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: 0 4px 18px rgba(0, 222, 81, 0.4) !important;
+  border: 2px solid #191712 !important;
+  box-shadow: 3px 3px 0px #191712 !important;
   cursor: pointer !important;
-  transition: all 0.25s ease !important;
+  transition: all 0.2s ease !important;
 }
 
 .dashboard-action-btn:hover {
-  background: linear-gradient(135deg, #33FF77 0%, #00DE51 100%) !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 8px 26px rgba(0, 222, 81, 0.55) !important;
+  background: #FFE45E !important;
+  color: #191712 !important;
+  border-color: #191712 !important;
+  box-shadow: 4px 4px 0px #191712 !important;
 }
 
 /* Overview Metric Card */
 .dashboard-metric-card {
   box-sizing: border-box !important;
-  background: #1E2235 !important;
-  border-radius: 22px !important;
-  box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.5), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.08) !important;
-  border: none !important;
-  outline: none !important;
+  background: #FFFFFF !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 5px 0px #191712 !important;
+  border: 2px solid #191712 !important;
   padding: 1.25rem 1.5rem !important;
   display: flex !important;
   align-items: center !important;
   gap: 1.25rem !important;
-  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 .dashboard-metric-card:hover {
   transform: translateY(-2px) !important;
-  box-shadow: 0 20px 42px -6px rgba(0, 0, 0, 0.65), inset 0 1px 2px 0 rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 5px 6px 0px #191712 !important;
 }
 
 /* Timeline & Notes Glass Drop Cards */
 .dashboard-content-card {
   box-sizing: border-box !important;
-  background: #1B1E30 !important;
-  border-radius: 24px !important;
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), inset 0 1px 1px 0 rgba(255, 255, 255, 0.07) !important;
-  border: none !important;
-  outline: none !important;
+  background: #FFFFFF !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 5px 0px #191712 !important;
+  border: 2px solid #191712 !important;
   padding: 1.5rem 1.75rem !important;
 }
 
-/* ── Admin Dashboard Global Border Elimination & Glass Drop System ── */
-.dashboard-master-frame,
-.dashboard-master-frame aside,
-.dashboard-master-frame main,
-.dashboard-master-frame .glass-card,
-.dashboard-master-frame .dashboard-content-card,
-.dashboard-master-frame .dashboard-metric-card {
-  border: none !important;
-  border-color: transparent !important;
-}
-
-.dashboard-master-frame [class*="border-b"],
-.dashboard-master-frame [class*="border-t"],
-.dashboard-master-frame [class*="border-r"],
-.dashboard-master-frame [class*="border-l"],
-.dashboard-master-frame [class*="border-white"],
-.dashboard-master-frame [class*="border-gray"] {
-  border: none !important;
-  border-color: transparent !important;
-}
-
-.dashboard-master-frame .glass-card {
-  border: none !important;
-  outline: none !important;
-  background: #141726 !important;
-  border-radius: 20px !important;
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), inset 0 1px 1px 0 rgba(255, 255, 255, 0.07) !important;
-}
-
+/* ── Admin Dashboard Form & Action Inputs ── */
+.form-input,
 .dashboard-master-frame .form-input,
 .dashboard-master-frame input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
 .dashboard-master-frame textarea,
-.dashboard-master-frame select {
-  border: none !important;
+.dashboard-master-frame select,
+input.form-input,
+textarea.form-input,
+select.form-input {
+  border: 2px solid #191712 !important;
   outline: none !important;
-  background: #161928 !important;
-  color: #FFFFFF !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4) !important;
-  transition: box-shadow 0.2s ease !important;
+  background: #FAF7EE !important;
+  color: #191712 !important;
+  border-radius: 6px !important;
+  box-shadow: 2px 2px 0px rgba(25, 23, 18, 0.08) !important;
+  padding: 0.65rem 0.85rem !important;
+  transition: all 0.2s ease !important;
 }
 
+.form-input:focus,
 .dashboard-master-frame .form-input:focus,
 .dashboard-master-frame input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):focus,
 .dashboard-master-frame textarea:focus,
-.dashboard-master-frame select:focus {
-  border: none !important;
-  outline: none !important;
-  box-shadow: 0 0 0 1.5px rgba(0, 222, 81, 0.7), inset 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+.dashboard-master-frame select:focus,
+input.form-input:focus,
+textarea.form-input:focus,
+select.form-input:focus {
+  background: #FFFFFF !important;
+  border-color: #191712 !important;
+  box-shadow: 0 0 0 3px rgba(255, 228, 94, 0.6), 2px 2px 0px #191712 !important;
 }
 
 .dashboard-master-frame .btn-outline {
-  border: none !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+  border: 2px solid #191712 !important;
+  background: #FAF7EE !important;
+  color: #191712 !important;
+  border-radius: 6px !important;
+  box-shadow: 2px 2px 0px #191712 !important;
 }
 
 .dashboard-master-frame .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #FFFFFF !important;
+  background: #FFE45E !important;
+  color: #191712 !important;
 }
 
-/* ── Service Showcase Action & Consultation Buttons (Guaranteed Padding) ── */
+/* ── Service Showcase Action & Consultation Buttons ── */
 .service-cta-btn {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 0.65rem !important;
   padding: 0.85rem 1.85rem !important;
-  border-radius: 14px !important;
-  background: #00DE51 !important;
-  color: #0A0A14 !important;
+  border-radius: 8px !important;
+  background: #191712 !important;
+  color: #FFFFFF !important;
   font-weight: 700 !important;
   font-size: 0.875rem !important;
-  box-shadow: 0 6px 20px rgba(0, 222, 81, 0.35) !important;
-  border: none !important;
-  outline: none !important;
+  box-shadow: 3px 3px 0px #191712 !important;
+  border: 2px solid #191712 !important;
   cursor: pointer !important;
   text-decoration: none !important;
-  transition: all 0.25s ease !important;
+  transition: all 0.2s ease !important;
   white-space: nowrap !important;
 }
 
 .service-cta-btn:hover {
-  background: #33FF77 !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 10px 28px rgba(0, 222, 81, 0.55) !important;
-  color: #0A0A14 !important;
+  background: #FFE45E !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 4px 4px 0px #191712 !important;
+  color: #191712 !important;
 }
 
 .service-cta-btn-lg {
@@ -1537,61 +1536,59 @@ textarea {
   justify-content: center !important;
   gap: 0.75rem !important;
   padding: 1rem 2.5rem !important;
-  border-radius: 16px !important;
-  background: #00DE51 !important;
-  color: #0A0A14 !important;
+  border-radius: 8px !important;
+  background: #191712 !important;
+  color: #FFFFFF !important;
   font-weight: 700 !important;
   font-size: 1rem !important;
-  box-shadow: 0 8px 30px rgba(0, 222, 81, 0.4) !important;
-  border: none !important;
-  outline: none !important;
+  box-shadow: 4px 4px 0px #191712 !important;
+  border: 2px solid #191712 !important;
   cursor: pointer !important;
   text-decoration: none !important;
-  transition: all 0.25s ease !important;
+  transition: all 0.2s ease !important;
   white-space: nowrap !important;
 }
 
 .service-cta-btn-lg:hover {
-  background: #33FF77 !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 14px 38px rgba(0, 222, 81, 0.6) !important;
-  color: #0A0A14 !important;
+  background: #FFE45E !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 5px 5px 0px #191712 !important;
+  color: #191712 !important;
 }
 
-/* ── Footer Social Icons (High Visibility Emerald Glass) ── */
+/* ── Footer Social Icons (Retro Warm Beige) ── */
 .footer-social-btn {
   width: 44px !important;
   height: 44px !important;
-  border-radius: 14px !important;
+  border-radius: 8px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: #00DE51 !important;
+  background: #FAF7EE !important;
+  color: #191712 !important;
   font-size: 1.25rem !important;
-  border: none !important;
-  outline: none !important;
-  transition: all 0.25s ease !important;
+  border: 2px solid #191712 !important;
+  transition: all 0.2s ease !important;
   text-decoration: none !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 2px 2px 0px #191712 !important;
 }
 
 .footer-social-btn:hover {
-  background: rgba(0, 222, 81, 0.22) !important;
-  color: #FFFFFF !important;
-  transform: translateY(-2px) scale(1.06) !important;
-  box-shadow: 0 8px 24px rgba(0, 222, 81, 0.4) !important;
+  background: #FFE45E !important;
+  color: #191712 !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0px #191712 !important;
 }
 
 .footer-social-btn svg {
-  color: #00DE51 !important;
-  fill: #00DE51 !important;
+  color: #191712 !important;
+  fill: #191712 !important;
   width: 20px !important;
   height: 20px !important;
-  transition: color 0.25s ease, fill 0.25s ease !important;
+  transition: color 0.2s ease, fill 0.2s ease !important;
 }
 
 .footer-social-btn:hover svg {
-  color: #FFFFFF !important;
-  fill: #FFFFFF !important;
+  color: #191712 !important;
+  fill: #191712 !important;
 }

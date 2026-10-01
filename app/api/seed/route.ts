@@ -39,6 +39,7 @@ export async function POST() {
           details: p.details || "",
           challenge: p.challenge || "",
           goal: p.goal || "",
+          category: (p.category as string) || "MERN",
           reverse: Boolean(p.reverse),
           order: i,
         }));

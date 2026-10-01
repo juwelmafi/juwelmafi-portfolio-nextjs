@@ -43,6 +43,26 @@ export async function PUT(req: NextRequest, { params }: RouteParams) {
 
     if (!updated) return NextResponse.json({ error: "Service not found" }, { status: 404 });
 
+    // Direct collection update ensures custom minimal fields persist even if schema was cached
+    try {
+      await ServiceModel.collection.updateOne(
+        { _id: updated._id },
+        {
+          $set: {
+            title: body.title,
+            desc: body.desc,
+            kicker: body.kicker || "SERVICE",
+            deliverables: body.deliverables || "",
+            ribbon: body.ribbon || "",
+            order: typeof body.order === "number" ? body.order : 0,
+            published: body.published ?? true,
+          },
+        }
+      );
+    } catch (e) {
+      console.warn("Direct collection update warning:", e);
+    }
+
     return NextResponse.json({
       ...updated,
       id: (updated._id as unknown as { toString(): string }).toString(),

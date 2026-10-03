@@ -130,7 +130,7 @@ const DEFAULT_CONTENT: Omit<ContentItem, "id">[] = [
   // Site Settings
   { key: "site.logo",             label: "Site Logo URL",                     value: "/assets/images/logo/favicon.svg",                                                                             type: "image",    group: "Site Settings" },
   { key: "site.logoText",         label: "Site Logo Monogram",                value: "jh.",                                                                                                         type: "text",     group: "Site Settings" },
-  { key: "site.favicon",          label: "Favicon URL",                       value: "/assets/images/logo/favicon.svg",                                                                             type: "url",      group: "Site Settings" },
+  { key: "site.favicon",          label: "Favicon Image",                       value: "/assets/images/logo/favicon.svg",                                                                             type: "image",    group: "Site Settings" },
   { key: "site.resumeUrl",        label: "Global Resume / CV URL",            value: "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing",                        type: "url",      group: "Site Settings" },
   { key: "site.footerTitle",      label: "Footer Brand Name",                 value: "JUWEL HOSSAIN",                                                                                               type: "text",     group: "Site Settings" },
   { key: "site.footerTagline",    label: "Footer Brand Tagline",              value: "Full-Stack Engineer & Shopify Developer",                                                                     type: "text",     group: "Site Settings" },
@@ -359,7 +359,7 @@ export default function AdminContentsPage() {
                       ({item.key})
                     </span>
                   </label>
-                  {item.type === "image" ? (
+                  {item.type === "image" || item.key === "site.favicon" || item.key === "site.logo" ? (
                     <ImageUploader
                       label=""
                       value={item.value}

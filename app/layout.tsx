@@ -4,14 +4,19 @@ import "./globals.css";
 import "./retro.css";
 import { SessionProvider } from "next-auth/react";
 import GlobalNav from "@/components/portfolio/GlobalNav";
-import { getPageSeo } from "@/lib/data";
+import { getPageSeo, getSiteContentMap } from "@/lib/data";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const seo = await getPageSeo("home");
+  const [seo, content] = await Promise.all([
+    getPageSeo("home"),
+    getSiteContentMap(),
+  ]);
   const title = seo?.metaTitle || "Juwel Hossain — MERN Stack & Next.js Developer";
   const description =
     seo?.metaDescription ||
     "Personal portfolio of Juwel Hossain (juwelmafi) — Full-Stack Developer & UI/UX Specialist. Explore featured projects, tech stack, and get in touch.";
+
+  const faviconUrl = content?.["site.favicon"] || "/assets/images/logo/favicon.svg";
 
   return {
     metadataBase: new URL(process.env.NEXTAUTH_URL || "https://juwelmafi.dev"),
@@ -29,8 +34,12 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     authors: [{ name: "Juwel Hossain" }],
     icons: {
-      icon: "/assets/images/logo/favicon.svg",
-      apple: "/assets/images/logo/favicon.svg",
+      icon: [
+        { url: faviconUrl },
+        { url: faviconUrl, type: "image/png" },
+      ],
+      apple: [{ url: faviconUrl }],
+      shortcut: [{ url: faviconUrl }],
     },
     openGraph: {
       title: seo?.ogTitle || title,
@@ -45,13 +54,20 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const content = await getSiteContentMap();
+  const faviconUrl = content?.["site.favicon"] || "/assets/images/logo/favicon.svg";
+
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="icon" href={faviconUrl} sizes="any" />
+        <link rel="apple-touch-icon" href={faviconUrl} />
+      </head>
       <body className="counter-scroll">
         <SessionProvider>
           <GlobalNav />

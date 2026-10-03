@@ -5,6 +5,7 @@ import { FaPlus, FaTrash, FaYoutube, FaSave, FaArrowLeft, FaCode } from "react-i
 import Swal from "sweetalert2";
 import { Course, Lesson } from "@/types";
 import { extractYouTubeId } from "@/lib/youtube";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 interface CourseFormProps {
   initialData?: Partial<Course>;
@@ -214,16 +215,13 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
             />
           </div>
 
-          <div>
-            <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider block mb-2">
-              Cover Thumbnail URL
-            </label>
-            <input
-              type="text"
+          <div className="col-span-1 md:col-span-2">
+            <ImageUploader
+              label="Course Cover Thumbnail"
               value={form.thumbnail}
-              onChange={(e) => setForm({ ...form, thumbnail: e.target.value })}
-              placeholder="https://..."
-              className="form-input w-full font-hand text-base"
+              onChange={(url) => setForm({ ...form, thumbnail: url })}
+              placeholder="https://... or upload with Cloudinary"
+              helperText="Upload or paste cover image for the course card and lesson player"
             />
           </div>
         </div>

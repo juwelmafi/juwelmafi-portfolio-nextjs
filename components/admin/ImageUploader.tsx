@@ -20,6 +20,10 @@ interface ImageUploaderProps {
   placeholder?: string;
   required?: boolean;
   helperText?: string;
+  altValue?: string;
+  onAltChange?: (alt: string) => void;
+  altLabel?: string;
+  altPlaceholder?: string;
 }
 
 export default function ImageUploader({
@@ -29,6 +33,10 @@ export default function ImageUploader({
   placeholder = "https://...",
   required = false,
   helperText,
+  altValue,
+  onAltChange,
+  altLabel,
+  altPlaceholder,
 }: ImageUploaderProps) {
   const [uploading, setUploading] = useState(false);
   const [isCloudinaryConfigured, setIsCloudinaryConfigured] = useState<boolean | null>(null);
@@ -292,6 +300,30 @@ export default function ImageUploader({
               </p>
               <p className="font-hand text-xs text-[#15803D]">✓ Image ready for preview &amp; live view</p>
             </div>
+          </div>
+        )}
+
+        {/* Image Alt Text Customization for SEO */}
+        {onAltChange && (
+          <div className="pt-2.5 border-t border-[#191712]/20">
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="font-typewriter text-[11px] font-bold text-[#191712] uppercase tracking-wider block">
+                {altLabel || "Image Alt Text (SEO & Google Search)"}
+              </label>
+              <span className="font-typewriter text-[10px] bg-[#FEF3C7] text-[#92400E] border border-[#191712] px-1.5 py-0.5 rounded font-bold">
+                SEO ALT
+              </span>
+            </div>
+            <input
+              type="text"
+              value={altValue || ""}
+              onChange={(e) => onAltChange(e.target.value)}
+              placeholder={altPlaceholder || "Descriptive alt text for Google Image search and accessibility..."}
+              className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3 py-1.5 font-hand text-sm text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+            />
+            <p className="font-typewriter text-[10px] text-[#78716C] mt-1">
+              Descriptive text read by Google bot and screen readers. Boosts image SEO rankings.
+            </p>
           </div>
         )}
       </div>

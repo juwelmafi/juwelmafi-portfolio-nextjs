@@ -5,7 +5,9 @@ export interface IProject extends Document {
   desc: string;
   tech: string[];
   img: string;
+  imgAlt?: string;
   screenshot: string;
+  screenshotAlt?: string;
   live: string;
   client: string;
   server?: string;
@@ -21,26 +23,28 @@ export interface IProject extends Document {
 
 const ProjectSchema = new Schema<IProject>(
   {
-    title:      { type: String, required: true },
-    desc:       { type: String, required: true },
-    tech:       { type: [String], default: [] },
-    img:        { type: String, default: "" },
-    screenshot: { type: String, default: "" },
-    live:       { type: String, default: "" },
-    client:     { type: String, default: "" },
-    server:     { type: String, default: "" },
-    details:    { type: String, default: "" },
-    challenge:  { type: String, default: "" },
-    goal:       { type: String, default: "" },
-    category:   { type: String, default: "MERN" },
-    reverse:    { type: Boolean, default: false },
-    order:      { type: Number, default: 0 },
+    title:         { type: String, required: true },
+    desc:          { type: String, required: true },
+    tech:          { type: [String], default: [] },
+    img:           { type: String, default: "" },
+    imgAlt:        { type: String, default: "" },
+    screenshot:    { type: String, default: "" },
+    screenshotAlt: { type: String, default: "" },
+    live:          { type: String, default: "" },
+    client:        { type: String, default: "" },
+    server:        { type: String, default: "" },
+    details:       { type: String, default: "" },
+    challenge:     { type: String, default: "" },
+    goal:          { type: String, default: "" },
+    category:      { type: String, default: "MERN" },
+    reverse:       { type: Boolean, default: false },
+    order:         { type: Number, default: 0 },
   },
   { timestamps: true, strict: false }
 );
 
-// In Next.js dev server with hot reload, delete cached model if it lacks category path
-if (models.Project && !models.Project.schema?.paths?.category) {
+// In Next.js dev server with hot reload, delete cached model if it lacks category or imgAlt path
+if (models.Project && (!models.Project.schema?.paths?.category || !models.Project.schema?.paths?.imgAlt)) {
   delete (models as Record<string, unknown>).Project;
 }
 

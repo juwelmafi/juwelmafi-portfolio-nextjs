@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import HeaderRetro from "@/components/retro/HeaderRetro";
 import FooterRetro from "@/components/retro/FooterRetro";
 import CoursePlayer from "@/components/CoursePlayer";
@@ -46,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title,
         description,
         url: `${siteUrl}/courses/${course.slug}`,
-        images: course.thumbnail ? [{ url: course.thumbnail, alt: course.title }] : undefined,
+        images: course.thumbnail ? [{ url: course.thumbnail, alt: course.thumbnailAlt || course.title }] : undefined,
       },
       twitter: {
         card: "summary_large_image",
@@ -131,8 +132,78 @@ export default async function CourseDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
       />
       <HeaderRetro content={content} />
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
         <CoursePlayer course={course} />
+
+        {/* E-E-A-T Instructor & Author Dossier Card */}
+        <section className="hand-box p-6 sm:p-8 bg-[#FAF7EE] border-2 border-[#191712] shadow-[4px_4px_0px_#191712]">
+          <div className="flex items-center justify-between border-b-2 border-[#191712] pb-3 mb-6 font-typewriter text-xs text-[#191712]">
+            <span className="font-bold uppercase tracking-wider text-[#C2410C]">
+              INSTRUCTOR CREDENTIALS &amp; E-E-A-T VERIFICATION
+            </span>
+            <span className="bg-[#191712] text-[#FBF6E6] px-2.5 py-0.5 font-bold text-[11px]">
+              VERIFIED INSTRUCTOR
+            </span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 border-2 border-[#191712] bg-[#FFFFFF] overflow-hidden shrink-0 shadow-[2px_2px_0px_#191712]">
+              <img
+                src={content?.["hero.avatar"] || "/assets/images/avatar/juwel_retro.png"}
+                alt={content?.["hero.avatarAlt"] || "Juwel Hossain Mafi (juwelmafi) — Software Engineer & Instructor"}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="flex-1 min-w-0">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <h3 className="font-script font-bold text-2xl sm:text-3xl text-[#191712]">
+                  Juwel Hossain Mafi
+                </h3>
+                <span className="font-typewriter text-xs bg-[#FFE45E] border border-[#191712] px-2 py-0.5 font-bold text-[#191712]">
+                  @juwelmafi
+                </span>
+              </div>
+
+              <p className="font-hand text-base sm:text-lg text-[#57534E] leading-relaxed mb-3">
+                Full-Stack Software Engineer &amp; Shopify Specialist enrolled in B.Sc CSE at Sonargaon University. Creates in-depth, hands-on programming masterclasses and tutorials with zero bloat and clean architecture.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 font-typewriter text-xs text-[#191712]">
+                <a
+                  href={content?.["social.youtube"] || "https://www.youtube.com/@juwelmafi"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline flex items-center gap-1 text-[#191712] font-bold"
+                >
+                  YouTube Channel ↗
+                </a>
+                <span>•</span>
+                <a
+                  href={content?.["social.github"] || "https://github.com/juwelmafi"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline flex items-center gap-1 text-[#191712] font-bold"
+                >
+                  GitHub ↗
+                </a>
+                <span>•</span>
+                <a
+                  href={content?.["social.linkedin"] || "https://www.linkedin.com/in/juwelmafi"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline flex items-center gap-1 text-[#191712] font-bold"
+                >
+                  LinkedIn ↗
+                </a>
+                <span>•</span>
+                <Link href="/contact" className="hover:underline text-[#C2410C] font-bold">
+                  Ask a Question →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <FooterRetro content={content} />
     </div>

@@ -8,6 +8,7 @@ export interface ISeoMeta extends Document {
   ogTitle: string;
   ogDescription: string;
   ogImage: string;        // URL for social sharing image
+  ogImageAlt?: string;     // Accessible alt text for social card image
   twitterTitle: string;
   twitterDescription: string;
   canonicalUrl: string;
@@ -23,11 +24,16 @@ const SeoMetaSchema = new Schema<ISeoMeta>(
     ogTitle:            { type: String, default: "" },
     ogDescription:      { type: String, default: "" },
     ogImage:            { type: String, default: "" },
+    ogImageAlt:         { type: String, default: "" },
     twitterTitle:       { type: String, default: "" },
     twitterDescription: { type: String, default: "" },
     canonicalUrl:       { type: String, default: "" },
   },
   { timestamps: true }
 );
+
+if (process.env.NODE_ENV !== "production") {
+  delete (models as Record<string, unknown>).SeoMeta;
+}
 
 export default models.SeoMeta || model<ISeoMeta>("SeoMeta", SeoMetaSchema);

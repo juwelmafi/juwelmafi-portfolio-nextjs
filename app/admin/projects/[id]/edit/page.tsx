@@ -336,6 +336,10 @@ export default function EditProjectPage() {
               label="Mockup Image (Main)"
               value={form.img ?? ""}
               onChange={(url) => setForm({ ...form, img: url })}
+              altValue={form.imgAlt ?? ""}
+              onAltChange={(alt) => setForm({ ...form, imgAlt: alt })}
+              altLabel="Mockup Image Alt Text (SEO)"
+              altPlaceholder="e.g. MERN Stack E-Commerce Platform UI Mockup by Juwel Hossain Mafi"
               placeholder="https://... or upload file"
               helperText="Main showcase preview displayed in project cards and ledger"
             />
@@ -343,6 +347,10 @@ export default function EditProjectPage() {
               label="Screenshot (In-Depth)"
               value={form.screenshot ?? ""}
               onChange={(url) => setForm({ ...form, screenshot: url })}
+              altValue={form.screenshotAlt ?? ""}
+              onAltChange={(alt) => setForm({ ...form, screenshotAlt: alt })}
+              altLabel="Screenshot Alt Text (SEO)"
+              altPlaceholder="e.g. Full dashboard screenshot of web application"
               placeholder="https://... or upload file"
               helperText="Full page screenshot or secondary preview"
             />

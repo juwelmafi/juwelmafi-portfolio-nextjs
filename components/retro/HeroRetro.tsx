@@ -30,6 +30,9 @@ export default function HeroRetro({ content }: HeroRetroProps) {
 
   const name = content?.["hero.name"] || "Juwel Hossain Mafi";
   const avatar = content?.["hero.avatar"] || "/assets/images/avatar/juwel_retro.png";
+  const avatarAlt =
+    content?.["hero.avatarAlt"] ||
+    "Juwel Hossain Mafi (juwelmafi) — Full-Stack Software Engineer and Shopify Developer";
   const certIssuer = content?.["hero.certIssuer"] || "JUWELMAFI.DEV";
   const certSerial = content?.["hero.certSerial"] || "JH-ENG-001";
   const certTitle = content?.["hero.certTitle"] || "Verified Engineer Dossier";
@@ -193,7 +196,7 @@ export default function HeroRetro({ content }: HeroRetroProps) {
                   <div className="w-20 h-20 sm:w-24 sm:h-24 border-2 border-[#191712] bg-[#FFFFFF] overflow-hidden shrink-0 shadow-[2px_2px_0px_#191712]">
                     <img
                       src={avatar}
-                      alt={name}
+                      alt={avatarAlt}
                       className="w-full h-full object-cover"
                     />
                   </div>

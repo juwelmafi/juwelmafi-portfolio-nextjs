@@ -8,7 +8,9 @@ export interface IService extends Document {
   ribbon?: string;
   tags?: string[];
   img1?: string;
+  img1Alt?: string;
   img2?: string;
+  img2Alt?: string;
   features?: string[];
   order: number;
   published: boolean;
@@ -25,7 +27,9 @@ const ServiceSchema = new Schema<IService>(
     ribbon:       { type: String, default: "" },
     tags:         { type: [String], default: [] },
     img1:         { type: String, default: "" },
+    img1Alt:      { type: String, default: "" },
     img2:         { type: String, default: "" },
+    img2Alt:      { type: String, default: "" },
     features:     { type: [String], default: [] },
     order:        { type: Number, default: 0 },
     published:    { type: Boolean, default: true },
@@ -34,7 +38,7 @@ const ServiceSchema = new Schema<IService>(
 );
 
 // Bust Next.js dev server in-memory model cache if schema updated
-if (models.Service && !models.Service.schema?.paths?.kicker) {
+if (models.Service && (!models.Service.schema?.paths?.kicker || !models.Service.schema?.paths?.img1Alt)) {
   delete (models as Record<string, unknown>).Service;
 }
 

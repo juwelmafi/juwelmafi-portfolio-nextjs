@@ -24,6 +24,7 @@ interface SeoEntry {
   ogTitle: string;
   ogDescription: string;
   ogImage: string;
+  ogImageAlt?: string;
   twitterTitle: string;
   twitterDescription: string;
   canonicalUrl: string;
@@ -37,6 +38,7 @@ const emptyEntry = (pageKey: string, pageLabel: string): SeoEntry => ({
   ogTitle: "",
   ogDescription: "",
   ogImage: "",
+  ogImageAlt: "",
   twitterTitle: "",
   twitterDescription: "",
   canonicalUrl: "",
@@ -176,6 +178,7 @@ export default function AdminSeoPage() {
       ogTitle: saved.ogTitle || def.ogTitle || "",
       ogDescription: saved.ogDescription || def.ogDescription || "",
       ogImage: saved.ogImage || def.ogImage || "",
+      ogImageAlt: saved.ogImageAlt || def.ogImageAlt || "Juwel Hossain Mafi (juwelmafi) - Full-Stack Developer",
       twitterTitle: saved.twitterTitle || def.twitterTitle || "",
       twitterDescription: saved.twitterDescription || def.twitterDescription || "",
       canonicalUrl: saved.canonicalUrl || def.canonicalUrl || "",
@@ -384,6 +387,10 @@ export default function AdminSeoPage() {
                 label="OG / Social Share Image"
                 value={entry.ogImage}
                 onChange={(url) => setField("ogImage", url)}
+                altValue={entry.ogImageAlt}
+                onAltChange={(alt) => setField("ogImageAlt", alt)}
+                altLabel="OG Image Alt Text (SEO)"
+                altPlaceholder="e.g. Juwel Hossain Mafi - Full-Stack Engineer & Next.js Developer"
                 placeholder="https://... or /assets/..."
                 helperText="Preview image shown when sharing links on Facebook, Twitter, and LinkedIn"
               />

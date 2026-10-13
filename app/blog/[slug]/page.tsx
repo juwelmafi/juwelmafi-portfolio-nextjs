@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: blog.ogTitle || title,
         description: blog.ogDescription || description,
         url: `${siteUrl}/blog/${blog.slug}`,
-        images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: blog.title }] : undefined,
+        images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: blog.coverImageAlt || blog.title }] : undefined,
         publishedTime: blog.createdAt,
         modifiedTime: blog.updatedAt,
         authors: ["Juwel Hossain"],
@@ -75,12 +75,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const [blog, content] = await Promise.all([
+  const [blog, allBlogs, content] = await Promise.all([
     getBlogBySlug(slug),
+    getBlogs(true),
     getSiteContentMap(),
   ]);
 
   if (!blog) notFound();
+
+  // Related articles (Internal linking for SEO cluster authority)
+  const relatedBlogs = allBlogs
+    .filter((b) => b.slug !== slug)
+    .slice(0, 2);
+
+  // Parse Table of Contents items from markdown headings
+  const tocItems: { text: string; id: string; level: number }[] = [];
+  const contentBlocks = (blog.content || "").split("\n\n");
+  contentBlocks.forEach((block) => {
+    const trimmed = block.trim();
+    if (trimmed.startsWith("## ")) {
+      const text = trimmed.slice(3).trim();
+      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      tocItems.push({ text, id, level: 2 });
+    } else if (trimmed.startsWith("### ")) {
+      const text = trimmed.slice(4).trim();
+      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      tocItems.push({ text, id, level: 3 });
+    }
+  });
 
   const formattedDate = blog.createdAt
     ? new Date(blog.createdAt as string).toLocaleDateString("en-US", {
@@ -92,6 +114,7 @@ export default async function BlogPostPage({ params }: Props) {
     : "Published";
 
   const readTime = `${Math.max(1, Math.ceil((blog.content?.split(/\s+/).length || 200) / 200))} MIN READ`;
+  const coverAlt = blog.coverImageAlt || `${blog.title} — Tutorial by Juwel Hossain Mafi (juwelmafi)`;
 
   return (
     <div className="retro-page-container">
@@ -205,7 +228,7 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="flex flex-wrap items-center gap-4 text-xs font-typewriter text-[#57534E] mb-8 pb-4 border-b border-[#191712]/20">
               <span>EST. READING TIME: {readTime}</span>
               <span>•</span>
-              <span>AUTHOR: JUWEL HOSSAIN</span>
+              <span>AUTHOR: JUWEL HOSSAIN MAFI</span>
               <span>•</span>
               <span>CERTIFIED DISPATCH</span>
             </div>
@@ -215,25 +238,65 @@ export default async function BlogPostPage({ params }: Props) {
               <div className="border-2 border-[#191712] rounded-sm overflow-hidden mb-10 shadow-[4px_5px_0px_#191712]">
                 <img
                   src={blog.coverImage}
-                  alt={blog.title}
+                  alt={coverAlt}
                   className="w-full max-h-[460px] object-cover"
                 />
               </div>
             )}
 
+            {/* Interactive Table of Contents (TOC) with Jump Anchors */}
+            {tocItems.length >= 2 && (
+              <nav aria-label="Table of Contents" className="hand-box p-6 sm:p-7 bg-[#FAF7EE] mb-10">
+                <div className="flex items-center justify-between border-b-2 border-[#191712] pb-2.5 mb-4 font-typewriter text-xs text-[#191712]">
+                  <span className="font-bold uppercase tracking-wider flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 bg-[#FFE45E] border border-[#191712] inline-block"></span>
+                    Table of Contents • Quick Navigation
+                  </span>
+                  <span className="bg-[#191712] text-[#FBF6E6] px-2 py-0.5 text-[10px] font-bold">
+                    {tocItems.length} SECTIONS
+                  </span>
+                </div>
+                <ol className="space-y-2 font-hand text-lg text-[#191712]">
+                  {tocItems.map((item, idx) => (
+                    <li key={idx} className={item.level === 3 ? "pl-5 text-base" : ""}>
+                      <a
+                        href={`#${item.id}`}
+                        className="hover:underline hover:text-[#C2410C] flex items-baseline gap-2 transition-colors"
+                      >
+                        <span className="font-mono text-xs text-[#78716C]">
+                          {String(idx + 1).padStart(2, "0")}.
+                        </span>
+                        <span>{item.text}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+
             {/* Article Content in Readable Patrick Hand with 34px Line Height */}
             <div className="font-hand text-xl text-[#292524] leading-[34px] space-y-6">
-              {blog.content.split("\n\n").map((block, i) => {
+              {contentBlocks.map((block, i) => {
                 const trimmed = block.trim();
                 if (!trimmed) return null;
 
                 if (trimmed.startsWith("## ")) {
+                  const headingText = trimmed.slice(3).trim();
+                  const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
                   return (
                     <h2
                       key={i}
-                      className="font-script font-bold text-3xl sm:text-4xl text-[#191712] pt-6 pb-2 border-b-2 border-[#191712]"
+                      id={headingId}
+                      className="font-script font-bold text-3xl sm:text-4xl text-[#191712] pt-8 pb-2 border-b-2 border-[#191712] scroll-mt-24 group flex items-center justify-between"
                     >
-                      <span className="marked">{trimmed.slice(3)}</span>
+                      <span className="marked">{headingText}</span>
+                      <a
+                        href={`#${headingId}`}
+                        className="opacity-0 group-hover:opacity-100 font-mono text-sm text-[#78716C] hover:text-[#191712] transition-opacity ml-2"
+                        title="Direct Section Link"
+                      >
+                        #
+                      </a>
                     </h2>
                   );
                 }
@@ -248,12 +311,22 @@ export default async function BlogPostPage({ params }: Props) {
                   );
                 }
                 if (trimmed.startsWith("### ")) {
+                  const headingText = trimmed.slice(4).trim();
+                  const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
                   return (
                     <h3
                       key={i}
-                      className="font-script font-bold text-2xl sm:text-3xl text-[#191712] pt-4"
+                      id={headingId}
+                      className="font-script font-bold text-2xl sm:text-3xl text-[#191712] pt-6 scroll-mt-24 group flex items-center justify-between"
                     >
-                      {trimmed.slice(4)}
+                      <span>{headingText}</span>
+                      <a
+                        href={`#${headingId}`}
+                        className="opacity-0 group-hover:opacity-100 font-mono text-sm text-[#78716C] hover:text-[#191712] transition-opacity ml-2"
+                        title="Direct Section Link"
+                      >
+                        #
+                      </a>
                     </h3>
                   );
                 }
@@ -318,6 +391,141 @@ export default async function BlogPostPage({ params }: Props) {
                 <span>DISPATCH</span>
               </div>
             </div>
+
+            {/* E-E-A-T Author Dossier Card */}
+            <section className="mt-12 hand-box p-6 sm:p-8 bg-[#FAF7EE] border-2 border-[#191712] shadow-[4px_4px_0px_#191712]">
+              <div className="flex items-center justify-between border-b-2 border-[#191712] pb-3 mb-6 font-typewriter text-xs text-[#191712]">
+                <span className="font-bold uppercase tracking-wider text-[#C2410C]">
+                  AUTHOR CREDENTIALS &amp; E-E-A-T VERIFICATION
+                </span>
+                <span className="bg-[#191712] text-[#FBF6E6] px-2.5 py-0.5 font-bold text-[11px]">
+                  CERTIFIED ENGINEER
+                </span>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 border-2 border-[#191712] bg-[#FFFFFF] overflow-hidden shrink-0 shadow-[2px_2px_0px_#191712]">
+                  <img
+                    src={content?.["hero.avatar"] || "/assets/images/avatar/juwel_retro.png"}
+                    alt={content?.["hero.avatarAlt"] || "Juwel Hossain Mafi (juwelmafi) — Software Engineer & Author"}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h3 className="font-script font-bold text-2xl sm:text-3xl text-[#191712]">
+                      Juwel Hossain Mafi
+                    </h3>
+                    <span className="font-typewriter text-xs bg-[#FFE45E] border border-[#191712] px-2 py-0.5 font-bold text-[#191712]">
+                      @juwelmafi
+                    </span>
+                  </div>
+
+                  <p className="font-hand text-base sm:text-lg text-[#57534E] leading-relaxed mb-3">
+                    Full-Stack Software Engineer &amp; Shopify Specialist enrolled in B.Sc CSE at Sonargaon University. Passionate about clean architecture, Next.js App Router performance, and publishing open, accessible developer tutorials.
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-3 font-typewriter text-xs text-[#191712]">
+                    <a
+                      href={content?.["social.github"] || "https://github.com/juwelmafi"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline flex items-center gap-1 text-[#191712] font-bold"
+                    >
+                      GitHub ↗
+                    </a>
+                    <span>•</span>
+                    <a
+                      href={content?.["social.linkedin"] || "https://www.linkedin.com/in/juwelmafi"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline flex items-center gap-1 text-[#191712] font-bold"
+                    >
+                      LinkedIn ↗
+                    </a>
+                    <span>•</span>
+                    <a
+                      href={content?.["social.youtube"] || "https://www.youtube.com/@juwelmafi"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline flex items-center gap-1 text-[#191712] font-bold"
+                    >
+                      YouTube ↗
+                    </a>
+                    <span>•</span>
+                    <Link href="/contact" className="hover:underline text-[#C2410C] font-bold">
+                      Get in Touch →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Related Articles & Internal Linking */}
+            {relatedBlogs.length > 0 && (
+              <section className="mt-12 pt-8 border-t-2 border-[#191712]">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <span className="font-typewriter text-xs font-bold text-[#C2410C] uppercase tracking-wider block">
+                      CURATED KNOWLEDGE
+                    </span>
+                    <h2 className="font-script font-bold text-3xl sm:text-4xl text-[#191712]">
+                      Related Articles &amp; Further Study
+                    </h2>
+                  </div>
+                  <Link href="/explore" className="font-hand text-base text-[#191712] hover:underline hidden sm:block">
+                    Explore All Articles →
+                  </Link>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {relatedBlogs.map((rel, rIdx) => (
+                    <article
+                      key={rel.id || rIdx}
+                      className="hand-box flex flex-col bg-[#FFFFFF] overflow-hidden group hover:translate-x-0.5 hover:translate-y-0.5 transition-transform"
+                    >
+                      {rel.coverImage && (
+                        <div className="relative border-b-2 border-[#191712] h-40 overflow-hidden bg-[#191712]/5">
+                          <img
+                            src={rel.coverImage}
+                            alt={rel.coverImageAlt || `${rel.title} — Tutorial by Juwel Hossain Mafi`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
+                      <div className="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                          <span className="font-typewriter text-[11px] bg-[#E7DFCE] border border-[#191712] px-2 py-0.5 rounded text-[#191712] inline-block mb-2 font-bold">
+                            {rel.category || "General"}
+                          </span>
+                          <h3 className="font-script font-bold text-2xl text-[#191712] mb-2 leading-tight">
+                            <Link href={`/blog/${rel.slug}`} className="hover:underline">
+                              {rel.title}
+                            </Link>
+                          </h3>
+                          <p className="font-hand text-sm text-[#57534E] line-clamp-2 leading-relaxed">
+                            {rel.excerpt}
+                          </p>
+                        </div>
+                        <div className="mt-4 pt-3 border-t border-[#191712]/15 flex items-center justify-between">
+                          <span className="font-typewriter text-[11px] text-[#78716C]">
+                            {rel.createdAt ? new Date(rel.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "Article"}
+                          </span>
+                          <Link
+                            href={`/blog/${rel.slug}`}
+                            className="font-hand text-sm font-bold text-[#191712] hover:underline flex items-center gap-1"
+                          >
+                            Read Article →
+                          </Link>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Return Action */}
             <div className="mt-10 pt-6 border-t border-[#191712]/20 flex flex-wrap items-center justify-between gap-4">

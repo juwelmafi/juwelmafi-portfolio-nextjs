@@ -4,7 +4,9 @@ export interface Project {
   desc: string;
   tech: string[];
   img: string;
+  imgAlt?: string;
   screenshot: string;
+  screenshotAlt?: string;
   live: string;
   client: string;
   server?: string;
@@ -26,6 +28,7 @@ export interface Blog {
   tags: string[];
   category: string;
   coverImage: string;
+  coverImageAlt?: string;
   published: boolean;
   // SEO fields for Google Search optimization
   metaTitle?: string;
@@ -34,8 +37,25 @@ export interface Blog {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   canonicalUrl?: string;
   createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface SeoMeta {
+  id?: string;
+  pageKey: string;
+  pageLabel: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  canonicalUrl?: string;
   updatedAt?: string;
 }
 
@@ -56,6 +76,7 @@ export interface Course {
   slug: string;
   description: string;
   thumbnail: string;
+  thumbnailAlt?: string;
   category: string;
   level: string;
   badge?: string;
@@ -75,7 +96,9 @@ export interface Service {
   ribbon?: string;       // optional badge e.g. "Most requested", "Popular"
   tags?: string[];
   img1?: string;
+  img1Alt?: string;
   img2?: string;
+  img2Alt?: string;
   features?: string[];
   order: number;
   published: boolean;

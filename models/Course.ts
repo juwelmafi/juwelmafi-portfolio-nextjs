@@ -16,6 +16,7 @@ export interface ICourse extends Document {
   slug: string;
   description: string;
   thumbnail: string;
+  thumbnailAlt: string;
   category: string;
   level: string;
   badge?: string;
@@ -38,20 +39,25 @@ const LessonSchema = new Schema<ILesson>({
 
 const CourseSchema = new Schema<ICourse>(
   {
-    title:       { type: String, required: true },
-    slug:        { type: String, required: true, unique: true },
-    description: { type: String, default: "" },
-    thumbnail:   { type: String, default: "" },
-    category:    { type: String, default: "MERN Stack" },
-    level:       { type: String, default: "All Levels" },
-    badge:       { type: String, default: "" },
-    lessons:     { type: [LessonSchema], default: [] },
-    published:   { type: Boolean, default: true },
-    order:       { type: Number, default: 0 },
+    title:        { type: String, required: true },
+    slug:         { type: String, required: true, unique: true },
+    description:  { type: String, default: "" },
+    thumbnail:    { type: String, default: "" },
+    thumbnailAlt: { type: String, default: "" },
+    category:     { type: String, default: "MERN Stack" },
+    level:        { type: String, default: "All Levels" },
+    badge:        { type: String, default: "" },
+    lessons:      { type: [LessonSchema], default: [] },
+    published:    { type: Boolean, default: true },
+    order:        { type: Number, default: 0 },
   },
   { timestamps: true }
 );
 
 CourseSchema.index({ published: 1, order: 1 });
+
+if (models.Course && !models.Course.schema?.paths?.thumbnailAlt) {
+  delete (models as Record<string, unknown>).Course;
+}
 
 export default models.Course || model<ICourse>("Course", CourseSchema);

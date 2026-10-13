@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import HeaderRetro from "@/components/retro/HeaderRetro";
@@ -10,10 +11,10 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getPageSeo("blog");
   return {
-    title: seo?.metaTitle || "Explore More: Blogs & Masterclasses — Juwel Hossain",
+    title: seo?.metaTitle || "Explore More: Blogs & Masterclasses — Juwel Hossain Mafi (juwelmafi)",
     description:
       seo?.metaDescription ||
-      "Technical deep dives, MERN stack tutorials, and full-stack software development courses by Juwel Hossain.",
+      "Technical deep dives, MERN stack tutorials, and full-stack software development courses by Juwel Hossain Mafi.",
   };
 }
 
@@ -54,7 +55,13 @@ export default async function ExplorePage() {
         </div>
 
         {/* Interactive Master Tabs & Content */}
-        <ExploreHubClient blogs={blogs} courses={courses} />
+        <Suspense fallback={
+          <div className="py-12 text-center font-typewriter text-sm text-[#78716C]">
+            Loading knowledge archive...
+          </div>
+        }>
+          <ExploreHubClient blogs={blogs} courses={courses} />
+        </Suspense>
       </main>
 
       <FooterRetro content={content} />

@@ -78,8 +78,14 @@ export async function generateMetadata(): Promise<Metadata> {
       description: seo?.ogDescription || description,
       url: SITE_URL,
       type: "website",
-      locale: "en_US",
-      images: seo?.ogImage ? [{ url: seo.ogImage }] : undefined,
+      images: seo?.ogImage
+        ? [
+            {
+              url: seo.ogImage,
+              alt: (seo as any)?.ogImageAlt || "Juwel Hossain Mafi (juwelmafi) — Full-Stack Engineer & Next.js Developer",
+            },
+          ]
+        : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -112,6 +118,14 @@ export default async function RootLayout({
         description: "Official portfolio and technical writings of Juwel Hossain Mafi (juwelmafi).",
         publisher: {
           "@id": `${SITE_URL}/#person`,
+        },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: `${SITE_URL}/explore?q={search_term_string}`,
+          },
+          "query-input": "required name=search_term_string",
         },
       },
       {

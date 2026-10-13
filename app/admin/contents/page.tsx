@@ -44,6 +44,7 @@ const DEFAULT_CONTENT: Omit<ContentItem, "id">[] = [
   { key: "hero.stickerRound",     label: "Round Sticker Text",                value: "100%",                                                                                                        type: "text",     group: "Hero" },
   { key: "hero.stickerOval",      label: "Oval Sticker Text",                 value: "PRODUCTION READY",                                                                                            type: "text",     group: "Hero" },
   { key: "hero.avatar",           label: "Retro Portrait Image URL",          value: "/assets/images/avatar/juwel_retro.png",                                                                       type: "image",    group: "Hero" },
+  { key: "hero.avatarAlt",        label: "Retro Portrait Alt Text (SEO)",     value: "Juwel Hossain Mafi (juwelmafi) — Full-Stack Software Engineer and Shopify Developer",                        type: "text",     group: "Hero" },
   { key: "hero.certIssuer",       label: "Dossier Issuer Brand",              value: "JUWELMAFI.DEV",                                                                                               type: "text",     group: "Hero" },
   { key: "hero.certSerial",       label: "Dossier Serial Code",               value: "JH-ENG-001",                                                                                                  type: "text",     group: "Hero" },
   { key: "hero.certTitle",        label: "Dossier Card Title",                value: "Verified Engineer Dossier",                                                                                   type: "text",     group: "Hero" },
@@ -129,6 +130,7 @@ const DEFAULT_CONTENT: Omit<ContentItem, "id">[] = [
 
   // Site Settings
   { key: "site.logo",             label: "Site Logo URL",                     value: "/assets/images/logo/favicon.svg",                                                                             type: "image",    group: "Site Settings" },
+  { key: "site.logoAlt",          label: "Site Logo Alt Text (SEO)",          value: "Juwel Hossain Mafi Logo (juwelmafi)",                                                                         type: "text",     group: "Site Settings" },
   { key: "site.logoText",         label: "Site Logo Monogram",                value: "jh.",                                                                                                         type: "text",     group: "Site Settings" },
   { key: "site.favicon",          label: "Favicon Image",                       value: "/assets/images/logo/favicon.svg",                                                                             type: "image",    group: "Site Settings" },
   { key: "site.resumeUrl",        label: "Global Resume / CV URL",            value: "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing",                        type: "url",      group: "Site Settings" },
@@ -364,6 +366,27 @@ export default function AdminContentsPage() {
                       label=""
                       value={item.value}
                       onChange={(url) => setValue(item.key, url)}
+                      altValue={
+                        item.key === "hero.avatar"
+                          ? items.find((i) => i.key === "hero.avatarAlt")?.value
+                          : item.key === "site.logo"
+                          ? items.find((i) => i.key === "site.logoAlt")?.value
+                          : undefined
+                      }
+                      onAltChange={
+                        item.key === "hero.avatar"
+                          ? (alt) => setValue("hero.avatarAlt", alt)
+                          : item.key === "site.logo"
+                          ? (alt) => setValue("site.logoAlt", alt)
+                          : undefined
+                      }
+                      altLabel={
+                        item.key === "hero.avatar"
+                          ? "Hero Portrait Alt Text (SEO)"
+                          : item.key === "site.logo"
+                          ? "Site Logo Alt Text (SEO)"
+                          : undefined
+                      }
                       placeholder="/assets/... or https://..."
                       helperText={`Asset link for ${item.label}`}
                     />

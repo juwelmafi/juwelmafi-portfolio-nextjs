@@ -21,7 +21,9 @@ function getDefaultProjects(): Project[] {
         desc: String(p.desc || ""),
         tech: Array.isArray(p.tech) ? p.tech : [],
         img: String(p.img || ""),
+        imgAlt: p.imgAlt ? String(p.imgAlt) : undefined,
         screenshot: String(p.screenshot || ""),
+        screenshotAlt: p.screenshotAlt ? String(p.screenshotAlt) : undefined,
         live: String(p.live || ""),
         client: String(p.client || ""),
         server: String(p.server || ""),
@@ -343,6 +345,7 @@ export const DEFAULT_SITE_CONTENT: Record<string, string> = {
   "hero.stickerRound": "100%",
   "hero.stickerOval": "PRODUCTION READY",
   "hero.avatar": "/assets/images/avatar/juwel_retro.png",
+  "hero.avatarAlt": "Juwel Hossain Mafi (juwelmafi) — Full-Stack Software Engineer and Shopify Developer",
   "hero.certIssuer": "JUWELMAFI.DEV",
   "hero.certSerial": "JH-ENG-001",
   "hero.certTitle": "Verified Engineer Dossier",
@@ -442,6 +445,7 @@ export const DEFAULT_SITE_CONTENT: Record<string, string> = {
 
   // Site Settings
   "site.logo": "/assets/images/logo/favicon.svg",
+  "site.logoAlt": "Juwel Hossain Mafi Logo (juwelmafi)",
   "site.logoText": "jh.",
   "site.favicon": "/assets/images/logo/favicon.svg",
   "site.resumeUrl": "https://drive.google.com/file/d/1NyyfiNHplq8Dy3rrW8qe_1fTP97MqJfE/view?usp=sharing",
@@ -483,6 +487,7 @@ export async function getPageSeo(pageKey: string) {
         ogTitle: doc.ogTitle || undefined,
         ogDescription: doc.ogDescription || undefined,
         ogImage: doc.ogImage || undefined,
+        ogImageAlt: doc.ogImageAlt || undefined,
         twitterTitle: doc.twitterTitle || undefined,
         twitterDescription: doc.twitterDescription || undefined,
         canonicalUrl: doc.canonicalUrl || undefined,

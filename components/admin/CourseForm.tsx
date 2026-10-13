@@ -21,6 +21,7 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
     slug: initialData.slug || "",
     description: initialData.description || "",
     thumbnail: initialData.thumbnail || "",
+    thumbnailAlt: initialData.thumbnailAlt || "",
     category: initialData.category || "MERN Stack",
     level: initialData.level || "All Levels",
     badge: initialData.badge || "Featured",
@@ -220,6 +221,10 @@ export default function CourseForm({ initialData = {}, isEditing = false }: Cour
               label="Course Cover Thumbnail"
               value={form.thumbnail}
               onChange={(url) => setForm({ ...form, thumbnail: url })}
+              altValue={form.thumbnailAlt}
+              onAltChange={(alt) => setForm({ ...form, thumbnailAlt: alt })}
+              altLabel="Thumbnail Alt Text (SEO)"
+              altPlaceholder="e.g. Next.js 15 Full-Stack Masterclass Course Thumbnail by Juwel Hossain Mafi"
               placeholder="https://... or upload with Cloudinary"
               helperText="Upload or paste cover image for the course card and lesson player"
             />

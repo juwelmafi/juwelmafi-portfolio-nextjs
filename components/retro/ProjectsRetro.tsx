@@ -206,7 +206,7 @@ export default function ProjectsRetro({ projects, content }: ProjectsRetroProps)
                   <div className="relative border-b-2 border-[#191712] bg-[#191712]/5 overflow-hidden group">
                     <img
                       src={displayImg}
-                      alt={project.title}
+                      alt={project.imgAlt || project.screenshotAlt || `${project.title} — Web Project by Juwel Hossain Mafi`}
                       className="w-full h-52 sm:h-60 object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
                       loading="lazy"
                       onError={(e) => {

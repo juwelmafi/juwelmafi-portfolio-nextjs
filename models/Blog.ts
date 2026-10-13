@@ -8,6 +8,7 @@ export interface IBlog extends Document {
   tags: string[];
   category: string;
   coverImage: string;
+  coverImageAlt: string;
   published: boolean;
   // SEO fields
   metaTitle: string;
@@ -30,6 +31,7 @@ const BlogSchema = new Schema<IBlog>(
     tags:            { type: [String], default: [] },
     category:        { type: String, default: "" },
     coverImage:      { type: String, default: "" },
+    coverImageAlt:   { type: String, default: "" },
     published:       { type: Boolean, default: false },
     // SEO fields for Google Search optimization
     metaTitle:       { type: String, default: "" },

@@ -27,6 +27,7 @@ export default function NewBlogPage() {
     tags: [],
     category: "",
     coverImage: "",
+    coverImageAlt: "",
     published: false,
     // SEO fields
     metaTitle: "",
@@ -181,6 +182,10 @@ export default function NewBlogPage() {
             label="Article Cover Image"
             value={form.coverImage}
             onChange={(url) => setForm({ ...form, coverImage: url })}
+            altValue={form.coverImageAlt}
+            onAltChange={(alt) => setForm({ ...form, coverImageAlt: alt })}
+            altLabel="Cover Image Alt Text (SEO)"
+            altPlaceholder="e.g. Next.js 15 Full-Stack Tutorial Cover by Juwel Hossain Mafi"
             placeholder="https://... or upload file"
             helperText="Featured banner image for this article on the blog archive"
           />

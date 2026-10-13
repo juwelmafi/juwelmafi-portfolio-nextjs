@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Blog, Course } from "@/types";
 
 interface ExploreHubClientProps {
@@ -10,6 +11,14 @@ interface ExploreHubClientProps {
 }
 
 export default function ExploreHubClient({ blogs, courses }: ExploreHubClientProps) {
+  const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q) setSearchQuery(q);
+  }, [searchParams]);
+
   // Master Switch Tab: 'blogs' or 'courses'
   const [activeMasterTab, setActiveMasterTab] = useState<"blogs" | "courses">("blogs");
 
@@ -26,19 +35,42 @@ export default function ExploreHubClient({ blogs, courses }: ExploreHubClientPro
   const [activeBlogCat, setActiveBlogCat] = useState("All");
 
   const filteredBlogs = useMemo(() => {
-    if (activeBlogCat === "All") return blogs;
-    return blogs.filter((b) => {
-      const cat = (b.category || "").toLowerCase().trim();
-      const target = activeBlogCat.toLowerCase().trim();
-      if (target === "other") {
-        return (
-          !cat ||
-          !["tech", "skill", "personal brand", "self-development"].includes(cat)
-        );
-      }
-      return cat.includes(target);
-    });
-  }, [blogs, activeBlogCat]);
+    let result = blogs;
+    if (activeBlogCat !== "All") {
+      result = result.filter((b) => {
+        const cat = (b.category || "").toLowerCase().trim();
+        const target = activeBlogCat.toLowerCase().trim();
+        if (target === "other") {
+          return (
+            !cat ||
+            !["tech", "skill", "personal brand", "self-development"].includes(cat)
+          );
+        }
+        return cat.includes(target);
+      });
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      result = result.filter(
+        (b) =>
+          b.title?.toLowerCase().includes(q) ||
+          b.excerpt?.toLowerCase().includes(q) ||
+          b.tags?.some((t) => t.toLowerCase().includes(q))
+      );
+    }
+    return result;
+  }, [blogs, activeBlogCat, searchQuery]);
+
+  const filteredCourses = useMemo(() => {
+    if (!searchQuery.trim()) return courses;
+    const q = searchQuery.toLowerCase().trim();
+    return courses.filter(
+      (c) =>
+        c.title?.toLowerCase().includes(q) ||
+        c.description?.toLowerCase().includes(q) ||
+        c.category?.toLowerCase().includes(q)
+    );
+  }, [courses, searchQuery]);
 
   return (
     <div className="py-8 sm:py-12">
@@ -68,6 +100,33 @@ export default function ExploreHubClient({ blogs, courses }: ExploreHubClientPro
         >
           Masterclasses &amp; Video Courses ({courses.length})
         </button>
+      </div>
+
+      {/* Search Input Bar (Supports Sitelinks SearchAction & User Search) */}
+      <div className="max-w-lg mx-auto mb-10 px-2">
+        <div className="relative flex items-center">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search articles, masterclasses, tech topics..."
+            className="w-full bg-[#FAF7EE] border-2 border-[#191712] rounded-full px-5 py-2.5 font-hand text-base sm:text-lg text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] shadow-[3px_3px_0px_#191712]"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="absolute right-4 font-typewriter text-xs text-[#78716C] hover:text-[#191712] font-bold cursor-pointer"
+            >
+              CLEAR
+            </button>
+          )}
+        </div>
+        {searchQuery && (
+          <p className="font-typewriter text-xs text-[#78716C] mt-2 text-center">
+            Showing results for “<span className="font-bold text-[#191712]">{searchQuery}</span>”
+          </p>
+        )}
       </div>
 
       {/* ======================================================== */}
@@ -134,7 +193,7 @@ export default function ExploreHubClient({ blogs, courses }: ExploreHubClientPro
                     <div className="relative border-b-2 border-[#191712] bg-[#191712]/5 overflow-hidden group">
                       <img
                         src={displayImg}
-                        alt={blog.title}
+                        alt={blog.coverImageAlt || `${blog.title} — Tutorial by Juwel Hossain Mafi`}
                         className="w-full h-52 sm:h-60 object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
                         loading="lazy"
                       />
@@ -200,39 +259,47 @@ export default function ExploreHubClient({ blogs, courses }: ExploreHubClientPro
       {/* TAB 2: MASTERCLASSES & COURSES (Matching Project Cards)  */}
       {/* ======================================================== */}
       {activeMasterTab === "courses" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {courses.map((course, idx) => {
-            const courseSerial = `CRS-${String(idx + 1).padStart(3, "0")}`;
-            const lessonCount = course.lessons?.length || 0;
-            const displayImg = course.thumbnail || "/assets/images/section/service-1.jpg";
+        filteredCourses.length === 0 ? (
+          <div className="hand-box p-12 text-center bg-[#FFFFFF] max-w-xl mx-auto">
+            <span className="stamp-gold-cert mx-auto mb-4">NO COURSES</span>
+            <p className="font-hand text-lg text-[#57534E]">
+              No video masterclasses found matching your search. Try another keyword!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {filteredCourses.map((course, idx) => {
+              const courseSerial = `CRS-${String(idx + 1).padStart(3, "0")}`;
+              const lessonCount = course.lessons?.length || 0;
+              const displayImg = course.thumbnail || "/assets/images/section/service-1.jpg";
 
-            return (
-              <article
-                key={course.id || idx}
-                className="hand-box flex flex-col bg-[#FFFFFF] overflow-hidden"
-              >
-                {/* Docket Header (Identical to project card) */}
-                <div className="flex items-center justify-between border-b-2 border-[#191712] px-5 py-3 bg-[#FAF7EE]">
-                  <span className="font-typewriter font-bold text-xs text-[#191712]">
-                    {courseSerial}
-                  </span>
-                  <span className="font-typewriter text-[11px] bg-[#E7DFCE] border border-[#191712] px-2 py-0.5 rounded text-[#191712]">
-                    {course.category || "Full-Stack Development"}
-                  </span>
-                </div>
-
-                {/* Cover Thumbnail with Free Course Ribbon */}
-                <div className="relative border-b-2 border-[#191712] bg-[#191712]/5 overflow-hidden group">
-                  <img
-                    src={displayImg}
-                    alt={course.title}
-                    className="w-full h-52 sm:h-60 object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 left-3 bg-[#FFE45E] text-[#191712] border-2 border-[#191712] px-2.5 py-0.5 font-hand text-xs font-bold shadow-[2px_2px_0px_#191712]">
-                    ★ FREE COURSE
+              return (
+                <article
+                  key={course.id || idx}
+                  className="hand-box flex flex-col bg-[#FFFFFF] overflow-hidden"
+                >
+                  {/* Docket Header (Identical to project card) */}
+                  <div className="flex items-center justify-between border-b-2 border-[#191712] px-5 py-3 bg-[#FAF7EE]">
+                    <span className="font-typewriter font-bold text-xs text-[#191712]">
+                      {courseSerial}
+                    </span>
+                    <span className="font-typewriter text-[11px] bg-[#E7DFCE] border border-[#191712] px-2 py-0.5 rounded text-[#191712]">
+                      {course.category || "Full-Stack Development"}
+                    </span>
                   </div>
-                </div>
+
+                  {/* Cover Thumbnail with Free Course Ribbon */}
+                  <div className="relative border-b-2 border-[#191712] bg-[#191712]/5 overflow-hidden group">
+                    <img
+                      src={displayImg}
+                      alt={course.thumbnailAlt || `${course.title} — Free Masterclass by Juwel Hossain Mafi`}
+                      className="w-full h-52 sm:h-60 object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 left-3 bg-[#FFE45E] text-[#191712] border-2 border-[#191712] px-2.5 py-0.5 font-hand text-xs font-bold shadow-[2px_2px_0px_#191712]">
+                      ★ FREE COURSE
+                    </div>
+                  </div>
 
                 {/* Content Section */}
                 <div className="p-6 flex-1 flex flex-col justify-between">
@@ -294,7 +361,7 @@ export default function ExploreHubClient({ blogs, courses }: ExploreHubClientPro
             );
           })}
         </div>
-      )}
+      ))}
 
     </div>
   );

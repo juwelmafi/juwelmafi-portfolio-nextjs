@@ -9,20 +9,36 @@ export interface IBlog extends Document {
   category: string;
   coverImage: string;
   published: boolean;
+  // SEO fields
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string[];
+  ogTitle: string;
+  ogDescription: string;
+  ogImage: string;
+  canonicalUrl: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 const BlogSchema = new Schema<IBlog>(
   {
-    title:       { type: String, required: true },
-    slug:        { type: String, required: true, unique: true },
-    excerpt:     { type: String, default: "" },
-    content:     { type: String, default: "" },
-    tags:        { type: [String], default: [] },
-    category:    { type: String, default: "" },
-    coverImage:  { type: String, default: "" },
-    published:   { type: Boolean, default: false },
+    title:           { type: String, required: true },
+    slug:            { type: String, required: true, unique: true },
+    excerpt:         { type: String, default: "" },
+    content:         { type: String, default: "" },
+    tags:            { type: [String], default: [] },
+    category:        { type: String, default: "" },
+    coverImage:      { type: String, default: "" },
+    published:       { type: Boolean, default: false },
+    // SEO fields for Google Search optimization
+    metaTitle:       { type: String, default: "" },
+    metaDescription: { type: String, default: "" },
+    metaKeywords:    { type: [String], default: [] },
+    ogTitle:         { type: String, default: "" },
+    ogDescription:   { type: String, default: "" },
+    ogImage:         { type: String, default: "" },
+    canonicalUrl:    { type: String, default: "" },
   },
   { timestamps: true }
 );
@@ -31,3 +47,4 @@ const BlogSchema = new Schema<IBlog>(
 BlogSchema.index({ published: 1, createdAt: -1 });
 
 export default models.Blog || model<IBlog>("Blog", BlogSchema);
+

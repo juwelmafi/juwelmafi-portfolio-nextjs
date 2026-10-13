@@ -35,31 +35,31 @@ export default function HeaderRetro({ content }: HeaderRetroProps) {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-7 font-hand text-lg sm:text-xl text-[#191712]">
-            <a href="#projects" className="hover:underline">
+            <Link href="/#projects" className="hover:underline">
               {workNav}
-            </a>
-            <a href="#technologies" className="hover:underline">
+            </Link>
+            <Link href="/#technologies" className="hover:underline">
               {stackNav}
-            </a>
-            <a href="#services" className="hover:underline">
+            </Link>
+            <Link href="/#services" className="hover:underline">
               {servicesNav}
-            </a>
-            <a href="#education" className="hover:underline">
+            </Link>
+            <Link href="/#education" className="hover:underline">
               {educationNav}
-            </a>
+            </Link>
             <Link href="/explore" className="hover:underline">
               {exploreNav}
             </Link>
-            <a href="/contact" className="btn-small">
+            <Link href="/contact" className="btn-small">
               {ctaNav}
-            </a>
+            </Link>
           </nav>
 
           {/* Mobile Menu Trigger */}
           <div className="md:hidden flex items-center gap-3">
-            <a href="/contact" className="btn-small text-sm py-1 px-3">
+            <Link href="/contact" className="btn-small text-sm py-1 px-3">
               Contact
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -76,40 +76,40 @@ export default function HeaderRetro({ content }: HeaderRetroProps) {
         {mobileMenuOpen && (
           <div className="md:hidden border-t-2 border-[#191712] py-4 space-y-3 font-hand text-xl bg-[#FBF6E6]">
             <div>
-              <a
-                href="#projects"
+              <Link
+                href="/#projects"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block py-1 hover:underline text-[#191712]"
               >
                 {workNav}
-              </a>
+              </Link>
             </div>
             <div>
-              <a
-                href="#technologies"
+              <Link
+                href="/#technologies"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block py-1 hover:underline text-[#191712]"
               >
                 {stackNav}
-              </a>
+              </Link>
             </div>
             <div>
-              <a
-                href="#services"
+              <Link
+                href="/#services"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block py-1 hover:underline text-[#191712]"
               >
                 {servicesNav}
-              </a>
+              </Link>
             </div>
             <div>
-              <a
-                href="#education"
+              <Link
+                href="/#education"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block py-1 hover:underline text-[#191712]"
               >
                 {educationNav}
-              </a>
+              </Link>
             </div>
             <div>
               <Link
@@ -121,13 +121,13 @@ export default function HeaderRetro({ content }: HeaderRetroProps) {
               </Link>
             </div>
             <div className="pt-2">
-              <a
+              <Link
                 href="/contact"
                 onClick={() => setMobileMenuOpen(false)}
                 className="btn-hand-black w-full text-center"
               >
                 {ctaNav}
-              </a>
+              </Link>
             </div>
           </div>
         )}

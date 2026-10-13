@@ -27,6 +27,14 @@ export interface Blog {
   category: string;
   coverImage: string;
   published: boolean;
+  // SEO fields for Google Search optimization
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string[];
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
   createdAt?: string;
   updatedAt?: string;
 }

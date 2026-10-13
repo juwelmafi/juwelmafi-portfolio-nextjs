@@ -60,19 +60,19 @@ export default function FooterRetro({ content }: FooterRetroProps) {
             </span>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#projects" className="hover:underline">
+                <Link href="/#projects" className="hover:underline">
                   01. Selected Projects
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="hover:underline">
+                <Link href="/#services" className="hover:underline">
                   02. Technical Services
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#education" className="hover:underline">
+                <Link href="/#education" className="hover:underline">
                   03. Education &amp; Degrees
-                </a>
+                </Link>
               </li>
               <li>
                 <Link href="/explore" className="hover:underline font-bold text-[#B45309]">

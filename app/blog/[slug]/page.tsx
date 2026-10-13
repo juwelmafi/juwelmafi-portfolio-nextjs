@@ -25,9 +25,43 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const blog = await getBlogBySlug(slug);
     if (!blog) return { title: "Post Not Found" };
+
+    const title = blog.metaTitle || `${blog.title} — Juwel Hossain`;
+    const description = blog.metaDescription || blog.excerpt;
+    const ogImage = blog.ogImage || blog.coverImage;
+    const siteUrl = process.env.NEXTAUTH_URL || "https://juwelmafi.dev";
+
     return {
-      title: `${blog.title} — Juwel Hossain`,
-      description: blog.excerpt,
+      title,
+      description,
+      keywords: blog.metaKeywords?.length
+        ? blog.metaKeywords
+        : blog.tags,
+      authors: [{ name: "Juwel Hossain" }],
+      alternates: {
+        canonical: blog.canonicalUrl || `${siteUrl}/blog/${blog.slug}`,
+      },
+      openGraph: {
+        type: "article",
+        title: blog.ogTitle || title,
+        description: blog.ogDescription || description,
+        url: `${siteUrl}/blog/${blog.slug}`,
+        images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: blog.title }] : undefined,
+        publishedTime: blog.createdAt,
+        modifiedTime: blog.updatedAt,
+        authors: ["Juwel Hossain"],
+        tags: blog.tags,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: blog.ogTitle || title,
+        description: blog.ogDescription || description,
+        images: ogImage ? [ogImage] : undefined,
+      },
+      robots: {
+        index: blog.published,
+        follow: true,
+      },
     };
   } catch {
     return { title: "Blog Post" };
@@ -56,6 +90,23 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="retro-page-container">
+      {/* JSON-LD structured data for Google Search rich results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: blog.metaTitle || blog.title,
+          description: blog.metaDescription || blog.excerpt,
+          image: blog.ogImage || blog.coverImage || undefined,
+          author: { "@type": "Person", name: "Juwel Hossain", url: process.env.NEXTAUTH_URL || "https://juwelmafi.dev" },
+          publisher: { "@type": "Person", name: "Juwel Hossain" },
+          datePublished: blog.createdAt,
+          dateModified: blog.updatedAt || blog.createdAt,
+          mainEntityOfPage: { "@type": "WebPage", "@id": blog.canonicalUrl || `${process.env.NEXTAUTH_URL || "https://juwelmafi.dev"}/blog/${blog.slug}` },
+          keywords: blog.metaKeywords?.length ? blog.metaKeywords.join(", ") : blog.tags?.join(", "),
+        }) }}
+      />
       <HeaderRetro content={content} />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">

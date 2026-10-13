@@ -206,6 +206,115 @@ export default function EditBlogPage() {
           </div>
         </div>
 
+        {/* SEO & Google Search Optimization */}
+        <div className="hand-box p-6 bg-[#FFFFFF] space-y-5">
+          <div className="flex items-center gap-3 mb-1">
+            <h2 className="font-script font-bold text-2xl text-[#191712]">SEO &amp; Google Search</h2>
+            <span className="font-typewriter text-[10px] bg-[#D1FAE5] border border-[#191712] px-2 py-0.5 text-[#065F46] font-bold uppercase">Recommended</span>
+          </div>
+          <p className="font-hand text-sm text-[#78716C] -mt-2">Optimize how this article appears in Google search results, social media shares, and link previews.</p>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                Meta Title
+              </label>
+              <input
+                className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2 font-hand text-base text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+                placeholder="Custom title for Google (60 chars ideal)"
+                value={form.metaTitle ?? ""}
+                onChange={(e) => setForm({ ...form, metaTitle: e.target.value })}
+                maxLength={70}
+              />
+              <p className="font-typewriter text-[11px] text-[#78716C] mt-1">
+                {(form.metaTitle?.length || 0)}/70 chars — Falls back to article title if empty
+              </p>
+            </div>
+            <div>
+              <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                Canonical URL
+              </label>
+              <input
+                className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2 font-mono text-sm text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+                placeholder="https://juwelmafi.dev/blog/your-slug"
+                value={form.canonicalUrl ?? ""}
+                onChange={(e) => setForm({ ...form, canonicalUrl: e.target.value })}
+              />
+              <p className="font-typewriter text-[11px] text-[#78716C] mt-1">
+                Auto-generated if empty — set only for cross-posted content
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+              Meta Description
+            </label>
+            <textarea
+              rows={2}
+              className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2.5 font-hand text-base text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full resize-none"
+              placeholder="Compelling description for Google search results (155 chars ideal)"
+              value={form.metaDescription ?? ""}
+              onChange={(e) => setForm({ ...form, metaDescription: e.target.value })}
+              maxLength={160}
+            />
+            <p className="font-typewriter text-[11px] text-[#78716C] mt-1">
+              {(form.metaDescription?.length || 0)}/160 chars — Falls back to excerpt if empty
+            </p>
+          </div>
+
+          <div>
+            <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+              Meta Keywords
+            </label>
+            <input
+              className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2 font-hand text-base text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+              placeholder="next.js, react, mern stack, web development (comma separated)"
+              value={(form.metaKeywords ?? []).join(", ")}
+              onChange={(e) => setForm({ ...form, metaKeywords: e.target.value.split(",").map(k => k.trim()).filter(Boolean) })}
+            />
+            <p className="font-typewriter text-[11px] text-[#78716C] mt-1">
+              Comma-separated keywords — Falls back to article tags if empty
+            </p>
+          </div>
+
+          <div className="border-t border-dashed border-[#A8A29E] pt-4 mt-2">
+            <span className="font-typewriter text-xs font-bold text-[#78716C] uppercase tracking-wider block mb-3">Open Graph (Social Sharing)</span>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                  OG Title
+                </label>
+                <input
+                  className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2 font-hand text-base text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+                  placeholder="Custom title for Facebook / LinkedIn / Twitter"
+                  value={form.ogTitle ?? ""}
+                  onChange={(e) => setForm({ ...form, ogTitle: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="font-typewriter text-xs font-bold text-[#191712] uppercase tracking-wider mb-1.5 block">
+                  OG Description
+                </label>
+                <input
+                  className="bg-[#FAF7EE] border-2 border-[#191712] rounded-md px-3.5 py-2 font-hand text-base text-[#191712] placeholder:text-[#A8A29E] focus:outline-none focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#FFE45E] w-full"
+                  placeholder="Custom description for social media cards"
+                  value={form.ogDescription ?? ""}
+                  onChange={(e) => setForm({ ...form, ogDescription: e.target.value })}
+                />
+              </div>
+            </div>
+          </div>
+
+          <ImageUploader
+            label="OG Image (Social Media Preview)"
+            value={form.ogImage ?? ""}
+            onChange={(url) => setForm({ ...form, ogImage: url })}
+            placeholder="https://... (1200x630px recommended)"
+            helperText="Custom image for social media link previews. Falls back to cover image if empty."
+          />
+        </div>
+
         {/* Content */}
         <div className="hand-box p-6 bg-[#FFFFFF] space-y-4">
           <h2 className="font-script font-bold text-2xl text-[#191712]">Article Body (Markdown)</h2>

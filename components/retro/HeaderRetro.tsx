@@ -9,7 +9,7 @@ interface HeaderRetroProps {
 
 export default function HeaderRetro({ content }: HeaderRetroProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const name = content?.["hero.name"] || "Juwel Hossain";
+  const name = content?.["hero.name"] || "Juwel Hossain Mafi";
   const logoText = content?.["site.logoText"] || "jh.";
   const workNav = content?.["header.work"] || "Work";
   const stackNav = content?.["header.stack"] || "The Stack";

@@ -26,10 +26,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const blog = await getBlogBySlug(slug);
     if (!blog) return { title: "Post Not Found" };
 
-    const title = blog.metaTitle || `${blog.title} — Juwel Hossain`;
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      (process.env.NEXTAUTH_URL && !process.env.NEXTAUTH_URL.includes("localhost")
+        ? process.env.NEXTAUTH_URL
+        : "https://juwelmafi.vercel.app");
+
+    const title = blog.metaTitle || `${blog.title} — Juwel Hossain Mafi (juwelmafi)`;
     const description = blog.metaDescription || blog.excerpt;
     const ogImage = blog.ogImage || blog.coverImage;
-    const siteUrl = process.env.NEXTAUTH_URL || "https://juwelmafi.dev";
 
     return {
       title,
@@ -37,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       keywords: blog.metaKeywords?.length
         ? blog.metaKeywords
         : blog.tags,
-      authors: [{ name: "Juwel Hossain" }],
+      authors: [{ name: "Juwel Hossain Mafi", url: siteUrl }],
       alternates: {
         canonical: blog.canonicalUrl || `${siteUrl}/blog/${blog.slug}`,
       },
@@ -95,16 +100,55 @@ export default async function BlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Article",
-          headline: blog.metaTitle || blog.title,
-          description: blog.metaDescription || blog.excerpt,
-          image: blog.ogImage || blog.coverImage || undefined,
-          author: { "@type": "Person", name: "Juwel Hossain", url: process.env.NEXTAUTH_URL || "https://juwelmafi.dev" },
-          publisher: { "@type": "Person", name: "Juwel Hossain" },
-          datePublished: blog.createdAt,
-          dateModified: blog.updatedAt || blog.createdAt,
-          mainEntityOfPage: { "@type": "WebPage", "@id": blog.canonicalUrl || `${process.env.NEXTAUTH_URL || "https://juwelmafi.dev"}/blog/${blog.slug}` },
-          keywords: blog.metaKeywords?.length ? blog.metaKeywords.join(", ") : blog.tags?.join(", "),
+          "@graph": [
+            {
+              "@type": "Article",
+              headline: blog.metaTitle || blog.title,
+              description: blog.metaDescription || blog.excerpt,
+              image: blog.ogImage || blog.coverImage || undefined,
+              author: {
+                "@type": "Person",
+                name: "Juwel Hossain Mafi",
+                alternateName: "juwelmafi",
+                url: process.env.NEXT_PUBLIC_SITE_URL || "https://juwelmafi.vercel.app",
+              },
+              publisher: {
+                "@type": "Person",
+                name: "Juwel Hossain Mafi",
+                url: process.env.NEXT_PUBLIC_SITE_URL || "https://juwelmafi.vercel.app",
+              },
+              datePublished: blog.createdAt,
+              dateModified: blog.updatedAt || blog.createdAt,
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": blog.canonicalUrl || `https://juwelmafi.vercel.app/blog/${blog.slug}`,
+              },
+              keywords: blog.metaKeywords?.length ? blog.metaKeywords.join(", ") : blog.tags?.join(", "),
+            },
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://juwelmafi.vercel.app",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Explore",
+                  item: "https://juwelmafi.vercel.app/explore",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: blog.title,
+                  item: `https://juwelmafi.vercel.app/blog/${blog.slug}`,
+                },
+              ],
+            },
+          ],
         }) }}
       />
       <HeaderRetro content={content} />

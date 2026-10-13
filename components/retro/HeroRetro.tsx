@@ -28,7 +28,7 @@ export default function HeroRetro({ content }: HeroRetroProps) {
   const stickerRound = content?.["hero.stickerRound"] || "100%";
   const stickerOval = content?.["hero.stickerOval"] || "PRODUCTION READY";
 
-  const name = content?.["hero.name"] || "Juwel Hossain";
+  const name = content?.["hero.name"] || "Juwel Hossain Mafi";
   const avatar = content?.["hero.avatar"] || "/assets/images/avatar/juwel_retro.png";
   const certIssuer = content?.["hero.certIssuer"] || "JUWELMAFI.DEV";
   const certSerial = content?.["hero.certSerial"] || "JH-ENG-001";

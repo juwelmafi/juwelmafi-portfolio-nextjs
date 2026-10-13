@@ -329,7 +329,7 @@ export async function getServiceById(id: string): Promise<Service | null> {
 export const DEFAULT_SITE_CONTENT: Record<string, string> = {
   // Hero
   "hero.eyebrow": "FULL-STACK ENGINEER & SHOPIFY DEVELOPER",
-  "hero.name": "Juwel Hossain",
+  "hero.name": "Juwel Hossain Mafi",
   "hero.headline": "Engineering High-Impact Web Applications & Scalable Platforms.",
   "hero.tagline": "I build scalable full-stack web applications, custom Shopify stores, and modern digital platforms. Specialized in React, Next.js, Node.js, and MongoDB with clean architecture and pixel-perfect design.",
   "hero.cta": "Explore My Work →",

@@ -10,7 +10,8 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getPageSeo("contact");
-  const title = seo?.metaTitle || "Contact & Inquiries — Juwel Hossain";
+  const rawTitle = seo?.metaTitle || "Contact & Inquiries";
+  const title = rawTitle.includes("Juwel") ? { absolute: rawTitle } : rawTitle;
   const description =
     seo?.metaDescription ||
     "Get in touch with Juwel Hossain for full-stack web development collaborations, freelance projects, technical consulting, and inquiries.";

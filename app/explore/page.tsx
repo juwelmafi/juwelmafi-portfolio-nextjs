@@ -10,8 +10,9 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getPageSeo("blog");
+  const rawTitle = seo?.metaTitle || "Explore More: Blogs & Masterclasses";
   return {
-    title: seo?.metaTitle || "Explore More: Blogs & Masterclasses — Juwel Hossain Mafi (juwelmafi)",
+    title: rawTitle.includes("Juwel") ? { absolute: rawTitle } : rawTitle,
     description:
       seo?.metaDescription ||
       "Technical deep dives, MERN stack tutorials, and full-stack software development courses by Juwel Hossain Mafi.",

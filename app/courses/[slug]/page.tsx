@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? process.env.NEXTAUTH_URL
         : "https://juwelmafi.vercel.app");
 
-    const title = `${course.title} — Juwel Hossain Mafi (juwelmafi)`;
+    const title = course.title;
     const description = course.description;
 
     return {

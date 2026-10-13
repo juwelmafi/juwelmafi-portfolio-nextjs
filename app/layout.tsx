@@ -19,12 +19,24 @@ export async function generateMetadata(): Promise<Metadata> {
   ]);
 
   const defaultTitle = "Juwel Hossain Mafi (juwelmafi) — Full-Stack Engineer & Next.js Developer";
-  const title = seo?.metaTitle || defaultTitle;
+  let title = seo?.metaTitle || defaultTitle;
+  if (!title.toLowerCase().includes("mafi")) {
+    title = defaultTitle;
+  }
   const description =
     seo?.metaDescription ||
     "Official portfolio and engineering journal of Juwel Hossain Mafi (juwelmafi). Full-Stack Web Developer & Shopify Specialist building scalable Next.js and MERN applications.";
 
   const faviconUrl = content?.["site.favicon"] || "/assets/images/logo/favicon.svg";
+
+  let ogTitle = seo?.ogTitle || title;
+  if (!ogTitle.toLowerCase().includes("mafi")) {
+    ogTitle = title;
+  }
+  let twitterTitle = seo?.twitterTitle || title;
+  if (!twitterTitle.toLowerCase().includes("mafi")) {
+    twitterTitle = title;
+  }
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -62,7 +74,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       siteName: "Juwel Hossain Mafi (juwelmafi) Portfolio",
-      title: seo?.ogTitle || title,
+      title: ogTitle,
       description: seo?.ogDescription || description,
       url: SITE_URL,
       type: "website",
@@ -73,7 +85,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       site: "@juwelmafi",
       creator: "@juwelmafi",
-      title: seo?.twitterTitle || title,
+      title: twitterTitle,
       description: seo?.twitterDescription || description,
       images: seo?.ogImage ? [seo.ogImage] : undefined,
     },
